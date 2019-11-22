@@ -10,8 +10,14 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        List(0 ..< 5) { item in
-            Text("Hello World!")
+        HStack {
+            VStack {
+                //해더
+                HeaderView()
+                
+                //스페이서
+                Spacer()
+            }
         }
     }
 }

@@ -8,37 +8,32 @@
 
 import SwiftUI
 
-class BorderedButton: UIButton {
-    var cornerRadius: CGFloat = 50
-    var borderWidth: CGFloat = 200
-    var borderColor: UIColor? = .blue
+struct TreeNode: View {
+    var treeData: RootTreeModel
+    @Published var items = [TreeNode]()
+    var body: some View {
+        HStack {
+            ForEach(0..<self.items.capacity) { index in
+                self.items.
+            }
+            
+            Button(action: {
+                self.
+            }, label: {
+                Text("OpenedNode")
+                    .padding()
+            }).frame(width: 150)
+        }
+    }
 }
 
-class OpenedNode: BorderedButton {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.setTitle("opened", for: .normal)
-        self.tintColor = .systemOrange
-        self.setTitleColor(.systemOrange, for: .normal)
-    }
-    
-    required init?(coder decoder: NSCoder) {
-        super.init(coder: decoder)
-    }
-}
-
-class ClosedNode: BorderedButton {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.setTitle("closed", for: .normal)
-        self.tintColor = .systemOrange
-        self.setTitleColor(.systemOrange, for: .normal)
-    }
-    
-    required init?(coder decoder: NSCoder) {
-        super.init(coder: decoder)
+struct OpenedTreeNode: View {
+    var action: () -> Void
+    var body: some View {
+        Button(action: action, label: {
+            Text("ClosedNode")
+                .padding()
+        }).frame(width: 150)
     }
 }
 
@@ -46,12 +41,12 @@ class ClosedNode: BorderedButton {
 struct TreeNode_Preview: PreviewProvider {
     static var previews: some View {
         Group {
-            UIViewPreview {
-                return OpenedNode(frame: .zero)
+            OpenedNode {
+                print("OpenedNode")
             }
             
-            UIViewPreview {
-                return ClosedNode(frame: .zero)
+            ClosedNode {
+                print("ClosedNode")
             }
         }.previewLayout(.sizeThatFits)
             .padding(10)
