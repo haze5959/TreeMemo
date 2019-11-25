@@ -10,15 +10,16 @@ import SwiftUI
 
 struct TreeNode: View {
     var treeData: RootTreeModel
-    @Published var items = [TreeNode]()
+    @State var isConnectedTreeNode: Bool
+    
     var body: some View {
-        HStack {
-            ForEach(0..<self.items.capacity) { index in
-                self.items.
+        VStack {
+            if self.isConnectedTreeNode {
+                TreeNode(treeData: RootTreeModel(), isConnectedTreeNode: false)
             }
             
             Button(action: {
-                self.
+                self.isConnectedTreeNode = true
             }, label: {
                 Text("OpenedNode")
                     .padding()
@@ -41,13 +42,7 @@ struct OpenedTreeNode: View {
 struct TreeNode_Preview: PreviewProvider {
     static var previews: some View {
         Group {
-            OpenedNode {
-                print("OpenedNode")
-            }
-            
-            ClosedNode {
-                print("ClosedNode")
-            }
+            TreeNode(treeData: RootTreeModel(), isConnectedTreeNode: false)
         }.previewLayout(.sizeThatFits)
             .padding(10)
     }
