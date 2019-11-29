@@ -10,14 +10,19 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        HStack {
+        ZStack {
+            Color(UIColor.systemBackground)
+            
             VStack {
                 //해더
                 HeaderView()
                 
-                //스페이서
-                Spacer()
+                //바디
+                NavigationView {
+                    BodyView(title: nil, treeDataKey: RootKey, depth: TreeMemoState.shared.treeHierarchy.count)
+                }
             }
+            
         }
     }
 }
@@ -26,10 +31,16 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ForEach([
             "iPhone SE",
-//            "iPhone XS Max"
+            //            "iPhone XS Max"
         ], id: \.self) { deviceName in
-            ContentView()
-                .previewDevice(PreviewDevice(rawValue: deviceName))
+            Group {
+                ContentView()
+                    .previewDevice(PreviewDevice(rawValue: deviceName))
+                
+                ContentView()
+                    .previewDevice(PreviewDevice(rawValue: deviceName))
+                    .environment(\.colorScheme, .dark)
+            }
         }
     }
 }

@@ -8,33 +8,87 @@
 
 import SwiftUI
 
+// MARK: TreeNode
 struct TreeNode: View {
-    var treeData: RootTreeModel
-    @State var isConnectedTreeNode: Bool
+    var treeData: TreeModel
     
     var body: some View {
-        VStack {
-            if self.isConnectedTreeNode {
-                TreeNode(treeData: RootTreeModel(), isConnectedTreeNode: false)
-            }
-            
-            Button(action: {
-                self.isConnectedTreeNode = true
-            }, label: {
-                Text("OpenedNode")
-                    .padding()
-            }).frame(width: 150)
-        }
+        self.getCellView(data: self.treeData)
     }
-}
-
-struct OpenedTreeNode: View {
-    var action: () -> Void
-    var body: some View {
-        Button(action: action, label: {
-            Text("ClosedNode")
-                .padding()
-        }).frame(width: 150)
+    
+    func getCellView(data: TreeModel) -> some View {
+        switch data.value {
+        case .none:
+            return AnyView(
+                HStack {
+                    Text(data.title)
+                    Spacer()
+                    Button(action: {
+                        
+                    }, label: {
+                        Text("Type Select!")
+                            .padding()
+                    })
+                }
+            )
+        case .child(let key):
+            return AnyView(
+                NavigationLink(destination: BodyView(title: data.title,
+                                                     treeDataKey: key,
+                                                     depth: TreeMemoState.shared.treeHierarchy.count + 1)) {
+                                                        HStack {
+                                                            Text(data.title)
+                                                            Spacer()
+                                                            Image(systemName: "folder")
+                                                        }
+                }
+            )
+        case .text(let val):
+            return AnyView(
+                HStack {
+                    Text(data.title)
+                    Spacer()
+                    Text(val)
+                }
+            )
+        case .longText:
+            return AnyView(
+                HStack {
+                    Text(data.title)
+                    Spacer()
+                    Button(action: {
+                        
+                    }, label: {
+                        Text("Detail")
+                            .padding()
+                    })
+                }
+            )
+        case .int(let val):
+            return AnyView(
+                HStack {
+                    Text(data.title)
+                    Spacer()
+                    Text("\(val)")
+                }
+            )
+        case .date(let val):
+            return AnyView(
+                HStack {
+                    Text(data.title)
+                    Spacer()
+                    Text("\(val)")
+                }
+            )
+        case .toggle(let val):
+            return AnyView(
+                HStack {
+                    Text(data.title)
+                    Spacer()
+                    Text("\(val.description)")
+                }
+            )
+        }
     }
 }
 
@@ -42,7 +96,13 @@ struct OpenedTreeNode: View {
 struct TreeNode_Preview: PreviewProvider {
     static var previews: some View {
         Group {
-            TreeNode(treeData: RootTreeModel(), isConnectedTreeNode: false)
+            TreeNode(treeData: TreeModel(title: "none"))
+            TreeNode(treeData: TreeModel(title: "child", value: .child(key: 0)))
+            TreeNode(treeData: TreeModel(title: "date", value: .date(val: Date())))
+            TreeNode(treeData: TreeModel(title: "int", value: .int(val: 22)))
+            TreeNode(treeData: TreeModel(title: "text", value: .text(val: "텍스트")))
+            TreeNode(treeData: TreeModel(title: "longText", value: .longText(val: "긴 텍스트")))
+            TreeNode(treeData: TreeModel(title: "toggle", value: .toggle(val: true)))
         }.previewLayout(.sizeThatFits)
             .padding(10)
     }

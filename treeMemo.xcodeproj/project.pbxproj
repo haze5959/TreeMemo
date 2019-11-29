@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C34415D0238F5CB100F0FDD1 /* TreeMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */; };
 		C355BBEC2387C09A0090F7CC /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C355BBEB2387C09A0090F7CC /* HeaderView.swift */; };
 		C355BBEE2387C2780090F7CC /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C355BBED2387C2780090F7CC /* BodyView.swift */; };
+		C36AC523238CCE9A00237549 /* TreeMemoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36AC522238CCE9A00237549 /* TreeMemoState.swift */; };
 		C3FF60C92383E1EC003E57DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF60C82383E1EC003E57DE /* AppDelegate.swift */; };
 		C3FF60CB2383E1EC003E57DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF60CA2383E1EC003E57DE /* SceneDelegate.swift */; };
 		C3FF60CD2383E1EC003E57DE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF60CC2383E1EC003E57DE /* ContentView.swift */; };
@@ -26,7 +28,7 @@
 		C3FF60F62383E1EF003E57DE /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF60F52383E1EF003E57DE /* NotificationView.swift */; };
 		C3FF60F82383E1EF003E57DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3FF60F72383E1EF003E57DE /* Assets.xcassets */; };
 		C3FF60FB2383E1EF003E57DE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3FF60FA2383E1EF003E57DE /* Preview Assets.xcassets */; };
-		C3FF610C23853C88003E57DE /* TreeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF610B23853C88003E57DE /* TreeViewModel.swift */; };
+		C3FF610C23853C88003E57DE /* TreeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF610B23853C88003E57DE /* TreeModel.swift */; };
 		C3FF611223862244003E57DE /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF611123862244003E57DE /* UIViewPreview.swift */; };
 		C3FF611423862981003E57DE /* TreeNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF611323862981003E57DE /* TreeNodeView.swift */; };
 /* End PBXBuildFile section */
@@ -74,8 +76,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoViewModel.swift; sourceTree = "<group>"; };
 		C355BBEB2387C09A0090F7CC /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C355BBED2387C2780090F7CC /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
+		C36AC522238CCE9A00237549 /* TreeMemoState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoState.swift; sourceTree = "<group>"; };
 		C3FF60C52383E1EC003E57DE /* treeMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treeMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3FF60C82383E1EC003E57DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3FF60CA2383E1EC003E57DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,7 +102,7 @@
 		C3FF60FA2383E1EF003E57DE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C3FF60FC2383E1EF003E57DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3FF60FD2383E1EF003E57DE /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		C3FF610B23853C88003E57DE /* TreeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeViewModel.swift; sourceTree = "<group>"; };
+		C3FF610B23853C88003E57DE /* TreeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeModel.swift; sourceTree = "<group>"; };
 		C3FF611123862244003E57DE /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		C3FF611323862981003E57DE /* TreeNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNodeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -203,7 +207,7 @@
 		C3FF610D23853CE5003E57DE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C3FF610B23853C88003E57DE /* TreeViewModel.swift */,
+				C3FF610B23853C88003E57DE /* TreeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -211,6 +215,7 @@
 		C3FF610E23853D20003E57DE /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -230,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				C3FF611123862244003E57DE /* UIViewPreview.swift */,
+				C36AC522238CCE9A00237549 /* TreeMemoState.swift */,
 			);
 			path = "Lib, Extension";
 			sourceTree = "<group>";
@@ -369,10 +375,12 @@
 			files = (
 				C3FF611223862244003E57DE /* UIViewPreview.swift in Sources */,
 				C3FF60C92383E1EC003E57DE /* AppDelegate.swift in Sources */,
+				C34415D0238F5CB100F0FDD1 /* TreeMemoViewModel.swift in Sources */,
 				C355BBEE2387C2780090F7CC /* BodyView.swift in Sources */,
 				C3FF611423862981003E57DE /* TreeNodeView.swift in Sources */,
+				C36AC523238CCE9A00237549 /* TreeMemoState.swift in Sources */,
 				C3FF60CB2383E1EC003E57DE /* SceneDelegate.swift in Sources */,
-				C3FF610C23853C88003E57DE /* TreeViewModel.swift in Sources */,
+				C3FF610C23853C88003E57DE /* TreeModel.swift in Sources */,
 				C3FF60CD2383E1EC003E57DE /* ContentView.swift in Sources */,
 				C355BBEC2387C09A0090F7CC /* HeaderView.swift in Sources */,
 			);

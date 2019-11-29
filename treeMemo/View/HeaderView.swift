@@ -9,34 +9,77 @@
 import SwiftUI
 
 struct HeaderView: View {
+    let viewModel = TreeMemoViewModel()
+    @ObservedObject var State = TreeMemoState.shared
+    
     var body: some View {
-        HStack {
-            //설정 버튼
-            Button(action: {
+        VStack {
+            HStack(spacing: 0.0) {
+                //설정 버튼
+                Button(action: {
+                    
+                }, label: {
+                    Image(systemName: "gear")
+                        .imageScale(.large)
+                        .padding()
+                        .foregroundColor(Color(UIColor.label))
+                })
                 
-            }, label: {
-                Image(systemName: "gear")
-                    .imageScale(.large)
-                    .padding()
-            })
-            
-            //스페이서
-            Spacer()
-            
-            //타이틀
-            Text("title")
-            
-            //스페이서
-            Spacer()
-            
-            //데이터 업데이트 버튼
-            Button(action: {
+                //스페이서
+                Spacer()
                 
-            }, label: {
-                Image(systemName: "arrow.2.circlepath")
-                    .imageScale(.large)
-                    .padding()
-            })
+                //타이틀
+                Text(self.State.treeHierarchy.last ?? "TreeMemo")
+                
+                //스페이서
+                Spacer()
+                
+                //편집 버튼
+                Button(action: {
+                    self.State.isEdit.toggle()
+                }, label: {
+                    Image(systemName: "pencil")
+                        .imageScale(.large)
+                        .padding()
+                        .foregroundColor(Color(UIColor.label))
+                })
+            }
+            
+            //계층 정보
+            HStack {
+                Button(action: {
+                    self.State.treeHierarchy.removeAll()
+                }, label: {
+                    Image(systemName: "house")
+                        .imageScale(.small)
+                        .padding()
+                        .foregroundColor(Color(UIColor.label))
+                })
+                
+                if self.State.treeHierarchy.count > 0 {
+                    ForEach(0..<self.State.treeHierarchy.count, id: \.self) { index in
+                        HStack {
+                            Image(systemName: "chevron.compact.right")
+                                .imageScale(.small)
+                                .foregroundColor(Color(UIColor.label))
+                            
+                            Button(action: {
+                                self.viewModel.selectTreeHierarchy(index: index)
+                            }, label: {
+                                Text(self.State.treeHierarchy[index])
+                                    .font(Font.system(size: 10))
+                                    .lineLimit(2)
+                                    .padding()
+                                    .foregroundColor(Color(UIColor.label))
+                                    .frame(maxWidth: 80)
+                            })
+                        }
+                    }
+                }
+                
+                //스페이서
+                Spacer()
+            }
         }
     }
 }
@@ -46,6 +89,7 @@ struct Header_Preview: PreviewProvider {
     static var previews: some View {
         Group {
             HeaderView()
+            //            .environment(\.colorScheme, .dark)
         }.previewLayout(.sizeThatFits)
             .padding(10)
     }
