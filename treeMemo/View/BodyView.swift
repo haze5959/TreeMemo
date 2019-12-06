@@ -13,17 +13,20 @@ struct BodyView: View {
     let title: String?
     let treeDataKey: Double
     let depth: Int
-    let viewModel = TreeMemoViewModel()
+    
+//    @State var viewModel = TreeMemoViewModel()
     
     //뷰디드로드 같은 초기화 구문이 없어서 이런거 추가함... 스위프트ui 존망이다 진짜
     @State private var isNeedInit = true
     @State private var isNeedDismiss = false
-    @State private var cancellable: AnyCancellable?
+    @State private var subscriptions = Set<AnyCancellable>()
+    
+    @ObservedObject var treeMemoState = TreeMemoState.shared
     
     @Environment(\.presentationMode) var presentation
     
     var body: some View {
-        List(self.viewModel.getTreeData(key: treeDataKey)) { treeData in
+        List(self.treeMemoState.getTreeData(key: treeDataKey)) { treeData in
             TreeNode(treeData: treeData)
         }
         .navigationBarHidden(true)
@@ -31,16 +34,16 @@ struct BodyView: View {
         .onAppear {
             if self.isNeedInit, let title = self.title {
                 self.isNeedInit = false
-                TreeMemoState.shared.treeHierarchy.append(title)
+                self.treeMemoState.treeHierarchy.append(title)
                 
-                self.cancellable = TreeMemoState.shared.$treeHierarchy
+                self.treeMemoState.$treeHierarchy
                     .receive(on: DispatchQueue.main)
                     .sink { (treeHierarchy) in
                         if treeHierarchy.count < self.depth {
                             self.isNeedDismiss = true
                             self.presentation.wrappedValue.dismiss()
                         }
-                }
+                }.store(in: &self.subscriptions)
             }
             
             if self.isNeedDismiss {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C30038BE239A4A5D001DB62F /* OQToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30038BD239A4A5D001DB62F /* OQToggleView.swift */; };
 		C34415D0238F5CB100F0FDD1 /* TreeMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */; };
 		C355BBEC2387C09A0090F7CC /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C355BBEB2387C09A0090F7CC /* HeaderView.swift */; };
 		C355BBEE2387C2780090F7CC /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C355BBED2387C2780090F7CC /* BodyView.swift */; };
@@ -76,6 +77,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C30038BD239A4A5D001DB62F /* OQToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQToggleView.swift; sourceTree = "<group>"; };
 		C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoViewModel.swift; sourceTree = "<group>"; };
 		C355BBEB2387C09A0090F7CC /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C355BBED2387C2780090F7CC /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C30038BF239A51E8001DB62F /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				C30038BD239A4A5D001DB62F /* OQToggleView.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		C3FF60BC2383E1EC003E57DE = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +233,7 @@
 		C3FF610F23853D35003E57DE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C30038BF239A51E8001DB62F /* Component */,
 				C3FF60CC2383E1EC003E57DE /* ContentView.swift */,
 				C3FF611323862981003E57DE /* TreeNodeView.swift */,
 				C355BBEB2387C09A0090F7CC /* HeaderView.swift */,
@@ -376,6 +387,7 @@
 				C3FF611223862244003E57DE /* UIViewPreview.swift in Sources */,
 				C3FF60C92383E1EC003E57DE /* AppDelegate.swift in Sources */,
 				C34415D0238F5CB100F0FDD1 /* TreeMemoViewModel.swift in Sources */,
+				C30038BE239A4A5D001DB62F /* OQToggleView.swift in Sources */,
 				C355BBEE2387C2780090F7CC /* BodyView.swift in Sources */,
 				C3FF611423862981003E57DE /* TreeNodeView.swift in Sources */,
 				C36AC523238CCE9A00237549 /* TreeMemoState.swift in Sources */,

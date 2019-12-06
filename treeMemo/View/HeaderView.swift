@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct HeaderView: View {
-    let viewModel = TreeMemoViewModel()
     @ObservedObject var State = TreeMemoState.shared
     
     var body: some View {
@@ -38,7 +37,7 @@ struct HeaderView: View {
                 Button(action: {
                     self.State.isEdit.toggle()
                 }, label: {
-                    Image(systemName: "pencil")
+                    Image(systemName: "list.bullet")
                         .imageScale(.large)
                         .padding()
                         .foregroundColor(Color(UIColor.label))
@@ -64,7 +63,7 @@ struct HeaderView: View {
                                 .foregroundColor(Color(UIColor.label))
                             
                             Button(action: {
-                                self.viewModel.selectTreeHierarchy(index: index)
+                                TreeMemoState.shared.selectTreeHierarchy(index: index)
                             }, label: {
                                 Text(self.State.treeHierarchy[index])
                                     .font(Font.system(size: 10))
