@@ -96,7 +96,7 @@ enum TreeValueType: Codable {
 struct TreeModel: Codable, Identifiable {
     let id = UUID()
     
-    let title: String
+    var title: String
     var value: TreeValueType = .none
     
     let key: Double //TreeData에서 찾을 key값

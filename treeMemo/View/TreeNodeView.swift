@@ -11,11 +11,11 @@ import SwiftUI
 // MARK: TreeNode
 struct TreeNode: View {
     var treeData: TreeModel
-    @State var showingPickerView = false
+    @State var showingView = false
     
     var body: some View {
         self.getCellView(data: self.treeData)
-        .frame(height: 50)
+            .frame(height: 50)
     }
     
     func getCellView(data: TreeModel) -> some View {
@@ -25,14 +25,21 @@ struct TreeNode: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        var tempData = self.treeData
-                        tempData.value = .none
-                        TreeMemoState.shared.treeData[self.treeData.key]!.append(tempData)
+                        UIApplication.shared.windows[0]
+                            .rootViewController?
+                            .showTextFieldAlert(title: "Input Title",
+                                                placeHolder: "Input memo title...",
+                                                doneCompletion: { (text) in
+                                                    var tempData = self.treeData
+                                                    tempData.title = text
+                                                    tempData.value = .none
+                                                    TreeMemoState.shared.treeData[self.treeData.key]!.append(tempData)
+                            })
                     }, label: {
                         Image(systemName: "plus.circle")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .padding()
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .padding()
                     })
                     Spacer()
                 }
@@ -42,41 +49,38 @@ struct TreeNode: View {
                 HStack {
                     Text(data.title)
                     Spacer()
-                    Button(action: {
-                        self.showingPickerView.toggle()
-                    }, label: {
-                        Text("Type Select!")
-                            .padding()
-                    })
-                }.actionSheet(isPresented: self.$showingPickerView) {
-                    ActionSheet(title: Text("Type Select"), message: Text("Please select memo type."), buttons: [
-                        .default(Text("Text"), action: {
-                            var tempData = self.treeData
-                            tempData.value = .text(val: "...")
-                            TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
-                        }),
-                        .default(Text("longText"), action: {
-                            var tempData = self.treeData
-                            tempData.value = .longText(val: "...")
-                            TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
-                        }),
-                        .default(Text("Number"), action: {
-                            var tempData = self.treeData
-                            tempData.value = .int(val: 0)
-                            TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
-                        }),
-                        .default(Text("Date"), action: {
-                            var tempData = self.treeData
-                            tempData.value = .date(val: Date())
-                            TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
-                        }),
-                        .default(Text("On/Off"), action: {
-                            var tempData = self.treeData
-                            tempData.value = .toggle(val: false)
-                            TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
-                        }),
-                        .cancel()
-                    ])
+                    Button("Type Select!") {
+                        self.showingView.toggle()
+                    }.actionSheet(isPresented: self.$showingView) {
+                        ActionSheet(title: Text("Type Select"), message: Text("Please select memo type."), buttons: [
+                            .default(Text("Text"), action: {
+                                var tempData = self.treeData
+                                tempData.value = .text(val: "...")
+                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                            }),
+                            .default(Text("longText"), action: {
+                                var tempData = self.treeData
+                                tempData.value = .longText(val: "...")
+                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                            }),
+                            .default(Text("Number"), action: {
+                                var tempData = self.treeData
+                                tempData.value = .int(val: 0)
+                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                            }),
+                            .default(Text("Date"), action: {
+                                var tempData = self.treeData
+                                tempData.value = .date(val: Date())
+                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                            }),
+                            .default(Text("On/Off"), action: {
+                                var tempData = self.treeData
+                                tempData.value = .toggle(val: false)
+                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                            }),
+                            .cancel()
+                        ])
+                    }
                 }
             )
         case .child(let key):
