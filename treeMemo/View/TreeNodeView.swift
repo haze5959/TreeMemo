@@ -32,7 +32,7 @@ struct TreeNode: View {
         }, label: {
             Text(data.title)
         })
-        .padding()
+            .padding()
     }
     
     func getCellView(data: TreeModel) -> some View {
@@ -122,11 +122,20 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    OQTextFieldView(text: val) { (text) in
-                        var tempData = self.treeData
-                        tempData.value = .text(val: text)
-                        TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
-                    }
+                    Button(action: {
+                        UIApplication.shared.windows[0]
+                            .rootViewController?
+                            .showTextFieldAlert(title: "Input Value",
+                                                placeHolder: val,
+                                                doneCompletion: { (text) in
+                                                    var tempData = data
+                                                    tempData.value = .text(val: text)
+                                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                            })
+                    }, label: {
+                        Text(val)
+                    })
+                        .padding()
                 }
             )
         case .longText:
@@ -155,7 +164,25 @@ struct TreeNode: View {
                         tempData.value = .int(val: val - 1)
                         TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
                     }) {
-                        Text("\(val)")
+                        Button(action: {
+                            UIApplication.shared.windows[0]
+                                .rootViewController?
+                                .showTextFieldAlert(title: "Input Value",
+                                                    placeHolder: "\(val)",
+                                    isNumberOnly: true,
+                                    doneCompletion: { (text) in
+                                        var tempData = data
+                                        guard let intVal = Int(text) else {
+                                            print("text not convert to int!: \(text)")
+                                            return
+                                        }
+                                        tempData.value = .int(val: intVal)
+                                        TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                })
+                        }, label: {
+                            Text("\(val)")
+                        })
+                            .padding()
                     }
                 }
             )
@@ -172,9 +199,11 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    OQToggleView(isOn: val, action: { (isOn) in
-                        print(isOn)
-                    })
+                    OQToggleView(model: ToggleModel(isOn: val, action: { (isOn) in
+                        var tempData = self.treeData
+                        tempData.value = .toggle(val: isOn)
+                        TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                    }))
                 }
             )
         }

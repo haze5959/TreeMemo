@@ -10,26 +10,30 @@ import SwiftUI
 import Combine
 
 struct OQToggleView: View {
-    @State var isOn: Bool = false {
-        willSet {
-            self.action(newValue)
-        }
-    }
-    let action: (_ isOn: Bool) -> Void
+    @State var model: ToggleModel
     
     @State private var cancellable: AnyCancellable?
     
     var body: some View {
-        Toggle("", isOn: $isOn)
+        Toggle("", isOn: self.$model.isOn)
             .labelsHidden()
     }
 }
 
+struct ToggleModel {
+    var isOn: Bool = false {
+        willSet {
+            self.action(newValue)
+        }
+    }
+    
+    let action: (_ isOn: Bool) -> Void
+}
 
 struct OQToggleView_Previews: PreviewProvider {
     static var previews: some View {
-        OQToggleView(isOn: true, action: { (isOn) in
+        OQToggleView(model: ToggleModel(action: { (isOn) in
             print(isOn)
-        })
+        }))
     }
 }

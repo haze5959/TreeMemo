@@ -12,6 +12,8 @@
 		C34415D0238F5CB100F0FDD1 /* TreeMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */; };
 		C3443994239DD95A00A33BA7 /* treeMemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3443993239DD95A00A33BA7 /* treeMemoTests.swift */; };
 		C344399C239DDF3000A33BA7 /* OQTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C344399B239DDF3000A33BA7 /* OQTextFieldView.swift */; };
+		C344399E239F827E00A33BA7 /* OQIntFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C344399D239F827E00A33BA7 /* OQIntFieldView.swift */; };
+		C34439A0239F891A00A33BA7 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C344399F239F891A00A33BA7 /* KeyboardResponder.swift */; };
 		C355BBEC2387C09A0090F7CC /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C355BBEB2387C09A0090F7CC /* HeaderView.swift */; };
 		C355BBEE2387C2780090F7CC /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C355BBED2387C2780090F7CC /* BodyView.swift */; };
 		C36AC523238CCE9A00237549 /* TreeMemoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36AC522238CCE9A00237549 /* TreeMemoState.swift */; };
@@ -94,6 +96,8 @@
 		C3443993239DD95A00A33BA7 /* treeMemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = treeMemoTests.swift; sourceTree = "<group>"; };
 		C3443995239DD95A00A33BA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C344399B239DDF3000A33BA7 /* OQTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQTextFieldView.swift; sourceTree = "<group>"; };
+		C344399D239F827E00A33BA7 /* OQIntFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQIntFieldView.swift; sourceTree = "<group>"; };
+		C344399F239F891A00A33BA7 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		C355BBEB2387C09A0090F7CC /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C355BBED2387C2780090F7CC /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
 		C36AC522238CCE9A00237549 /* TreeMemoState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoState.swift; sourceTree = "<group>"; };
@@ -154,6 +158,7 @@
 			children = (
 				C30038BD239A4A5D001DB62F /* OQToggleView.swift */,
 				C344399B239DDF3000A33BA7 /* OQTextFieldView.swift */,
+				C344399D239F827E00A33BA7 /* OQIntFieldView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -282,6 +287,7 @@
 				C3FF611123862244003E57DE /* UIViewPreview.swift */,
 				C36AC522238CCE9A00237549 /* TreeMemoState.swift */,
 				170FA2E0239CDBA8006A86BD /* UIViewController+TreeMemo.swift */,
+				C344399F239F891A00A33BA7 /* KeyboardResponder.swift */,
 			);
 			path = "Lib, Extension";
 			sourceTree = "<group>";
@@ -465,9 +471,11 @@
 				C355BBEE2387C2780090F7CC /* BodyView.swift in Sources */,
 				C3FF611423862981003E57DE /* TreeNodeView.swift in Sources */,
 				C36AC523238CCE9A00237549 /* TreeMemoState.swift in Sources */,
+				C34439A0239F891A00A33BA7 /* KeyboardResponder.swift in Sources */,
 				C3FF60CB2383E1EC003E57DE /* SceneDelegate.swift in Sources */,
 				C3FF610C23853C88003E57DE /* TreeModel.swift in Sources */,
 				C344399C239DDF3000A33BA7 /* OQTextFieldView.swift in Sources */,
+				C344399E239F827E00A33BA7 /* OQIntFieldView.swift in Sources */,
 				C3FF60CD2383E1EC003E57DE /* ContentView.swift in Sources */,
 				C355BBEC2387C09A0090F7CC /* HeaderView.swift in Sources */,
 			);
