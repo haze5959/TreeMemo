@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-typealias TreeDataType = [Double: [TreeModel]]
+typealias TreeDataType = [UUID: [TreeModel]]
 class TreeMemoState: ObservableObject {
     static let shared = TreeMemoState()
     
@@ -29,7 +29,7 @@ class TreeMemoState: ObservableObject {
      */
     @Published var treeData = TreeDataType()
     
-    let storedIsNeededUpdateKey = "storedIsNeededUpdateKey"
+    let storedDataKey = "storedDataKey"
     
     init() {
         self.cancellable = self.$treeData
@@ -52,37 +52,42 @@ class TreeMemoState: ObservableObject {
             return
         }
         
-        UserDefaults().set(encodedTreeData, forKey: self.storedIsNeededUpdateKey)
+        UserDefaults().set(encodedTreeData, forKey: self.storedDataKey)
     }
     
     func loadTreeData() -> TreeDataType {
-        if let data = UserDefaults.standard.value(forKey: self.storedIsNeededUpdateKey) as? Data,
+        if let data = UserDefaults.standard.value(forKey: self.storedDataKey) as? Data,
             let treeData = try? PropertyListDecoder().decode(TreeDataType.self, from: data) {
             
             return treeData
         } else {
             //페이지 첫 진입
             var treeData = TreeDataType()
-            let rootData = [
-                TreeModel(title: "New", key:RootKey, index: 0)
-            ]
+            let rootData = [TreeModel]()
+            
             treeData.updateValue(rootData, forKey: RootKey)
             self.treeData = treeData
             return treeData
         }
     }
     
+    func removeAllTreeData() {
+        UserDefaults.standard.removeObject(forKey: self.storedDataKey)
+    }
+    
     /**
      해당 Key의 트리데이터 리턴
      */
-    func getTreeData(key: Double) -> [TreeModel] {
-        guard var treeData = self.treeData[key] else {
+    func getTreeData(key: UUID) -> [TreeModel] {
+        guard var subTreeData = self.treeData[key] else {
             print("Can't find data with key!")
-            return [TreeModel]()
+            let subTreeData = [TreeModel]()
+            self.treeData.updateValue(subTreeData, forKey: key)
+            return subTreeData
         }
             
-        treeData.append(self.getPlusTreeModel(key: key, index: treeData.count))
-        return treeData
+        subTreeData.append(self.getPlusTreeModel(key: key, index: subTreeData.count))
+        return subTreeData
     }
     
     func selectTreeHierarchy(index: Int) {
@@ -90,7 +95,7 @@ class TreeMemoState: ObservableObject {
         self.treeHierarchy.removeLast(removeCount)
     }
     
-    func getPlusTreeModel(key: Double, index: Int) -> TreeModel {
+    func getPlusTreeModel(key: UUID, index: Int) -> TreeModel {
         return TreeModel(title: "New", value: .new, key: key, index: index)
     }
 }

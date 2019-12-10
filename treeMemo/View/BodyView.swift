@@ -11,7 +11,7 @@ import Combine
 
 struct BodyView: View {
     let title: String?
-    let treeDataKey: Double
+    let treeDataKey: UUID
     let depth: Int
     
 //    @State var viewModel = TreeMemoViewModel()
@@ -28,6 +28,7 @@ struct BodyView: View {
     var body: some View {
         List(self.treeMemoState.getTreeData(key: treeDataKey)) { treeData in
             TreeNode(treeData: treeData)
+            .buttonStyle(PlainButtonStyle())
         }
         .navigationBarHidden(true)
         .navigationBarTitle("")

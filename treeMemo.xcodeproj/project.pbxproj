@@ -10,6 +10,8 @@
 		170FA2E1239CDBA8006A86BD /* UIViewController+TreeMemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170FA2E0239CDBA8006A86BD /* UIViewController+TreeMemo.swift */; };
 		C30038BE239A4A5D001DB62F /* OQToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30038BD239A4A5D001DB62F /* OQToggleView.swift */; };
 		C34415D0238F5CB100F0FDD1 /* TreeMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */; };
+		C3443994239DD95A00A33BA7 /* treeMemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3443993239DD95A00A33BA7 /* treeMemoTests.swift */; };
+		C344399C239DDF3000A33BA7 /* OQTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C344399B239DDF3000A33BA7 /* OQTextFieldView.swift */; };
 		C355BBEC2387C09A0090F7CC /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C355BBEB2387C09A0090F7CC /* HeaderView.swift */; };
 		C355BBEE2387C2780090F7CC /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C355BBED2387C2780090F7CC /* BodyView.swift */; };
 		C36AC523238CCE9A00237549 /* TreeMemoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36AC522238CCE9A00237549 /* TreeMemoState.swift */; };
@@ -36,6 +38,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C3443996239DD95A00A33BA7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3FF60BD2383E1EC003E57DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3FF60C42383E1EC003E57DE;
+			remoteInfo = treeMemo;
+		};
 		C3FF60DB2383E1EE003E57DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C3FF60BD2383E1EC003E57DE /* Project object */;
@@ -81,6 +90,10 @@
 		170FA2E0239CDBA8006A86BD /* UIViewController+TreeMemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+TreeMemo.swift"; sourceTree = "<group>"; };
 		C30038BD239A4A5D001DB62F /* OQToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQToggleView.swift; sourceTree = "<group>"; };
 		C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoViewModel.swift; sourceTree = "<group>"; };
+		C3443991239DD95A00A33BA7 /* treeMemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = treeMemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3443993239DD95A00A33BA7 /* treeMemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = treeMemoTests.swift; sourceTree = "<group>"; };
+		C3443995239DD95A00A33BA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C344399B239DDF3000A33BA7 /* OQTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQTextFieldView.swift; sourceTree = "<group>"; };
 		C355BBEB2387C09A0090F7CC /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C355BBED2387C2780090F7CC /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
 		C36AC522238CCE9A00237549 /* TreeMemoState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoState.swift; sourceTree = "<group>"; };
@@ -112,6 +125,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C344398E239DD95A00A33BA7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3FF60C22383E1EC003E57DE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -133,9 +153,18 @@
 			isa = PBXGroup;
 			children = (
 				C30038BD239A4A5D001DB62F /* OQToggleView.swift */,
-				170FA2E0239CDBA8006A86BD /* UIViewController+TreeMemo.swift */,
+				C344399B239DDF3000A33BA7 /* OQTextFieldView.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		C3443992239DD95A00A33BA7 /* treeMemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				C3443993239DD95A00A33BA7 /* treeMemoTests.swift */,
+				C3443995239DD95A00A33BA7 /* Info.plist */,
+			);
+			path = treeMemoTests;
 			sourceTree = "<group>";
 		};
 		C3FF60BC2383E1EC003E57DE = {
@@ -144,6 +173,7 @@
 				C3FF60C72383E1EC003E57DE /* treeMemo */,
 				C3FF60DD2383E1EE003E57DE /* treeMemo WatchKit App */,
 				C3FF60EC2383E1EF003E57DE /* treeMemo WatchKit Extension */,
+				C3443992239DD95A00A33BA7 /* treeMemoTests */,
 				C3FF60C62383E1EC003E57DE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -154,6 +184,7 @@
 				C3FF60C52383E1EC003E57DE /* treeMemo.app */,
 				C3FF60D92383E1EE003E57DE /* treeMemo WatchKit App.app */,
 				C3FF60E82383E1EF003E57DE /* treeMemo WatchKit Extension.appex */,
+				C3443991239DD95A00A33BA7 /* treeMemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -250,6 +281,7 @@
 			children = (
 				C3FF611123862244003E57DE /* UIViewPreview.swift */,
 				C36AC522238CCE9A00237549 /* TreeMemoState.swift */,
+				170FA2E0239CDBA8006A86BD /* UIViewController+TreeMemo.swift */,
 			);
 			path = "Lib, Extension";
 			sourceTree = "<group>";
@@ -257,6 +289,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C3443990239DD95A00A33BA7 /* treeMemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3443998239DD95A00A33BA7 /* Build configuration list for PBXNativeTarget "treeMemoTests" */;
+			buildPhases = (
+				C344398D239DD95A00A33BA7 /* Sources */,
+				C344398E239DD95A00A33BA7 /* Frameworks */,
+				C344398F239DD95A00A33BA7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C3443997239DD95A00A33BA7 /* PBXTargetDependency */,
+			);
+			name = treeMemoTests;
+			productName = treeMemoTests;
+			productReference = C3443991239DD95A00A33BA7 /* treeMemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C3FF60C42383E1EC003E57DE /* treeMemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3FF61082383E1EF003E57DE /* Build configuration list for PBXNativeTarget "treeMemo" */;
@@ -316,10 +366,14 @@
 		C3FF60BD2383E1EC003E57DE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "OGyu kwon";
 				TargetAttributes = {
+					C3443990239DD95A00A33BA7 = {
+						CreatedOnToolsVersion = 11.2.1;
+						TestTargetID = C3FF60C42383E1EC003E57DE;
+					};
 					C3FF60C42383E1EC003E57DE = {
 						CreatedOnToolsVersion = 11.0;
 					};
@@ -347,11 +401,19 @@
 				C3FF60C42383E1EC003E57DE /* treeMemo */,
 				C3FF60D82383E1EE003E57DE /* treeMemo WatchKit App */,
 				C3FF60E72383E1EF003E57DE /* treeMemo WatchKit Extension */,
+				C3443990239DD95A00A33BA7 /* treeMemoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C344398F239DD95A00A33BA7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3FF60C32383E1EC003E57DE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -383,6 +445,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C344398D239DD95A00A33BA7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3443994239DD95A00A33BA7 /* treeMemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3FF60C12383E1EC003E57DE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -397,6 +467,7 @@
 				C36AC523238CCE9A00237549 /* TreeMemoState.swift in Sources */,
 				C3FF60CB2383E1EC003E57DE /* SceneDelegate.swift in Sources */,
 				C3FF610C23853C88003E57DE /* TreeModel.swift in Sources */,
+				C344399C239DDF3000A33BA7 /* OQTextFieldView.swift in Sources */,
 				C3FF60CD2383E1EC003E57DE /* ContentView.swift in Sources */,
 				C355BBEC2387C09A0090F7CC /* HeaderView.swift in Sources */,
 			);
@@ -417,6 +488,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C3443997239DD95A00A33BA7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C3FF60C42383E1EC003E57DE /* treeMemo */;
+			targetProxy = C3443996239DD95A00A33BA7 /* PBXContainerItemProxy */;
+		};
 		C3FF60DC2383E1EE003E57DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C3FF60D82383E1EE003E57DE /* treeMemo WatchKit App */;
@@ -449,6 +525,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C3443999239DD95A00A33BA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z97K7ZHNKX;
+				INFOPLIST_FILE = treeMemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.oq.treeMemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/treeMemo.app/treeMemo";
+			};
+			name = Debug;
+		};
+		C344399A239DD95A00A33BA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z97K7ZHNKX;
+				INFOPLIST_FILE = treeMemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.oq.treeMemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/treeMemo.app/treeMemo";
+			};
+			name = Release;
+		};
 		C3FF60FE2383E1EF003E57DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -692,6 +810,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C3443998239DD95A00A33BA7 /* Build configuration list for PBXNativeTarget "treeMemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3443999239DD95A00A33BA7 /* Debug */,
+				C344399A239DD95A00A33BA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C3FF60C02383E1EC003E57DE /* Build configuration list for PBXProject "treeMemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

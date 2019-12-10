@@ -8,12 +8,21 @@
 
 import Foundation
 
-let RootKey: Double = 0
+var RootKey: UUID {
+    if let rootKeyString = UserDefaults().object(forKey: "rootKey") as? String,
+        let rootKey = UUID(uuidString: rootKeyString) {
+        return rootKey
+    } else {
+        let rootKey = UUID()
+        UserDefaults().set(rootKey.uuidString, forKey: "rootKey")
+        return rootKey
+    }
+}
 
 enum TreeValueType: Codable {
     case new    //새로 만들기 버튼
     case none   //설정 안된 초기 셀
-    case child(key: Double)
+    case child(key: UUID)
     case text(val: String)
     case longText(val: String)
     case int(val: Int)
@@ -44,7 +53,7 @@ enum TreeValueType: Codable {
         } else if let _ = try? values.decodeNil(forKey: .none) {
             self = .none
             return
-        } else if let value = try? values.decode(Double.self, forKey: .child) {
+        } else if let value = try? values.decode(UUID.self, forKey: .child) {
             self = .child(key: value)
             return
         } else if let value = try? values.decode(String.self, forKey: .text) {
@@ -99,39 +108,37 @@ struct TreeModel: Codable, Identifiable {
     var title: String
     var value: TreeValueType = .none
     
-    let key: Double //TreeData에서 찾을 key값
+    let key: UUID //TreeData에서 찾을 key값
     let index: Int
 }
 
 // MARK: 목업
 var mockUpVal: TreeDataType {
-    let timeStamp = Date().timeIntervalSinceNow
-    
     var mockUp = TreeDataType()
     var root = TreeModel(title: "테스트용 루트뷰", key:RootKey, index: 0)
-    let depth0Key = timeStamp + 1
+    let depth0Key = UUID()
     root.value = .child(key: depth0Key)
     
     var child1Depth1 = TreeModel(title: "아들1", key:depth0Key, index: 0)
-    let depth1Key = timeStamp + 2
+    let depth1Key = UUID()
     child1Depth1.value = .child(key: depth1Key)
     
     var child2Depth1 = TreeModel(title: "아들2", key:depth0Key, index: 1)
     child2Depth1.value = .int(val: 3)
     
     var child1Depth2 = TreeModel(title: "손자1", key:depth1Key, index: 0)
-    let depth2Key = timeStamp + 3
+    let depth2Key = UUID()
     child1Depth2.value = .child(key: depth2Key)
     
     var child1Depth3 = TreeModel(title: "아기1", key:depth2Key, index: 1)
     child1Depth3.value = .text(val: "으앵으양")
     
     var child2Depth3 = TreeModel(title: "아기2", key:depth2Key, index: 0)
-    let depth3Key = timeStamp + 4
+    let depth3Key = UUID()
     child2Depth3.value = .child(key: depth3Key)
     
     var child1Depth4 = TreeModel(title: "어디까지 갈거냐", key:depth3Key, index: 0)
-    let depth4Key = timeStamp + 5
+    let depth4Key = UUID()
     child1Depth4.value = .child(key: depth4Key)
     
     let child1Depth5 = TreeModel(title: "그만안~~~", key:depth4Key, index: 0)

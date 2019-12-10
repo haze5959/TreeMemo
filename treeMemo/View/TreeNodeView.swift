@@ -18,6 +18,23 @@ struct TreeNode: View {
             .frame(height: 50)
     }
     
+    func getTitleView(data: TreeModel) -> some View {
+        return Button(action: {
+            UIApplication.shared.windows[0]
+                .rootViewController?
+                .showTextFieldAlert(title: "Input Title",
+                                    placeHolder: data.title,
+                                    doneCompletion: { (text) in
+                                        var tempData = data
+                                        tempData.title = text
+                                        TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                })
+        }, label: {
+            Text(data.title)
+        })
+        .padding()
+    }
+    
     func getCellView(data: TreeModel) -> some View {
         switch data.value {
         case .new:
@@ -47,12 +64,22 @@ struct TreeNode: View {
         case .none:
             return AnyView(
                 HStack {
-                    Text(data.title)
+                    self.getTitleView(data: data)
                     Spacer()
                     Button("Type Select!") {
                         self.showingView.toggle()
                     }.actionSheet(isPresented: self.$showingView) {
                         ActionSheet(title: Text("Type Select"), message: Text("Please select memo type."), buttons: [
+                            .default(Text("Folder"), action: {
+                                var tempData = self.treeData
+                                tempData.value = .child(key: UUID())
+                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                            }),
+                            .default(Text("Number"), action: {
+                                var tempData = self.treeData
+                                tempData.value = .int(val: 0)
+                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                            }),
                             .default(Text("Text"), action: {
                                 var tempData = self.treeData
                                 tempData.value = .text(val: "...")
@@ -61,11 +88,6 @@ struct TreeNode: View {
                             .default(Text("longText"), action: {
                                 var tempData = self.treeData
                                 tempData.value = .longText(val: "...")
-                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
-                            }),
-                            .default(Text("Number"), action: {
-                                var tempData = self.treeData
-                                tempData.value = .int(val: 0)
                                 TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
                             }),
                             .default(Text("Date"), action: {
@@ -89,7 +111,7 @@ struct TreeNode: View {
                                                      treeDataKey: key,
                                                      depth: TreeMemoState.shared.treeHierarchy.count + 1)) {
                                                         HStack {
-                                                            Text(data.title)
+                                                            self.getTitleView(data: data)
                                                             Spacer()
                                                             Image(systemName: "folder")
                                                         }
@@ -98,20 +120,24 @@ struct TreeNode: View {
         case .text(let val):
             return AnyView(
                 HStack {
-                    Text(data.title)
+                    self.getTitleView(data: data)
                     Spacer()
-                    Text(val)
+                    OQTextFieldView(text: val) { (text) in
+                        var tempData = self.treeData
+                        tempData.value = .text(val: text)
+                        TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                    }
                 }
             )
         case .longText:
             return AnyView(
                 HStack {
-                    Text(data.title)
+                    self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
-                        
+                        //상세 내용 보기 화면
                     }, label: {
-                        Text("Show Detail")
+                        Image(systemName: "doc.plaintext")
                             .padding()
                     })
                 }
@@ -119,7 +145,7 @@ struct TreeNode: View {
         case .int(let val):
             return AnyView(
                 HStack {
-                    Text(data.title)
+                    self.getTitleView(data: data)
                     Stepper(onIncrement: {
                         var tempData = self.treeData
                         tempData.value = .int(val: val + 1)
@@ -136,7 +162,7 @@ struct TreeNode: View {
         case .date(let val):
             return AnyView(
                 HStack {
-                    Text(data.title)
+                    self.getTitleView(data: data)
                     Spacer()
                     Text("\(val)")
                 }
@@ -144,7 +170,7 @@ struct TreeNode: View {
         case .toggle(let val):
             return AnyView(
                 HStack {
-                    Text(data.title)
+                    self.getTitleView(data: data)
                     Spacer()
                     OQToggleView(isOn: val, action: { (isOn) in
                         print(isOn)
@@ -161,7 +187,7 @@ struct TreeNode_Preview: PreviewProvider {
         Group {
             TreeNode(treeData: TreeModel(title: "new", value: .new, key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "none", key:RootKey, index: 0))
-            TreeNode(treeData: TreeModel(title: "child", value: .child(key: 0), key:RootKey, index: 0))
+            TreeNode(treeData: TreeModel(title: "child", value: .child(key: UUID()), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "date", value: .date(val: Date()), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "int", value: .int(val: 22), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "text", value: .text(val: "텍스트"), key:RootKey, index: 0))
