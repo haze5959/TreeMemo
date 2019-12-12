@@ -66,9 +66,14 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Button("Type Select!") {
+                    Button(action: {
                         self.showingView.toggle()
-                    }.actionSheet(isPresented: self.$showingView) {
+                    }, label: {
+                        Image(systemName: "plus.square")    //
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .padding()
+                    }).actionSheet(isPresented: self.$showingView) {
                         ActionSheet(title: Text("Type Select"), message: Text("Please select memo type."), buttons: [
                             .default(Text("Folder"), action: {
                                 var tempData = self.treeData
@@ -100,6 +105,11 @@ struct TreeNode: View {
                                 tempData.value = .toggle(val: false)
                                 TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
                             }),
+                            .default(Text("Image"), action: {
+                                var tempData = self.treeData
+                                tempData.value = .image(imagePath: "")
+                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                            }),
                             .cancel()
                         ])
                     }
@@ -126,6 +136,7 @@ struct TreeNode: View {
                         UIApplication.shared.windows[0]
                             .rootViewController?
                             .showTextFieldAlert(title: "Input Value",
+                                                text: val,
                                                 placeHolder: val,
                                                 doneCompletion: { (text) in
                                                     var tempData = data
@@ -134,6 +145,7 @@ struct TreeNode: View {
                             })
                     }, label: {
                         Text(val)
+                            .fixedSize(horizontal: false, vertical: true)
                     })
                         .padding()
                 }
@@ -206,6 +218,19 @@ struct TreeNode: View {
                     }))
                 }
             )
+        case .image(let imagePath):
+            return AnyView(
+                HStack {
+                    self.getTitleView(data: data)
+                    Spacer()
+                    Button(action: {
+                        //상세 내용 보기 화면
+                    }, label: {
+                        Image(uiImage: ViewModel().getImage(path: imagePath))
+                            .padding()
+                    })
+                }
+            )
         }
     }
 }
@@ -219,9 +244,10 @@ struct TreeNode_Preview: PreviewProvider {
             TreeNode(treeData: TreeModel(title: "child", value: .child(key: UUID()), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "date", value: .date(val: Date()), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "int", value: .int(val: 22), key:RootKey, index: 0))
-            TreeNode(treeData: TreeModel(title: "text", value: .text(val: "텍스트"), key:RootKey, index: 0))
+            TreeNode(treeData: TreeModel(title: "text", value: .text(val: "텍스트텍스트텍스트텍스 트텍스트텍스트텍스트텍스트텍스트텍스트텍스 트텍스트텍스트텍스 트텍스트텍스트텍스트텍스트텍스트"), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "longText", value: .longText(val: "긴 텍스트"), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "toggle", value: .toggle(val: true), key:RootKey, index: 0))
+            TreeNode(treeData: TreeModel(title: "image", value: .image(imagePath: "nono"), key:RootKey, index: 0))
         }.previewLayout(.sizeThatFits)
             .padding(10)
     }

@@ -10,10 +10,11 @@ import UIKit
 import Combine
 
 extension UIViewController {
-    func showTextFieldAlert(title: String, placeHolder: String, isNumberOnly: Bool = false, doneCompletion: @escaping (_ text: String) -> Void) {
+    func showTextFieldAlert(title: String, text: String? = nil, placeHolder: String, isNumberOnly: Bool = false, doneCompletion: @escaping (_ text: String) -> Void) {
         let alert = UIAlertController(title: title, message: "", preferredStyle: .alert)
         
         alert.addTextField(configurationHandler: { textField in
+            textField.text = text
             textField.placeholder = placeHolder
             if isNumberOnly {
                 textField.keyboardType = .numberPad

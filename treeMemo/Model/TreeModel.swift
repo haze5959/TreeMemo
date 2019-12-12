@@ -6,7 +6,7 @@
 //  Copyright © 2019 OGyu kwon. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 var RootKey: UUID {
     if let rootKeyString = UserDefaults().object(forKey: "rootKey") as? String,
@@ -28,6 +28,7 @@ enum TreeValueType: Codable {
     case int(val: Int)
     case date(val: Date)
     case toggle(val: Bool)
+    case image(imagePath: String)
     
     private enum CodingKeys: String, CodingKey {
         case new
@@ -38,6 +39,7 @@ enum TreeValueType: Codable {
         case int
         case date
         case toggle
+        case image
     }
     
     enum TreeValueTypeCodingError: Error {
@@ -71,6 +73,9 @@ enum TreeValueType: Codable {
         } else if let value = try? values.decode(Bool.self, forKey: .toggle) {
             self = .toggle(val: value)
             return
+        } else if let value = try? values.decode(String.self, forKey: .image) {
+            self = .image(imagePath: value)
+            return
         }
         
         throw TreeValueTypeCodingError.decoding("Whoops! \(dump(values))")
@@ -95,6 +100,8 @@ enum TreeValueType: Codable {
             try container.encode(val, forKey: .date)
         case .toggle(let val):
             try container.encode(val, forKey: .toggle)
+        case .image(let imageData):
+            try container.encode(imageData, forKey: .image)
         }
     }
 }
