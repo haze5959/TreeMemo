@@ -18,4 +18,23 @@ class ViewModel: ObservableObject {
             return UIImage(systemName: "photo")!
         }
     }
+    
+    func getDateString(treeDate: TreeDateType) -> String {
+        let date = treeDate.date
+        let type = UIDatePicker.Mode.init(rawValue: treeDate.type)
+        
+        let dateFormatter = DateFormatter()
+        if type == .dateAndTime {
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .short
+        } else if type == .date {
+            dateFormatter.timeStyle = .none
+            dateFormatter.dateStyle = .long
+        } else {    //time
+            dateFormatter.timeStyle = .short
+            dateFormatter.dateStyle = .none
+        }
+        
+        return dateFormatter.string(from: date)
+    }
 }

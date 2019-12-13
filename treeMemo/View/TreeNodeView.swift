@@ -97,7 +97,7 @@ struct TreeNode: View {
                             }),
                             .default(Text("Date"), action: {
                                 var tempData = self.treeData
-                                tempData.value = .date(val: Date())
+                                tempData.value = .date(val: TreeDateType(date: Date(), type: UIDatePicker.Mode.date.rawValue))
                                 TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
                             }),
                             .default(Text("On/Off"), action: {
@@ -203,7 +203,48 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Text("\(val)")
+                    Button(action: {
+                        self.showingView.toggle()
+                    }, label: {
+                        Text("\(ViewModel().getDateString(treeDate: val))")
+                    }).actionSheet(isPresented: self.$showingView) {
+                        ActionSheet(title: Text("Type Select"), message: Text("Please select date type."), buttons: [
+                            .default(Text("Date And Time"), action: {
+                                let pickerView = OQPickerView.sharedInstance
+                                pickerView.showDate(title: "Select Date", datePickerMode: UIDatePicker.Mode.dateAndTime) { (date) in
+                                    var tempData = data
+                                    tempData.value = .date(val: TreeDateType(date: date, type: UIDatePicker.Mode.dateAndTime.rawValue))
+                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                }
+                                pickerView.overrideUserInterfaceStyle = .light
+
+                                UIApplication.shared.windows[0].rootViewController?.view.addSubview(pickerView)
+                            }),
+                            .default(Text("Date"), action: {
+                                let pickerView = OQPickerView.sharedInstance
+                                pickerView.showDate(title: "Select Date", datePickerMode: UIDatePicker.Mode.date) { (date) in
+                                    var tempData = data
+                                    tempData.value = .date(val: TreeDateType(date: date, type: UIDatePicker.Mode.date.rawValue))
+                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                }
+                                pickerView.overrideUserInterfaceStyle = .light
+
+                                UIApplication.shared.windows[0].rootViewController?.view.addSubview(pickerView)
+                            }),
+                            .default(Text("Time"), action: {
+                                let pickerView = OQPickerView.sharedInstance
+                                pickerView.showDate(title: "Select Date", datePickerMode: UIDatePicker.Mode.time) { (date) in
+                                    var tempData = data
+                                    tempData.value = .date(val: TreeDateType(date: date, type: UIDatePicker.Mode.time.rawValue))
+                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                }
+                                pickerView.overrideUserInterfaceStyle = .light
+
+                                UIApplication.shared.windows[0].rootViewController?.view.addSubview(pickerView)
+                            }),
+                            .cancel()
+                        ])
+                    }
                 }
             )
         case .toggle(let val):
@@ -242,7 +283,7 @@ struct TreeNode_Preview: PreviewProvider {
             TreeNode(treeData: TreeModel(title: "new", value: .new, key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "none", key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "child", value: .child(key: UUID()), key:RootKey, index: 0))
-            TreeNode(treeData: TreeModel(title: "date", value: .date(val: Date()), key:RootKey, index: 0))
+            TreeNode(treeData: TreeModel(title: "date", value: .date(val: TreeDateType(date: Date(), type: 1)), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "int", value: .int(val: 22), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "text", value: .text(val: "텍스트텍스트텍스트텍스 트텍스트텍스트텍스트텍스트텍스트텍스트텍스 트텍스트텍스트텍스 트텍스트텍스트텍스트텍스트텍스트"), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "longText", value: .longText(val: "긴 텍스트"), key:RootKey, index: 0))
