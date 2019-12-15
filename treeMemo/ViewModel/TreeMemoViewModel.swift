@@ -7,15 +7,16 @@
 //
 
 import UIKit
+import SwiftUI
 
 class ViewModel: ObservableObject {
-    func getImage(path: String) -> UIImage {
+    func getImage(path: String) -> Image {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let imagePath = "\(documentsPath)/\(path)"
         if let image = UIImage(contentsOfFile: imagePath) {
-            return image
+            return Image(uiImage: image)
         } else {
-            return UIImage(systemName: "photo")!
+            return Image(systemName: "photo")
         }
     }
     
@@ -36,5 +37,18 @@ class ViewModel: ObservableObject {
         }
         
         return dateFormatter.string(from: date)
+    }
+    
+    func showDetailView(title: String, text: String, completion: @escaping (String)->Void) {
+        let rootVC = UIApplication.shared.windows[0].rootViewController
+        let textDetailVC = UIHostingController(rootView: TextDetailView(title: title, text: text, completeHandler: completion))
+        
+        rootVC?.present(textDetailVC, animated: true)
+    }
+    
+    func dismissViewController() {
+        let rootVC = UIApplication.shared.windows[0].rootViewController
+        let presentedVC = rootVC?.presentedViewController
+        presentedVC?.dismiss(animated: true)
     }
 }

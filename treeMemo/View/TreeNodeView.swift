@@ -90,7 +90,7 @@ struct TreeNode: View {
                                 tempData.value = .text(val: "...")
                                 TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
                             }),
-                            .default(Text("longText"), action: {
+                            .default(Text("Long Text"), action: {
                                 var tempData = self.treeData
                                 tempData.value = .longText(val: "...")
                                 TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
@@ -150,13 +150,18 @@ struct TreeNode: View {
                         .padding()
                 }
             )
-        case .longText:
+        case .longText(let val):
             return AnyView(
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
                         //상세 내용 보기 화면
+                        ViewModel().showDetailView(title: data.title, text: val) { (text) in
+                                                var tempData = data
+                                                tempData.value = .longText(val: text)
+                                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                        }
                     }, label: {
                         Image(systemName: "doc.plaintext")
                             .padding()
@@ -217,7 +222,7 @@ struct TreeNode: View {
                                     TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
                                 }
                                 pickerView.overrideUserInterfaceStyle = .light
-
+                                
                                 UIApplication.shared.windows[0].rootViewController?.view.addSubview(pickerView)
                             }),
                             .default(Text("Date"), action: {
@@ -228,7 +233,7 @@ struct TreeNode: View {
                                     TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
                                 }
                                 pickerView.overrideUserInterfaceStyle = .light
-
+                                
                                 UIApplication.shared.windows[0].rootViewController?.view.addSubview(pickerView)
                             }),
                             .default(Text("Time"), action: {
@@ -239,7 +244,7 @@ struct TreeNode: View {
                                     TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
                                 }
                                 pickerView.overrideUserInterfaceStyle = .light
-
+                                
                                 UIApplication.shared.windows[0].rootViewController?.view.addSubview(pickerView)
                             }),
                             .cancel()
@@ -266,9 +271,10 @@ struct TreeNode: View {
                     Spacer()
                     Button(action: {
                         //상세 내용 보기 화면
+                        print("이미지 클릭!!")
                     }, label: {
-                        Image(uiImage: ViewModel().getImage(path: imagePath))
-                            .padding()
+                        ViewModel().getImage(path: imagePath)
+                        .padding()
                     })
                 }
             )
@@ -289,6 +295,7 @@ struct TreeNode_Preview: PreviewProvider {
             TreeNode(treeData: TreeModel(title: "longText", value: .longText(val: "긴 텍스트"), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "toggle", value: .toggle(val: true), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "image", value: .image(imagePath: "nono"), key:RootKey, index: 0))
+            
         }.previewLayout(.sizeThatFits)
             .padding(10)
     }
