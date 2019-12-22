@@ -22,7 +22,7 @@ class ViewModel: ObservableObject {
     
     func getDateString(treeDate: TreeDateType) -> String {
         let date = treeDate.date
-        let type = UIDatePicker.Mode.init(rawValue: treeDate.type)
+        let type = UIDatePicker.Mode(rawValue: treeDate.type)
         
         let dateFormatter = DateFormatter()
         if type == .dateAndTime {
@@ -44,6 +44,12 @@ class ViewModel: ObservableObject {
         let textDetailVC = UIHostingController(rootView: TextDetailView(title: title, text: text, completeHandler: completion))
         
         rootVC?.present(textDetailVC, animated: true)
+    }
+    
+    func showImageView(image: Image) {
+        let rootVC = UIApplication.shared.windows[0].rootViewController
+        let imageVC = UIHostingController(rootView: OQImageViewerView(image: image))
+        rootVC?.present(imageVC, animated: true)
     }
     
     func dismissViewController() {

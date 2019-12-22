@@ -13,6 +13,10 @@ struct TreeNode: View {
     var treeData: TreeModel
     @State var showingView = false
     
+    @State var pickerType: UIImagePickerController.SourceType = .photoLibrary
+    @State var showImagePicker: Bool = false
+    @State var image: Image? = nil
+    
     var body: some View {
         self.getCellView(data: self.treeData)
             .frame(height: 50)
@@ -158,9 +162,9 @@ struct TreeNode: View {
                     Button(action: {
                         //상세 내용 보기 화면
                         ViewModel().showDetailView(title: data.title, text: val) { (text) in
-                                                var tempData = data
-                                                tempData.value = .longText(val: text)
-                                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                            var tempData = data
+                            tempData.value = .longText(val: text)
+                            TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
                         }
                     }, label: {
                         Image(systemName: "doc.plaintext")
@@ -271,11 +275,37 @@ struct TreeNode: View {
                     Spacer()
                     Button(action: {
                         //상세 내용 보기 화면
-                        print("이미지 클릭!!")
+                        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                        let path = "\(documentsPath)/\(imagePath)"
+                        if let image = UIImage(contentsOfFile: path) {
+//                            self.image = ViewModel().getImage(path: imagePath)
+                            ViewModel().showImageView(image: Image(uiImage: image))
+                        } else {
+                            self.showingView.toggle()
+                        }
                     }, label: {
-                        ViewModel().getImage(path: imagePath)
-                        .padding()
-                    })
+                        { self.image ?? ViewModel().getImage(path: imagePath) }()
+                        .resizable()
+                        .scaledToFit()
+                    }).actionSheet(isPresented: self.$showingView) {
+                        ActionSheet(title: Text("Type Select"), message: Text("Please select Image Picker type."), buttons: [
+                            .default(Text("Camera"), action: {
+                                self.pickerType = UIImagePickerController.SourceType.camera
+                                self.showImagePicker.toggle()
+                            }),
+                            .default(Text("Album"), action: {
+                                self.pickerType = UIImagePickerController.SourceType.photoLibrary
+                                self.showImagePicker.toggle()
+                            }),
+                            .cancel()
+                        ])
+                    }.sheet(isPresented: $showImagePicker) {
+                        ImagePicker(image: self.$image, pickerType: self.pickerType) { (path) in
+                            var tempData = self.treeData
+                            tempData.value = .image(imagePath: path)
+                            TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                        }
+                    }
                 }
             )
         }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		170FA2E1239CDBA8006A86BD /* UIViewController+TreeMemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170FA2E0239CDBA8006A86BD /* UIViewController+TreeMemo.swift */; };
 		170FA2E323A614C0006A86BD /* TextDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170FA2E223A614C0006A86BD /* TextDetailView.swift */; };
+		170FA2E523AF3CF8006A86BD /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170FA2E423AF3CF8006A86BD /* ImagePickerView.swift */; };
+		170FA2E723AF5273006A86BD /* OQImageViewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170FA2E623AF5273006A86BD /* OQImageViewerView.swift */; };
 		C30038BE239A4A5D001DB62F /* OQToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30038BD239A4A5D001DB62F /* OQToggleView.swift */; };
 		C34415D0238F5CB100F0FDD1 /* TreeMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */; };
 		C3443994239DD95A00A33BA7 /* treeMemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3443993239DD95A00A33BA7 /* treeMemoTests.swift */; };
@@ -93,6 +95,8 @@
 /* Begin PBXFileReference section */
 		170FA2E0239CDBA8006A86BD /* UIViewController+TreeMemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+TreeMemo.swift"; sourceTree = "<group>"; };
 		170FA2E223A614C0006A86BD /* TextDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDetailView.swift; sourceTree = "<group>"; };
+		170FA2E423AF3CF8006A86BD /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		170FA2E623AF5273006A86BD /* OQImageViewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQImageViewerView.swift; sourceTree = "<group>"; };
 		C30038BD239A4A5D001DB62F /* OQToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQToggleView.swift; sourceTree = "<group>"; };
 		C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoViewModel.swift; sourceTree = "<group>"; };
 		C3443991239DD95A00A33BA7 /* treeMemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = treeMemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -215,6 +219,8 @@
 				C30038BD239A4A5D001DB62F /* OQToggleView.swift */,
 				C344399B239DDF3000A33BA7 /* OQTextFieldView.swift */,
 				C344399D239F827E00A33BA7 /* OQIntFieldView.swift */,
+				170FA2E423AF3CF8006A86BD /* ImagePickerView.swift */,
+				170FA2E623AF5273006A86BD /* OQImageViewerView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -551,6 +557,7 @@
 				C3FF60C92383E1EC003E57DE /* AppDelegate.swift in Sources */,
 				170FA2E1239CDBA8006A86BD /* UIViewController+TreeMemo.swift in Sources */,
 				C34415D0238F5CB100F0FDD1 /* TreeMemoViewModel.swift in Sources */,
+				170FA2E523AF3CF8006A86BD /* ImagePickerView.swift in Sources */,
 				C30038BE239A4A5D001DB62F /* OQToggleView.swift in Sources */,
 				170FA2E323A614C0006A86BD /* TextDetailView.swift in Sources */,
 				C355BBEE2387C2780090F7CC /* BodyView.swift in Sources */,
@@ -564,6 +571,7 @@
 				C344399E239F827E00A33BA7 /* OQIntFieldView.swift in Sources */,
 				C3FF60CD2383E1EC003E57DE /* ContentView.swift in Sources */,
 				C355BBEC2387C09A0090F7CC /* HeaderView.swift in Sources */,
+				170FA2E723AF5273006A86BD /* OQImageViewerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
