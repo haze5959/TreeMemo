@@ -121,7 +121,7 @@ struct TreeModel: Codable, Identifiable {
     var value: TreeValueType = .none
     
     let key: UUID //TreeData에서 찾을 key값
-    let index: Int
+    var index: Int
 }
 
 // MARK: 목업

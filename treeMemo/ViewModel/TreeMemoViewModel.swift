@@ -46,10 +46,15 @@ class ViewModel: ObservableObject {
         rootVC?.present(textDetailVC, animated: true)
     }
     
-    func showImageView(image: Image) {
-        let rootVC = UIApplication.shared.windows[0].rootViewController
-        let imageVC = UIHostingController(rootView: OQImageViewerView(image: image))
-        rootVC?.present(imageVC, animated: true)
+    func showImageCropView(image: UIImage, saveClosure: @escaping (UIImage) -> Void) {
+        if let rootVC = UIApplication.shared.windows[0].rootViewController {
+            let imageVC = OQImageViewController()
+            imageVC.image = image
+            imageVC.saveClosure = saveClosure
+            imageVC.view.frame = rootVC.view.frame
+            imageVC.modalPresentationStyle = .fullScreen
+            rootVC.present(imageVC, animated: true)
+        }
     }
     
     func dismissViewController() {

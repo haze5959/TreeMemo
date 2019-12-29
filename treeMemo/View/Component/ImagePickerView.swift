@@ -52,7 +52,7 @@ struct ImagePicker: UIViewControllerRepresentable {
                 return false
             }
             do {
-                let fileName = "\(Date().timeIntervalSinceNow).png"
+                let fileName = "\(Date().timeIntervalSinceReferenceDate).png"
                 let path = directory.appendingPathComponent(fileName)!
                 try data.write(to: path)
                 self.savePathHandler(fileName)

@@ -278,8 +278,22 @@ struct TreeNode: View {
                         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
                         let path = "\(documentsPath)/\(imagePath)"
                         if let image = UIImage(contentsOfFile: path) {
-//                            self.image = ViewModel().getImage(path: imagePath)
-                            ViewModel().showImageView(image: Image(uiImage: image))
+                            ViewModel().showImageCropView(image: image) { (newImage) in
+                                guard let data = newImage.jpegData(compressionQuality: 1) ?? newImage.pngData() else {
+                                    return
+                                }
+
+                                let fileManager = FileManager.default
+                                try! fileManager.removeItem(at: URL(fileURLWithPath: path))
+                                
+                                let fileName = "\(Date().timeIntervalSinceReferenceDate).png"
+                                let newPath = "\(documentsPath)/\(fileName)"
+                                fileManager.createFile(atPath: newPath, contents: data, attributes: nil)
+                                
+                                var tempData = self.treeData
+                                tempData.value = .image(imagePath: fileName)
+                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                            }
                         } else {
                             self.showingView.toggle()
                         }
