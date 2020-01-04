@@ -15,7 +15,7 @@ class TreeMemoState: ObservableObject {
     static let shared = TreeMemoState()
     
     @Published var treeHierarchy = [String]()
-    @State var isEdit = false
+    @Published var isEdit = false
     
     private var cancellable: AnyCancellable?
     
@@ -85,9 +85,40 @@ class TreeMemoState: ObservableObject {
             self.treeData.updateValue(subTreeData, forKey: key)
             return subTreeData
         }
-            
-        subTreeData.append(self.getPlusTreeModel(key: key, index: subTreeData.count))
+
+        if !self.isEdit {
+            subTreeData.append(self.getPlusTreeModel(key: key, index: subTreeData.count))
+        }
+        
         return subTreeData
+    }
+    
+    func removeTreeData(key: UUID, indexSet: IndexSet) {
+        guard var subTreeData = self.treeData[key] else {
+            print("Can't find data with key!")
+            return
+        }
+        
+        subTreeData.remove(atOffsets: indexSet)
+        self.treeData[key] = subTreeData
+    }
+    
+    func moveTreeData(key: UUID, indexSet: IndexSet, to destination: Int) {
+        guard var subTreeData = self.treeData[key] else {
+            print("Can't find data with key!")
+            return
+        }
+        
+        subTreeData.move(fromOffsets: indexSet, toOffset: destination)
+        
+        var movedTreeData = [TreeModel]()
+        for (index, treeData) in subTreeData.enumerated() {
+            var tempTreeData = treeData
+            tempTreeData.index = index
+            movedTreeData.append(tempTreeData)
+        }
+        
+        self.treeData[key] = subTreeData
     }
     
     func selectTreeHierarchy(index: Int) {

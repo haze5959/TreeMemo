@@ -19,8 +19,21 @@ struct ContentView: View {
                 
                 //바디
                 NavigationView {
-                    BodyView(title: nil, treeDataKey: RootKey, depth: TreeMemoState.shared.treeHierarchy.count)
+                    BodyView(title: nil, treeDataKey: RootKey)
                 }
+                //이거하면 셀 삭제하기 제스쳐가 잘 작동안함
+//                .gesture(
+//                    DragGesture()
+//                        .onEnded({gesture in
+//                            if gesture.startLocation.x < CGFloat(60.0) {
+//                                print("edge pan")
+//                                if TreeMemoState.shared.treeHierarchy.count > 0 {
+//                                    TreeMemoState.shared.treeHierarchy.removeLast()
+//                                }
+//                            }
+//                            }
+//                    )
+//                )
             }
             
         }

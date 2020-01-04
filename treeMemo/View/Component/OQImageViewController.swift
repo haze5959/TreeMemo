@@ -12,13 +12,13 @@ import Combine
 class OQImageViewController: UIViewController {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var cropOrRotateBtn: UIButton!
-    @IBOutlet weak var saveBtn: UIButton!
+    @IBOutlet weak var removeOrSaveBtn: UIButton!
     @IBOutlet weak var closeBtn: UIButton!
     
     let cropPickerView = CropPickerView()
     
     var image: UIImage?
-    var saveClosure: ((UIImage) -> Void)?
+    var saveClosure: ((UIImage?) -> Void)?
     @Published var isCropMode = false
     
     private var cancellableBag = Set<AnyCancellable>()
@@ -61,7 +61,7 @@ extension OQImageViewController {
         
         self.closeBtn.publisher(for: .touchUpInside)
             .sink { button in
-                if self.isCropMode {    //이미지 저장
+                if self.isCropMode {
                     self.cropPickerView.image = self.image
                     self.isCropMode = false
                 } else {    //화면 닫기
@@ -70,7 +70,7 @@ extension OQImageViewController {
                 }
         }.store(in: &self.cancellableBag)
         
-        self.saveBtn.publisher(for: .touchUpInside)
+        self.removeOrSaveBtn.publisher(for: .touchUpInside)
             .sink { button in
                 if self.isCropMode {    //이미지 저장
                     //저장 로직
@@ -86,6 +86,14 @@ extension OQImageViewController {
                         self.cropPickerView.image = image
                     }
                     self.isCropMode = false
+                } else {    //이미지 삭제
+                    let alertController = UIAlertController(title: "", message: "Are you sure you want to delete the image?", preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        self.saveClosure?(nil)
+                        self.dismiss(animated: true)
+                    }))
+                    alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
                 }
         }.store(in: &self.cancellableBag)
         
@@ -100,13 +108,13 @@ extension OQImageViewController {
     
     func setCropMode() {
         self.cropPickerView.isCrop = true
-        self.saveBtn.isHidden = false
+        self.removeOrSaveBtn.setTitle("Save", for: .normal)
         self.cropOrRotateBtn.setImage(UIImage(systemName: "rotate.right"), for: .normal)
     }
     
     func setImageViewMode() {
         self.cropPickerView.isCrop = false
-        self.saveBtn.isHidden = true
+        self.removeOrSaveBtn.setTitle("Remove", for: .normal)
         self.cropOrRotateBtn.setImage(UIImage(systemName: "crop"), for: .normal)
     }
 }

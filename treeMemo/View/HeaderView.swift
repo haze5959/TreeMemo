@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct HeaderView: View {
-    @ObservedObject var State = TreeMemoState.shared
+    @ObservedObject var treeMemoState = TreeMemoState.shared
     
     var body: some View {
         VStack {
@@ -28,14 +28,14 @@ struct HeaderView: View {
                 Spacer()
                 
                 //타이틀
-                Text(self.State.treeHierarchy.last ?? "TreeMemo")
+                Text(self.treeMemoState.treeHierarchy.last ?? "TreeMemo")
                 
                 //스페이서
                 Spacer()
                 
                 //편집 버튼
                 Button(action: {
-                    self.State.isEdit.toggle()
+                    self.treeMemoState.isEdit.toggle()
                 }, label: {
                     Image(systemName: "list.bullet")
                         .imageScale(.large)
@@ -47,7 +47,7 @@ struct HeaderView: View {
             //계층 정보
             HStack {
                 Button(action: {
-                    self.State.treeHierarchy.removeAll()
+                    self.treeMemoState.treeHierarchy.removeAll()
                 }, label: {
                     Image(systemName: "house")
                         .imageScale(.small)
@@ -55,8 +55,8 @@ struct HeaderView: View {
                         .foregroundColor(Color(UIColor.label))
                 })
                 
-                if self.State.treeHierarchy.count > 0 {
-                    ForEach(0..<self.State.treeHierarchy.count, id: \.self) { index in
+                if self.treeMemoState.treeHierarchy.count > 0 {
+                    ForEach(0..<self.treeMemoState.treeHierarchy.count, id: \.self) { index in
                         HStack {
                             Image(systemName: "chevron.compact.right")
                                 .imageScale(.small)
@@ -65,7 +65,7 @@ struct HeaderView: View {
                             Button(action: {
                                 TreeMemoState.shared.selectTreeHierarchy(index: index)
                             }, label: {
-                                Text(self.State.treeHierarchy[index])
+                                Text(self.treeMemoState.treeHierarchy[index])
                                     .font(Font.system(size: 10))
                                     .lineLimit(2)
                                     .padding()

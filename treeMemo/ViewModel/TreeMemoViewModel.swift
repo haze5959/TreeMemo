@@ -46,7 +46,7 @@ class ViewModel: ObservableObject {
         rootVC?.present(textDetailVC, animated: true)
     }
     
-    func showImageCropView(image: UIImage, saveClosure: @escaping (UIImage) -> Void) {
+    func showImageCropView(image: UIImage, saveClosure: @escaping (UIImage?) -> Void) {
         if let rootVC = UIApplication.shared.windows[0].rootViewController {
             let imageVC = OQImageViewController()
             imageVC.image = image

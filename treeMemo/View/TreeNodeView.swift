@@ -81,8 +81,11 @@ struct TreeNode: View {
                         ActionSheet(title: Text("Type Select"), message: Text("Please select memo type."), buttons: [
                             .default(Text("Folder"), action: {
                                 var tempData = self.treeData
-                                tempData.value = .child(key: UUID())
+                                let newChildKey = UUID()
+                                tempData.value = .child(key: newChildKey)
                                 TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                let subTreeData = [TreeModel]()
+                                TreeMemoState.shared.treeData.updateValue(subTreeData, forKey: newChildKey)
                             }),
                             .default(Text("Number"), action: {
                                 var tempData = self.treeData
@@ -122,8 +125,7 @@ struct TreeNode: View {
         case .child(let key):
             return AnyView(
                 NavigationLink(destination: BodyView(title: data.title,
-                                                     treeDataKey: key,
-                                                     depth: TreeMemoState.shared.treeHierarchy.count + 1)) {
+                                                     treeDataKey: key)) {
                                                         HStack {
                                                             self.getTitleView(data: data)
                                                             Spacer()
@@ -278,12 +280,22 @@ struct TreeNode: View {
                         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
                         let path = "\(documentsPath)/\(imagePath)"
                         if let image = UIImage(contentsOfFile: path) {
-                            ViewModel().showImageCropView(image: image) { (newImage) in
+                            ViewModel().showImageCropView(image: image) { (image) in
+                                let fileManager = FileManager.default
+                                
+                                guard let newImage = image else {
+                                    //이미지 삭제
+                                    try! fileManager.removeItem(at: URL(fileURLWithPath: path))
+                                    var tempData = self.treeData
+                                    tempData.value = .image(imagePath: "")
+                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                    return
+                                }
+                                
                                 guard let data = newImage.jpegData(compressionQuality: 1) ?? newImage.pngData() else {
                                     return
                                 }
-
-                                let fileManager = FileManager.default
+                                
                                 try! fileManager.removeItem(at: URL(fileURLWithPath: path))
                                 
                                 let fileName = "\(Date().timeIntervalSinceReferenceDate).png"
@@ -299,8 +311,8 @@ struct TreeNode: View {
                         }
                     }, label: {
                         { self.image ?? ViewModel().getImage(path: imagePath) }()
-                        .resizable()
-                        .scaledToFit()
+                            .resizable()
+                            .scaledToFit()
                     }).actionSheet(isPresented: self.$showingView) {
                         ActionSheet(title: Text("Type Select"), message: Text("Please select Image Picker type."), buttons: [
                             .default(Text("Camera"), action: {

@@ -12,7 +12,7 @@
                 <outlet property="closeBtn" destination="tS7-2u-1BA" id="ckk-Qh-7mv"/>
                 <outlet property="cropOrRotateBtn" destination="SQ2-nk-Io8" id="6st-im-jTj"/>
                 <outlet property="mainView" destination="19p-wV-vyE" id="igD-Q9-mbL"/>
-                <outlet property="saveBtn" destination="TMj-Gu-xIt" id="QZr-iO-Q4a"/>
+                <outlet property="removeOrSaveBtn" destination="TMj-Gu-xIt" id="e39-jL-lbq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -36,12 +36,12 @@
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMj-Gu-xIt">
-                    <rect key="frame" x="70" y="54" width="40" height="40"/>
+                    <rect key="frame" x="70" y="54" width="60" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="40" id="1Tq-FG-VYH"/>
+                        <constraint firstAttribute="width" constant="60" id="1Tq-FG-VYH"/>
                         <constraint firstAttribute="height" constant="40" id="afK-QB-74Q"/>
                     </constraints>
-                    <state key="normal" title="Save">
+                    <state key="normal" title="Remove">
                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17"/>
                     </state>
                 </button>
