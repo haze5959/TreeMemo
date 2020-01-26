@@ -10,6 +10,8 @@ import SwiftUI
 import Combine
 
 struct BodyView: View {
+    @EnvironmentObject var environment: EnvironmentState
+    
     let title: String?
     let treeDataKey: UUID
     
@@ -25,16 +27,16 @@ struct BodyView: View {
     
     var body: some View {
         List {
-            ForEach(self.treeMemoState.getTreeData(key: treeDataKey)) { treeData in
+            ForEach(self.treeMemoState.getTreeData(key: treeDataKey, isEditMode: self.environment.isEdit)) { treeData in
                 TreeNode(treeData: treeData)
                     .buttonStyle(PlainButtonStyle())
             }
             .onMove(perform: move)
             .onDelete(perform: delete)
-            .environment(\.editMode, .constant(TreeMemoState.shared.isEdit ? EditMode.active : EditMode.inactive))
+            .environment(\.editMode, .constant(self.environment.isEdit ? EditMode.active : EditMode.inactive))
             .animation(Animation.spring())
         }
-        .environment(\.editMode, .constant(TreeMemoState.shared.isEdit ? EditMode.active : EditMode.inactive))
+        .environment(\.editMode, .constant(self.environment.isEdit ? EditMode.active : EditMode.inactive))
         .animation(Animation.spring())
         .navigationBarHidden(true)
         .navigationBarTitle("")

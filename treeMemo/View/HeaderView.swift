@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct HeaderView: View {
+    @EnvironmentObject var environment: EnvironmentState
     @ObservedObject var treeMemoState = TreeMemoState.shared
     
     var body: some View {
@@ -16,7 +17,8 @@ struct HeaderView: View {
             HStack(spacing: 0.0) {
                 //설정 버튼
                 Button(action: {
-                    TreeMemoState.shared.removeAllTreeData()
+//                    TreeMemoState.shared.removeAllTreeData()
+                    self.environment.openSideMenu.toggle()
                 }, label: {
                     Image(systemName: "gear")
                         .imageScale(.large)
@@ -35,9 +37,9 @@ struct HeaderView: View {
                 
                 //편집 버튼
                 Button(action: {
-                    self.treeMemoState.isEdit.toggle()
+                    self.environment.isEdit.toggle()
                 }, label: {
-                    Image(systemName: "list.bullet")
+                    Image(systemName: "list.number")
                         .imageScale(.large)
                         .padding()
                         .foregroundColor(Color(UIColor.label))

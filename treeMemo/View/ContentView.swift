@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var environment: EnvironmentState
+    @ObservedObject var treeMemoState = TreeMemoState.shared
+    
     var body: some View {
         ZStack {
             Color(UIColor.systemBackground)
@@ -21,6 +24,7 @@ struct ContentView: View {
                 NavigationView {
                     BodyView(title: nil, treeDataKey: RootKey)
                 }
+
                 //이거하면 셀 삭제하기 제스쳐가 잘 작동안함
 //                .gesture(
 //                    DragGesture()
@@ -36,6 +40,8 @@ struct ContentView: View {
 //                )
             }
             
+            SideMenuView(width: 270,
+                         isOpen: self.environment.openSideMenu)
         }
     }
 }

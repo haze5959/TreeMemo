@@ -13,9 +13,7 @@ import Combine
 typealias TreeDataType = [UUID: [TreeModel]]
 class TreeMemoState: ObservableObject {
     static let shared = TreeMemoState()
-    
     @Published var treeHierarchy = [String]()
-    @Published var isEdit = false
     
     private var cancellable: AnyCancellable?
     
@@ -78,15 +76,15 @@ class TreeMemoState: ObservableObject {
     /**
      해당 Key의 트리데이터 리턴
      */
-    func getTreeData(key: UUID) -> [TreeModel] {
+    func getTreeData(key: UUID, isEditMode: Bool = false) -> [TreeModel] {
         guard var subTreeData = self.treeData[key] else {
             print("Can't find data with key!")
             let subTreeData = [TreeModel]()
             self.treeData.updateValue(subTreeData, forKey: key)
             return subTreeData
         }
-
-        if !self.isEdit {
+        
+        if !isEditMode || subTreeData.count == 0 {
             subTreeData.append(self.getPlusTreeModel(key: key, index: subTreeData.count))
         }
         

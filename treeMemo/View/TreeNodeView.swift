@@ -78,7 +78,7 @@ struct TreeNode: View {
                             .frame(width: 25, height: 25)
                             .padding()
                     }).actionSheet(isPresented: self.$showingView) {
-                        ActionSheet(title: Text("Type Select"), message: Text("Please select memo type."), buttons: [
+                        ActionSheet(title: Text("Type Select"), message: Text("Please select memo type or floder."), buttons: [
                             .default(Text("Folder"), action: {
                                 var tempData = self.treeData
                                 let newChildKey = UUID()
