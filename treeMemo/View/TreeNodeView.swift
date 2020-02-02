@@ -15,7 +15,6 @@ struct TreeNode: View {
     
     @State var pickerType: UIImagePickerController.SourceType = .photoLibrary
     @State var showImagePicker: Bool = false
-    @State var image: Image? = nil
     
     var body: some View {
         self.getCellView(data: self.treeData)
@@ -310,7 +309,7 @@ struct TreeNode: View {
                             self.showingView.toggle()
                         }
                     }, label: {
-                        { self.image ?? ViewModel().getImage(path: imagePath) }()
+                        { ViewModel().getImage(path: imagePath) }()
                             .resizable()
                             .scaledToFit()
                     }).actionSheet(isPresented: self.$showingView) {
@@ -326,7 +325,7 @@ struct TreeNode: View {
                             .cancel()
                         ])
                     }.sheet(isPresented: $showImagePicker) {
-                        ImagePicker(image: self.$image, pickerType: self.pickerType) { (path) in
+                        ImagePicker(pickerType: self.pickerType) { (path) in
                             var tempData = self.treeData
                             tempData.value = .image(imagePath: path)
                             TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData

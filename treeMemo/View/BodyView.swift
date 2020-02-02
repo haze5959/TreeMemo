@@ -23,6 +23,8 @@ struct BodyView: View {
     
     @ObservedObject var treeMemoState = TreeMemoState.shared
     
+    @State private var offset = CGSize.zero
+    
     @Environment(\.presentationMode) var presentation
     
     var body: some View {
@@ -34,12 +36,28 @@ struct BodyView: View {
             .onMove(perform: move)
             .onDelete(perform: delete)
             .environment(\.editMode, .constant(self.environment.isEdit ? EditMode.active : EditMode.inactive))
-            .animation(Animation.spring())
         }
         .environment(\.editMode, .constant(self.environment.isEdit ? EditMode.active : EditMode.inactive))
-        .animation(Animation.spring())
         .navigationBarHidden(true)
         .navigationBarTitle("")
+        .gesture(
+            DragGesture()
+                .onChanged { gesture in
+                    self.offset = gesture.translation
+                }
+
+                .onEnded { _ in
+                    if self.offset.width > 100 {
+                        if self.depth > 0 {
+                            TreeMemoState.shared.popHierarchy()
+                        } else {
+                            self.environment.openSideMenu.toggle()
+                        }
+                    } else {
+                        self.offset = .zero
+                    }
+                }
+        )
         .onAppear {
             print("qoqoqoqoqoqoqo: \(self.depth)")
             if self.isNeedInit, let title = self.title {

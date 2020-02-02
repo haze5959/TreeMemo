@@ -14,6 +14,7 @@ class OQImageViewController: UIViewController {
     @IBOutlet weak var cropOrRotateBtn: UIButton!
     @IBOutlet weak var removeOrSaveBtn: UIButton!
     @IBOutlet weak var closeBtn: UIButton!
+    @IBOutlet weak var shareBtn: UIButton!
     
     let cropPickerView = CropPickerView()
     
@@ -68,6 +69,17 @@ extension OQImageViewController {
                     self.saveClosure?(self.image!)
                     self.dismiss(animated: true)
                 }
+        }.store(in: &self.cancellableBag)
+        
+        self.shareBtn.publisher(for: .touchUpInside)
+            .sink { button in
+                // set up activity view controller
+                let imageToShare = [ self.image! ]
+                let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+
+                // present the view controller
+                self.present(activityViewController, animated: true, completion: nil)
         }.store(in: &self.cancellableBag)
         
         self.removeOrSaveBtn.publisher(for: .touchUpInside)

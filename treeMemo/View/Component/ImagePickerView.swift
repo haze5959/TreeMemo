@@ -13,21 +13,18 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Environment(\.presentationMode)
     var presentationMode
     
-    @Binding var image: Image?
     let pickerType: UIImagePickerController.SourceType
     let savePathHandler: (String) -> Void
     
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         @Binding var presentationMode: PresentationMode
-        @Binding var image: Image?
+        var image: Image?
         let savePathHandler: (String) -> Void
         
         init(presentationMode: Binding<PresentationMode>,
-             image: Binding<Image?>,
              type: UIImagePickerController.SourceType = .photoLibrary,
              savePathHandler: @escaping (String) -> Void) {
             _presentationMode = presentationMode
-            _image = image
             self.savePathHandler = savePathHandler
         }
         
@@ -65,7 +62,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(presentationMode: presentationMode, image: $image, savePathHandler: self.savePathHandler)
+        return Coordinator(presentationMode: presentationMode, savePathHandler: self.savePathHandler)
     }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {

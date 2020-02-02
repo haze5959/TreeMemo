@@ -97,6 +97,12 @@ class TreeMemoState: ObservableObject {
             return
         }
         
+        // 삭제될 데이터
+        if let index = indexSet.map({$0}).first {
+            let treeData = subTreeData[index]
+            self.removeRecursiveData(treeData: treeData)
+        }
+        
         subTreeData.remove(atOffsets: indexSet)
         self.treeData[key] = subTreeData
     }
@@ -124,7 +130,29 @@ class TreeMemoState: ObservableObject {
         self.treeHierarchy.removeLast(removeCount)
     }
     
+    func popHierarchy() {
+        self.treeHierarchy.removeLast(1)
+    }
+    
     func getPlusTreeModel(key: UUID, index: Int) -> TreeModel {
         return TreeModel(title: "New", value: .new, key: key, index: index)
+    }
+    
+    func removeRecursiveData(treeData: TreeModel) {
+        switch treeData.value {
+        case .child(let key):
+            guard let subTreeDatas = self.treeData[key] else {
+                print("Can't find data with key!")
+                return
+            }
+            
+            for subTreeData in subTreeDatas {
+                self.removeRecursiveData(treeData: subTreeData)
+            }
+            
+            self.treeData.removeValue(forKey: key)
+        default:
+            break
+        }
     }
 }
