@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1120"
-   version = "2.0">
+   LastUpgradeVersion = "1130"
+   version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C3FF60D82383E1EE003E57DE"
-               BuildableName = "treeMemo WatchKit App.app"
-               BlueprintName = "treeMemo WatchKit App"
+               BlueprintIdentifier = "C3B3D34623FD0C4E00110F75"
+               BuildableName = "TreeMemoForWatch.app"
+               BlueprintName = "TreeMemoForWatch"
                ReferencedContainer = "container:treeMemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,16 +42,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C3443990239DD95A00A33BA7"
-               BuildableName = "treeMemoTests.xctest"
-               BlueprintName = "treeMemoTests"
-               ReferencedContainer = "container:treeMemo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -64,17 +54,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
-      launchAutomaticallySubstyle = "8"
-      notificationPayloadFile = "treeMemo WatchKit Extension/PushNotificationPayload.apns">
+      notificationPayloadFile = "TreeMemoForWatch Extension/PushNotificationPayload.apns">
       <RemoteRunnable
          runnableDebuggingMode = "2"
          BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/treeMemo WatchKit App">
+         RemotePath = "/treeMemo">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C3FF60D82383E1EE003E57DE"
-            BuildableName = "treeMemo WatchKit App.app"
-            BlueprintName = "treeMemo WatchKit App"
+            BlueprintIdentifier = "C3B3D34623FD0C4E00110F75"
+            BuildableName = "TreeMemoForWatch.app"
+            BlueprintName = "TreeMemoForWatch"
             ReferencedContainer = "container:treeMemo.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
@@ -84,27 +73,25 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES"
-      launchAutomaticallySubstyle = "8"
-      notificationPayloadFile = "treeMemo WatchKit Extension/PushNotificationPayload.apns">
+      debugDocumentVersioning = "YES">
       <RemoteRunnable
          runnableDebuggingMode = "2"
          BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/treeMemo WatchKit App">
+         RemotePath = "/treeMemo">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C3FF60D82383E1EE003E57DE"
-            BuildableName = "treeMemo WatchKit App.app"
-            BlueprintName = "treeMemo WatchKit App"
+            BlueprintIdentifier = "C3B3D34623FD0C4E00110F75"
+            BuildableName = "TreeMemoForWatch.app"
+            BlueprintName = "TreeMemoForWatch"
             ReferencedContainer = "container:treeMemo.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C3FF60D82383E1EE003E57DE"
-            BuildableName = "treeMemo WatchKit App.app"
-            BlueprintName = "treeMemo WatchKit App"
+            BlueprintIdentifier = "C3B3D34623FD0C4E00110F75"
+            BuildableName = "TreeMemoForWatch.app"
+            BlueprintName = "TreeMemoForWatch"
             ReferencedContainer = "container:treeMemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

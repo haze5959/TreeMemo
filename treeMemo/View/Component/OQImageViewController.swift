@@ -18,7 +18,7 @@ class OQImageViewController: UIViewController {
     
     let cropPickerView = CropPickerView()
     
-    var image: UIImage?
+    var image: UIImage!
     var saveClosure: ((UIImage?) -> Void)?
     @Published var isCropMode = false
     
@@ -46,8 +46,10 @@ extension OQImageViewController {
             self.cropPickerView.rightAnchor.constraint(equalTo: self.mainView.rightAnchor).isActive = true
             self.cropPickerView.bottomAnchor.constraint(equalTo: self.mainView.bottomAnchor).isActive = true
             
-            self.cropPickerView.image = self.image?.rotate(radians: 0)
+            self.cropPickerView.image = self.image.rotate(radians: 0)
         }
+        
+        self.setScrollHideGesture()
     }
     
     func setBindings() {
@@ -66,7 +68,7 @@ extension OQImageViewController {
                     self.cropPickerView.image = self.image
                     self.isCropMode = false
                 } else {    //화면 닫기
-                    self.saveClosure?(self.image!)
+                    self.saveClosure?(self.image)
                     self.dismiss(animated: true)
                 }
         }.store(in: &self.cancellableBag)
@@ -74,7 +76,7 @@ extension OQImageViewController {
         self.shareBtn.publisher(for: .touchUpInside)
             .sink { button in
                 // set up activity view controller
-                let imageToShare = [ self.image! ]
+                let imageToShare = [ self.image ]
                 let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
                 activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
 
@@ -128,5 +130,39 @@ extension OQImageViewController {
         self.cropPickerView.isCrop = false
         self.removeOrSaveBtn.setTitle("Remove", for: .normal)
         self.cropOrRotateBtn.setImage(UIImage(systemName: "crop"), for: .normal)
+    }
+}
+
+// MARK: 숨김 제스쳐 설정 관련
+extension OQImageViewController {
+    func setScrollHideGesture() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handleSheetViewGesture))
+        self.view.addGestureRecognizer(panGesture)
+    }
+    
+    @IBAction func handleSheetViewGesture(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            break
+        case .ended:
+            DispatchQueue.main.async {
+                if self.view.frame.origin.y > 150 {  // 해당 값만큼 더 스크롤을 내렸다면
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.view.frame.origin.y = self.view.frame.height
+                    }, completion: { _ in
+                        self.saveClosure?(self.image)
+                        self.dismiss(animated: true)
+                    })
+                } else {
+                    UIView.animate(withDuration: 0.2, animations: { () -> Void in
+                        self.view.frame.origin.y = 0
+                    })
+                }
+            }
+        default:
+            let translation = recognizer.translation(in: self.view)
+            self.view.frame.origin.y += translation.y
+            recognizer.setTranslation(CGPoint.zero, in: self.view)
+        }
     }
 }

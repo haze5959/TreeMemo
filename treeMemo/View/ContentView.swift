@@ -40,7 +40,7 @@ struct ContentView: View {
 //                )
             }
             
-            SideMenuView(width: 270,
+            SideMenuView(width: 240,
                          isOpen: self.environment.openSideMenu)
         }
     }

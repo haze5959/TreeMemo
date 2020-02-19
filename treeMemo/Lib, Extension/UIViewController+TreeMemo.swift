@@ -38,6 +38,18 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
+    func showAlert(title: String, message: String, doneCompletion: @escaping () -> Void) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        let doneBtn = UIAlertAction(title: "Done", style: .default, handler: { action in
+            doneCompletion()
+        })
+        alert.addAction(doneBtn)
+        
+        self.present(alert, animated: true)
+    }
+    
     /**
      키보드 가리기 제스처 추가
      */

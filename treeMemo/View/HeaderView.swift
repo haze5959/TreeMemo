@@ -17,7 +17,6 @@ struct HeaderView: View {
             HStack(spacing: 0.0) {
                 //설정 버튼
                 Button(action: {
-//                    TreeMemoState.shared.removeAllTreeData()
                     self.environment.openSideMenu.toggle()
                 }, label: {
                     Image(systemName: "gear")

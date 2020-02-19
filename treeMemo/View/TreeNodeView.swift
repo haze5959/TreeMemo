@@ -93,12 +93,12 @@ struct TreeNode: View {
                             }),
                             .default(Text("Text"), action: {
                                 var tempData = self.treeData
-                                tempData.value = .text(val: "...")
+                                tempData.value = .text(val: "")
                                 TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
                             }),
                             .default(Text("Long Text"), action: {
                                 var tempData = self.treeData
-                                tempData.value = .longText(val: "...")
+                                tempData.value = .longText(val: "")
                                 TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
                             }),
                             .default(Text("Date"), action: {
@@ -149,7 +149,7 @@ struct TreeNode: View {
                                                     TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
                             })
                     }, label: {
-                        Text(val)
+                        Text(val.count > 0 ? val : "...")
                             .fixedSize(horizontal: false, vertical: true)
                     })
                         .padding()

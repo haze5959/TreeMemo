@@ -40,8 +40,12 @@ class TreeMemoState: ObservableObject {
             .debounce(for: 2, scheduler: RunLoop.main)
             .sink(receiveValue: { (treeData) in
                 print("클라우드 동기화!!")
-                self.saveTreeData(treeData)
             })
+    }
+    
+    // MARK: 트리데이터 초기화
+    func initTreeData() {
+        TreeMemoState.shared.treeData = TreeMemoState.shared.loadTreeData()
     }
     
     func saveTreeData(_ value: TreeDataType) {
@@ -71,6 +75,7 @@ class TreeMemoState: ObservableObject {
     
     func removeAllTreeData() {
         UserDefaults.standard.removeObject(forKey: self.storedDataKey)
+        self.initTreeData()
     }
     
     /**
@@ -121,8 +126,8 @@ class TreeMemoState: ObservableObject {
             tempTreeData.index = index
             movedTreeData.append(tempTreeData)
         }
-        
-        self.treeData[key] = subTreeData
+
+        self.treeData[key] = movedTreeData
     }
     
     func selectTreeHierarchy(index: Int) {

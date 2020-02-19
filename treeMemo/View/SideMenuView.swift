@@ -29,23 +29,34 @@ struct SideMenuView: View {
             HStack {
                 List {
                     VStack {
-                        CircleImageView(image: Image(systemName: "folder"))
+                        CircleImageView(image: Image("TestImg"))
+                            .frame(width: 200, height: 180, alignment: .center)
                         Text("Tree Memo")
+                            .padding(.bottom, 20)
                     }
                     
                     Button(action: {
-                        print("11111")
+                        print("프리미엄 버전 구입")
                     }) {
-                        Text("11111")
+                        HStack {
+                            Image(systemName: "rosette")
+                            Text("Premium Version")
+                        }.padding()
                     }
                     
                     Button(action: {
-                        print("2222")
+                        UIApplication.shared.windows[0]
+                            .rootViewController?
+                            .showAlert(title: "", message: "Are you sure you want to remove all data?", doneCompletion: {
+                                TreeMemoState.shared.removeAllTreeData()
+                            })
                     }) {
-                        Text("22222")
+                        HStack {
+                            Image(systemName: "trash")
+                            Text("Remove All Data")
+                        }.padding()
                     }
                 }
-//                .shadow(radius: 10)   //이거 주석풀면 세이프 에어리아 무시한다 쓰벌..
                 .frame(width: self.width)
                 .background(Color.black)
                 .offset(x: self.isOpen ? 0 : -self.width)
@@ -59,6 +70,6 @@ struct SideMenuView: View {
 
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenuView(width: 200, isOpen: true)
+        SideMenuView(width: 240, isOpen: true)
     }
 }

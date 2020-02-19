@@ -4,12 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>treeMemo WatchKit App (Notification).xcscheme_^#shared#^_</key>
+		<key>TreeMemoForWatch (Notification).xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>treeMemo WatchKit App.xcscheme_^#shared#^_</key>
+		<key>TreeMemoForWatch.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
@@ -23,6 +23,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>C3443990239DD95A00A33BA7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C3B3D34623FD0C4E00110F75</key>
 		<dict>
 			<key>primary</key>
 			<true/>
