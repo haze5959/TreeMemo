@@ -9,8 +9,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var treeMemoState = TreeMemoState.shared
+    
     var body: some View {
-        Text("Hello, World!")
+        ZStack {
+            VStack {
+                //바디
+                BodyView(title: nil, treeDataKey: RootKey)
+            }
+        }
     }
 }
 

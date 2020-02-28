@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C3B3D34623FD0C4E00110F75"
+               BlueprintIdentifier = "C312396923FD1AC900E4D82B"
                BuildableName = "TreeMemoForWatch.app"
                BlueprintName = "TreeMemoForWatch"
                ReferencedContainer = "container:treeMemo.xcodeproj">
@@ -61,7 +61,7 @@
          RemotePath = "/treeMemo">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C3B3D34623FD0C4E00110F75"
+            BlueprintIdentifier = "C312396923FD1AC900E4D82B"
             BuildableName = "TreeMemoForWatch.app"
             BlueprintName = "TreeMemoForWatch"
             ReferencedContainer = "container:treeMemo.xcodeproj">
@@ -80,7 +80,7 @@
          RemotePath = "/treeMemo">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C3B3D34623FD0C4E00110F75"
+            BlueprintIdentifier = "C312396923FD1AC900E4D82B"
             BuildableName = "TreeMemoForWatch.app"
             BlueprintName = "TreeMemoForWatch"
             ReferencedContainer = "container:treeMemo.xcodeproj">
@@ -89,7 +89,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C3B3D34623FD0C4E00110F75"
+            BlueprintIdentifier = "C312396923FD1AC900E4D82B"
             BuildableName = "TreeMemoForWatch.app"
             BlueprintName = "TreeMemoForWatch"
             ReferencedContainer = "container:treeMemo.xcodeproj">

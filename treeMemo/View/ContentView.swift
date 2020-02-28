@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var environment: EnvironmentState
-    @ObservedObject var treeMemoState = TreeMemoState.shared
     
     var body: some View {
         ZStack {
@@ -24,20 +23,6 @@ struct ContentView: View {
                 NavigationView {
                     BodyView(title: nil, treeDataKey: RootKey)
                 }
-
-                //이거하면 셀 삭제하기 제스쳐가 잘 작동안함
-//                .gesture(
-//                    DragGesture()
-//                        .onEnded({gesture in
-//                            if gesture.startLocation.x < CGFloat(60.0) {
-//                                print("edge pan")
-//                                if TreeMemoState.shared.treeHierarchy.count > 0 {
-//                                    TreeMemoState.shared.treeHierarchy.removeLast()
-//                                }
-//                            }
-//                            }
-//                    )
-//                )
             }
             
             SideMenuView(width: 240,

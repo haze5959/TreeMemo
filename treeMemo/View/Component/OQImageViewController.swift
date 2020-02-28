@@ -141,28 +141,30 @@ extension OQImageViewController {
     }
     
     @IBAction func handleSheetViewGesture(recognizer: UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .began:
-            break
-        case .ended:
-            DispatchQueue.main.async {
-                if self.view.frame.origin.y > 150 {  // 해당 값만큼 더 스크롤을 내렸다면
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self.view.frame.origin.y = self.view.frame.height
-                    }, completion: { _ in
-                        self.saveClosure?(self.image)
-                        self.dismiss(animated: true)
-                    })
-                } else {
-                    UIView.animate(withDuration: 0.2, animations: { () -> Void in
-                        self.view.frame.origin.y = 0
-                    })
+        if !self.isCropMode {
+            switch recognizer.state {
+            case .began:
+                break
+            case .ended:
+                DispatchQueue.main.async {
+                    if self.view.frame.origin.y > 150 {  // 해당 값만큼 더 스크롤을 내렸다면
+                        UIView.animate(withDuration: 0.2, animations: {
+                            self.view.frame.origin.y = self.view.frame.height
+                        }, completion: { _ in
+                            self.saveClosure?(self.image)
+                            self.dismiss(animated: true)
+                        })
+                    } else {
+                        UIView.animate(withDuration: 0.2, animations: { () -> Void in
+                            self.view.frame.origin.y = 0
+                        })
+                    }
                 }
+            default:
+                let translation = recognizer.translation(in: self.view)
+                self.view.frame.origin.y += translation.y
+                recognizer.setTranslation(CGPoint.zero, in: self.view)
             }
-        default:
-            let translation = recognizer.translation(in: self.view)
-            self.view.frame.origin.y += translation.y
-            recognizer.setTranslation(CGPoint.zero, in: self.view)
         }
     }
 }

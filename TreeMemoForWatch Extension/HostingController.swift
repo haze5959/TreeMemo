@@ -12,6 +12,7 @@ import SwiftUI
 
 class HostingController: WKHostingController<ContentView> {
     override var body: ContentView {
+        TreeMemoState.shared.initTreeData()
         return ContentView()
     }
 }

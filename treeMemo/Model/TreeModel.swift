@@ -8,16 +8,7 @@
 
 import UIKit
 
-var RootKey: UUID {
-    if let rootKeyString = UserDefaults().object(forKey: "rootKey") as? String,
-        let rootKey = UUID(uuidString: rootKeyString) {
-        return rootKey
-    } else {
-        let rootKey = UUID()
-        UserDefaults().set(rootKey.uuidString, forKey: "rootKey")
-        return rootKey
-    }
-}
+let RootKey = UUID(uuidString: "00000000-0000-0000-0000-000000000000")!
 
 struct TreeDateType: Codable {
     let date: Date

@@ -20,6 +20,6 @@ struct CircleImageView: View {
 
 struct CircleImageView_Preview: PreviewProvider {
     static var previews: some View {
-        CircleImageView(image: Image(systemName: "floder"))
+        CircleImageView(image: Image(systemName: "folder"))
     }
 }
