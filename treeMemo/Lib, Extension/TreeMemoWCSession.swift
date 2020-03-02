@@ -60,6 +60,7 @@ class TreeMemoWCSession: NSObject, WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
         DispatchQueue.main.async {
             let treeData = self.decodeData(data: messageData)
+            TreeMemoState.shared.saveTreeData(treeData) // 클라우드 업데이트를 안하기 위함
             TreeMemoState.shared.updateTreeDataWithNotSave(treeData: treeData)
         }
     }

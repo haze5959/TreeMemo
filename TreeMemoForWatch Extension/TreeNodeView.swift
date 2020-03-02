@@ -23,8 +23,35 @@ struct TreeNode: View {
     }
     
     func getTitleView(data: TreeModel) -> some View {
+        // 셀 하나에 링크를 두개 이상 추가하면 링크들이 전부 클릭되어버려서 없앰
+        //        return NavigationLink(
+        //            destination: WatchInputFieldView(completeHandler: { (text) in
+        //                var tempData = data
+        //                tempData.title = text
+        //                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+        //            })) {
+        //                Text(data.title)
+        //        }
         return Text(data.title)
-            .padding()
+    }
+    
+    func getDateString(treeDate: TreeDateType) -> String {
+        let date = treeDate.date
+        let type = treeDate.type // 0: time, 1: date, 2: dateAndTime
+        
+        let dateFormatter = DateFormatter()
+        if type == 2 {
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .short
+        } else if type == 1 {
+            dateFormatter.timeStyle = .none
+            dateFormatter.dateStyle = .long
+        } else {    //time
+            dateFormatter.timeStyle = .short
+            dateFormatter.dateStyle = .none
+        }
+        
+        return dateFormatter.string(from: date)
     }
     
     func showAlertAboutNotSupport() {
@@ -39,11 +66,12 @@ struct TreeNode: View {
         case .new:
             return AnyView(
                 NavigationLink(
-                    destination: WatchInputFieldView(completeHandler: { (text) in
-                        var tempData = self.treeData
-                        tempData.title = text
-                        tempData.value = .none
-                        TreeMemoState.shared.treeData[self.treeData.key]!.append(tempData)
+                    destination: WatchInputFieldView(desc: "Input memo title.",
+                                                     completeHandler: { (text) in
+                                                        var tempData = self.treeData
+                                                        tempData.title = text
+                                                        tempData.value = .none
+                                                        TreeMemoState.shared.treeData[self.treeData.key]!.append(tempData)
                     })) {
                         HStack {
                             self.getTitleView(data: data)
@@ -51,7 +79,6 @@ struct TreeNode: View {
                             Image(systemName: "plus.circle")
                                 .resizable()
                                 .frame(width: 25, height: 25)
-                                .padding()
                         }
                 }
             )
@@ -66,7 +93,6 @@ struct TreeNode: View {
                         Image(systemName: "plus.square")
                             .resizable()
                             .frame(width: 25, height: 25)
-                            .padding()
                     }).actionSheet(isPresented: self.$showingView) {
                         ActionSheet(title: Text("Type Select"), message: Text("Please select memo type or folder."), buttons: [
                             .default(Text("Image"), action: {
@@ -117,14 +143,13 @@ struct TreeNode: View {
             )
         case .child(let key):
             return AnyView(
-                NavigationLink(destination: BodyView(title: data.title,
-                                                     treeDataKey: key)) {
-                                                        HStack {
-                                                            self.getTitleView(data: data)
-                                                            Spacer()
+                HStack {
+                    self.getTitleView(data: data)
+                    Spacer()
+                    NavigationLink(destination: BodyView(title: data.title,
+                                                         treeDataKey: key)) {
                                                             Image(systemName: "folder")
-                                                                .padding()
-                                                        }
+                    }
                 }
             )
         case .text(let val):
@@ -132,9 +157,17 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Text(val.count > 0 ? val : "...")
-                    .fixedSize(horizontal: false, vertical: true)
-                        .padding()
+                    NavigationLink(
+                        destination: WatchInputFieldView(desc: "Input text.",
+                                                         completeHandler: { (text) in
+                                                            var tempData = data
+                                                            tempData.value = .text(val: text)
+                                                            TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                        })) {
+                            Text(val.count > 0 ? val : "...")
+                                .minimumScaleFactor(0.7)
+                                .lineLimit(2)
+                    }
                 }
             )
         case .longText(let val):
@@ -142,40 +175,69 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Image(systemName: "doc.plaintext")
-                    .padding()
+                    NavigationLink(
+                        destination:
+                        ScrollView(.vertical) {
+                            Text(val)
+                        }.navigationBarTitle(data.title)
+                    ) {
+                        Image(systemName: "doc.plaintext")
+                    }
                 }
             )
         case .int(let val):
             return AnyView(
-                Text("\(val)")
+                HStack {
+                    self.getTitleView(data: data)
+                    Spacer()
+                    NavigationLink(
+                        destination: WatchInputNumberView(tempInt: Float(val) ,completeHandler: { (number) in
+                            var tempData = data
+                            tempData.value = .int(val: number)
+                            TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                        })) {
+                            Text("\(val)")
+                    }
+                }
             )
         case .date(let val):
             return AnyView(
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Text("날짜 어케하지")
+                    Text(self.getDateString(treeDate: val))
                 }
             )
         case .toggle(let val):
             return AnyView(
                 HStack {
-                    self.getTitleView(data: data)
-                    Spacer()
-                    Text("토글 어케하지")
+                    Button(action: {
+                        var tempData = self.treeData
+                        tempData.value = .toggle(val: !val)
+                        TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                    }, label: {
+                        self.getTitleView(data: data)
+                        Spacer()
+                        if val {
+                            Image(systemName: "lightbulb.fill")
+                        } else {
+                            Image(systemName: "lightbulb.slash")
+                        }
+                    })
                 }
             )
-        case .image(let imagePath):
+        case .image:
             return AnyView(
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
-                        print("이미지 수정 불가")
+                        self.showAlertAboutNotSupport()
                     }, label: {
-                        Text("이미지 어케 넣냐")
-                    })
+                        Image(systemName: "photo")
+                    }).alert(isPresented: self.$showingAlert) {
+                        Alert(title: Text("This feature is not supported on Apple Watch."))
+                    }
                 }
             )
         }

@@ -150,7 +150,8 @@ struct TreeNode: View {
                             })
                     }, label: {
                         Text(val.count > 0 ? val : "...")
-                            .fixedSize(horizontal: false, vertical: true)
+                            .minimumScaleFactor(0.8)
+                            .lineLimit(2)
                     })
                         .padding()
                 }

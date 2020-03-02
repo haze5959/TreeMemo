@@ -44,6 +44,8 @@ class TreeMemoState: ObservableObject {
                 
                 print("데이터 저장!")
                 self.saveTreeData(treeData)
+                // Watch <-> Phone Data sharing
+                self.wcSession.sendTreeData(treeData: treeData)
                 return treeData
             })
             .debounce(for: 2, scheduler: RunLoop.main)
@@ -53,8 +55,6 @@ class TreeMemoState: ObservableObject {
                 }
                 
                 print("클라우드 동기화!!")
-                // Watch <-> Phone Data sharing
-                self.wcSession.sendTreeData(treeData: treeData)
             })
     }
     
@@ -91,6 +91,7 @@ class TreeMemoState: ObservableObject {
     func removeAllTreeData() {
         treeStore.removeObject(forKey: self.storedDataKey)
         self.initTreeData()
+        self.wcSession.sendTreeData(treeData: self.treeData)
     }
     
     func updateTreeDataWithNotSave(treeData: TreeDataType) {

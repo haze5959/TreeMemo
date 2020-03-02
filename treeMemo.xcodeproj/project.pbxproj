@@ -26,6 +26,7 @@
 		17ED24C123DD8E8F00538988 /* EnvironmentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ED24C023DD8E8F00538988 /* EnvironmentState.swift */; };
 		17ED24C323DD9D8D00538988 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ED24C223DD9D8D00538988 /* CircleImageView.swift */; };
 		C30038BE239A4A5D001DB62F /* OQToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30038BD239A4A5D001DB62F /* OQToggleView.swift */; };
+		C30D9F74240CAF3B00C60019 /* WatchInputNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30D9F73240CAF3A00C60019 /* WatchInputNumberView.swift */; };
 		C312396E23FD1AC900E4D82B /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C312396C23FD1AC900E4D82B /* Interface.storyboard */; };
 		C312397023FD1ACB00E4D82B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C312396F23FD1ACB00E4D82B /* Assets.xcassets */; };
 		C312397723FD1ACB00E4D82B /* TreeMemoForWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C312397623FD1ACB00E4D82B /* TreeMemoForWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -136,6 +137,7 @@
 		17ED24C023DD8E8F00538988 /* EnvironmentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentState.swift; sourceTree = "<group>"; };
 		17ED24C223DD9D8D00538988 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		C30038BD239A4A5D001DB62F /* OQToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQToggleView.swift; sourceTree = "<group>"; };
+		C30D9F73240CAF3A00C60019 /* WatchInputNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchInputNumberView.swift; sourceTree = "<group>"; };
 		C312396A23FD1AC900E4D82B /* TreeMemoForWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreeMemoForWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C312396D23FD1AC900E4D82B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		C312396F23FD1ACB00E4D82B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 		C312397A23FD1ACB00E4D82B /* TreeMemoForWatch Extension */ = {
 			isa = PBXGroup;
 			children = (
+				C30D9F73240CAF3A00C60019 /* WatchInputNumberView.swift */,
 				C31239A623FD241200E4D82B /* TreeMemoForWatch Extension.entitlements */,
 				C31239A223FD1E3400E4D82B /* TreeNodeView.swift */,
 				C312397B23FD1ACB00E4D82B /* ContentView.swift */,
@@ -607,6 +610,7 @@
 				C312399923FD1C0C00E4D82B /* TreeMemoState.swift in Sources */,
 				C312398423FD1ACB00E4D82B /* NotificationView.swift in Sources */,
 				C312398623FD1ACB00E4D82B /* ComplicationController.swift in Sources */,
+				C30D9F74240CAF3B00C60019 /* WatchInputNumberView.swift in Sources */,
 				C312399B23FD1C0C00E4D82B /* UIImage+OQ.swift in Sources */,
 				C312399F23FD1C3200E4D82B /* TreeModel.swift in Sources */,
 				C312399C23FD1C0C00E4D82B /* EnvironmentState.swift in Sources */,
