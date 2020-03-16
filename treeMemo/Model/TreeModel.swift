@@ -16,7 +16,7 @@ struct TreeDateType: Codable {
 }
 
 enum TreeValueType: Codable {
-    case new    //새로 만들기 버튼
+    case new    //새로 만들기 버튼ㅓㅏㅏ
     case none   //설정 안된 초기 셀
     case child(key: UUID)
     case text(val: String)

@@ -21,7 +21,6 @@
 		170FA2FB23B87BCC006A86BD /* OQImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170FA2F923B87BCC006A86BD /* OQImageViewController.swift */; };
 		170FA2FC23B87BCC006A86BD /* OQImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 170FA2FA23B87BCC006A86BD /* OQImageViewController.xib */; };
 		170FA2FE23B8813F006A86BD /* Combine+OQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170FA2FD23B8813F006A86BD /* Combine+OQ.swift */; };
-		170FA30023B89425006A86BD /* UIImage+OQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170FA2FF23B89425006A86BD /* UIImage+OQ.swift */; };
 		17ED24BF23DD881600538988 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ED24BE23DD881600538988 /* SideMenuView.swift */; };
 		17ED24C123DD8E8F00538988 /* EnvironmentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ED24C023DD8E8F00538988 /* EnvironmentState.swift */; };
 		17ED24C323DD9D8D00538988 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ED24C223DD9D8D00538988 /* CircleImageView.swift */; };
@@ -40,13 +39,18 @@
 		C312398B23FD1ACB00E4D82B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C312398A23FD1ACB00E4D82B /* Preview Assets.xcassets */; };
 		C312399023FD1ACB00E4D82B /* TreeMemoForWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C312396A23FD1AC900E4D82B /* TreeMemoForWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C312399923FD1C0C00E4D82B /* TreeMemoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36AC522238CCE9A00237549 /* TreeMemoState.swift */; };
-		C312399B23FD1C0C00E4D82B /* UIImage+OQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170FA2FF23B89425006A86BD /* UIImage+OQ.swift */; };
 		C312399C23FD1C0C00E4D82B /* EnvironmentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ED24C023DD8E8F00538988 /* EnvironmentState.swift */; };
 		C312399F23FD1C3200E4D82B /* TreeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF610B23853C88003E57DE /* TreeModel.swift */; };
 		C31239A123FD1C8500E4D82B /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31239A023FD1C8500E4D82B /* BodyView.swift */; };
 		C31239A323FD1E3400E4D82B /* TreeNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31239A223FD1E3400E4D82B /* TreeNodeView.swift */; };
 		C31239A823FD333500E4D82B /* TreeMemoWCSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31239A723FD333500E4D82B /* TreeMemoWCSession.swift */; };
 		C31239A923FD333700E4D82B /* TreeMemoWCSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31239A723FD333500E4D82B /* TreeMemoWCSession.swift */; };
+		C31C6CD4241B300D0088632D /* CloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C6CD3241B300D0088632D /* CloudManager.swift */; };
+		C31C6CD8241B49F10088632D /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31C6CD7241B49F10088632D /* CloudKit.framework */; };
+		C31C6CDA241B73C80088632D /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31C6CD9241B73C80088632D /* CloudKit.framework */; };
+		C31C6CDD241F53620088632D /* Cocen+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C6CDC241F53620088632D /* Cocen+UIImage.swift */; };
+		C31C6CDE241F54290088632D /* Cocen+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C6CDC241F53620088632D /* Cocen+UIImage.swift */; };
+		C31C6CE0241F5C910088632D /* PinWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C6CDF241F5C910088632D /* PinWheelView.swift */; };
 		C34415D0238F5CB100F0FDD1 /* TreeMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */; };
 		C3443994239DD95A00A33BA7 /* treeMemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3443993239DD95A00A33BA7 /* treeMemoTests.swift */; };
 		C344399C239DDF3000A33BA7 /* OQTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C344399B239DDF3000A33BA7 /* OQTextFieldView.swift */; };
@@ -132,7 +136,6 @@
 		170FA2F923B87BCC006A86BD /* OQImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQImageViewController.swift; sourceTree = "<group>"; };
 		170FA2FA23B87BCC006A86BD /* OQImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OQImageViewController.xib; sourceTree = "<group>"; };
 		170FA2FD23B8813F006A86BD /* Combine+OQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+OQ.swift"; sourceTree = "<group>"; };
-		170FA2FF23B89425006A86BD /* UIImage+OQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+OQ.swift"; sourceTree = "<group>"; };
 		17ED24BE23DD881600538988 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		17ED24C023DD8E8F00538988 /* EnvironmentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentState.swift; sourceTree = "<group>"; };
 		17ED24C223DD9D8D00538988 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
@@ -159,6 +162,11 @@
 		C31239A523FD22FC00E4D82B /* TreeMemoForWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TreeMemoForWatch.entitlements; sourceTree = "<group>"; };
 		C31239A623FD241200E4D82B /* TreeMemoForWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TreeMemoForWatch Extension.entitlements"; sourceTree = "<group>"; };
 		C31239A723FD333500E4D82B /* TreeMemoWCSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoWCSession.swift; sourceTree = "<group>"; };
+		C31C6CD3241B300D0088632D /* CloudManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudManager.swift; sourceTree = "<group>"; };
+		C31C6CD7241B49F10088632D /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		C31C6CD9241B73C80088632D /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.1.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		C31C6CDC241F53620088632D /* Cocen+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Cocen+UIImage.swift"; sourceTree = "<group>"; };
+		C31C6CDF241F5C910088632D /* PinWheelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinWheelView.swift; sourceTree = "<group>"; };
 		C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoViewModel.swift; sourceTree = "<group>"; };
 		C3443991239DD95A00A33BA7 /* treeMemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = treeMemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3443993239DD95A00A33BA7 /* treeMemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = treeMemoTests.swift; sourceTree = "<group>"; };
@@ -215,6 +223,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C31C6CDA241B73C80088632D /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +238,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C31C6CD8241B49F10088632D /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +315,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		C31C6CD6241B49F10088632D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C31C6CD9241B73C80088632D /* CloudKit.framework */,
+				C31C6CD7241B49F10088632D /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C3443992239DD95A00A33BA7 /* treeMemoTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +341,7 @@
 				C312396B23FD1AC900E4D82B /* TreeMemoForWatch */,
 				C312397A23FD1ACB00E4D82B /* TreeMemoForWatch Extension */,
 				C3FF60C62383E1EC003E57DE /* Products */,
+				C31C6CD6241B49F10088632D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -395,6 +415,8 @@
 		C3FF611023862223003E57DE /* Lib, Extension */ = {
 			isa = PBXGroup;
 			children = (
+				C31C6CDF241F5C910088632D /* PinWheelView.swift */,
+				C31C6CDC241F53620088632D /* Cocen+UIImage.swift */,
 				170FA2E823B87A8C006A86BD /* CropPickerView */,
 				C34439E523A3726D00A33BA7 /* OQPickerView.swift */,
 				C3FF611123862244003E57DE /* UIViewPreview.swift */,
@@ -402,9 +424,9 @@
 				170FA2E0239CDBA8006A86BD /* UIViewController+TreeMemo.swift */,
 				C344399F239F891A00A33BA7 /* KeyboardResponder.swift */,
 				170FA2FD23B8813F006A86BD /* Combine+OQ.swift */,
-				170FA2FF23B89425006A86BD /* UIImage+OQ.swift */,
 				17ED24C023DD8E8F00538988 /* EnvironmentState.swift */,
 				C31239A723FD333500E4D82B /* TreeMemoWCSession.swift */,
+				C31C6CD3241B300D0088632D /* CloudManager.swift */,
 			);
 			path = "Lib, Extension";
 			sourceTree = "<group>";
@@ -606,12 +628,12 @@
 				C31239A123FD1C8500E4D82B /* BodyView.swift in Sources */,
 				C312398223FD1ACB00E4D82B /* NotificationController.swift in Sources */,
 				C3CDC2A62408F732005A7CF9 /* WatchInputFieldView.swift in Sources */,
+				C31C6CDE241F54290088632D /* Cocen+UIImage.swift in Sources */,
 				C312398023FD1ACB00E4D82B /* ExtensionDelegate.swift in Sources */,
 				C312399923FD1C0C00E4D82B /* TreeMemoState.swift in Sources */,
 				C312398423FD1ACB00E4D82B /* NotificationView.swift in Sources */,
 				C312398623FD1ACB00E4D82B /* ComplicationController.swift in Sources */,
 				C30D9F74240CAF3B00C60019 /* WatchInputNumberView.swift in Sources */,
-				C312399B23FD1C0C00E4D82B /* UIImage+OQ.swift in Sources */,
 				C312399F23FD1C3200E4D82B /* TreeModel.swift in Sources */,
 				C312399C23FD1C0C00E4D82B /* EnvironmentState.swift in Sources */,
 			);
@@ -631,9 +653,11 @@
 			files = (
 				17ED24C323DD9D8D00538988 /* CircleImageView.swift in Sources */,
 				C3FF611223862244003E57DE /* UIViewPreview.swift in Sources */,
+				C31C6CDD241F53620088632D /* Cocen+UIImage.swift in Sources */,
 				C3FF60C92383E1EC003E57DE /* AppDelegate.swift in Sources */,
 				170FA2E1239CDBA8006A86BD /* UIViewController+TreeMemo.swift in Sources */,
 				C34415D0238F5CB100F0FDD1 /* TreeMemoViewModel.swift in Sources */,
+				C31C6CD4241B300D0088632D /* CloudManager.swift in Sources */,
 				170FA2E523AF3CF8006A86BD /* ImagePickerView.swift in Sources */,
 				C30038BE239A4A5D001DB62F /* OQToggleView.swift in Sources */,
 				170FA2E323A614C0006A86BD /* TextDetailView.swift in Sources */,
@@ -656,12 +680,12 @@
 				C344399E239F827E00A33BA7 /* OQIntFieldView.swift in Sources */,
 				170FA2F423B87A8C006A86BD /* LineButton.swift in Sources */,
 				17ED24C123DD8E8F00538988 /* EnvironmentState.swift in Sources */,
+				C31C6CE0241F5C910088632D /* PinWheelView.swift in Sources */,
 				C3FF60CD2383E1EC003E57DE /* ContentView.swift in Sources */,
 				170FA2F323B87A8C006A86BD /* BezierPath+.swift in Sources */,
 				170FA2FB23B87BCC006A86BD /* OQImageViewController.swift in Sources */,
 				C355BBEC2387C09A0090F7CC /* HeaderView.swift in Sources */,
 				170FA2F723B87A8C006A86BD /* CropView.swift in Sources */,
-				170FA30023B89425006A86BD /* UIImage+OQ.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CloudKit
 
 // MARK: TreeNode
 struct TreeNode: View {
@@ -30,7 +31,7 @@ struct TreeNode: View {
                                     doneCompletion: { (text) in
                                         var tempData = data
                                         tempData.title = text
-                                        TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                        TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                 })
         }, label: {
             Text(data.title)
@@ -50,10 +51,10 @@ struct TreeNode: View {
                             .showTextFieldAlert(title: "Input Title",
                                                 placeHolder: "Input memo title...",
                                                 doneCompletion: { (text) in
-                                                    var tempData = self.treeData
+                                                    var tempData = data
                                                     tempData.title = text
                                                     tempData.value = .none
-                                                    TreeMemoState.shared.treeData[self.treeData.key]!.append(tempData)
+                                                    TreeMemoState.shared.treeData[data.key]!.append(tempData)
                             })
                     }, label: {
                         Image(systemName: "plus.circle")
@@ -79,42 +80,42 @@ struct TreeNode: View {
                     }).actionSheet(isPresented: self.$showingView) {
                         ActionSheet(title: Text("Type Select"), message: Text("Please select memo type or folder."), buttons: [
                             .default(Text("Folder"), action: {
-                                var tempData = self.treeData
+                                var tempData = data
                                 let newChildKey = UUID()
                                 tempData.value = .child(key: newChildKey)
-                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                 let subTreeData = [TreeModel]()
                                 TreeMemoState.shared.treeData.updateValue(subTreeData, forKey: newChildKey)
                             }),
                             .default(Text("Number"), action: {
-                                var tempData = self.treeData
+                                var tempData = data
                                 tempData.value = .int(val: 0)
-                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                             }),
                             .default(Text("Text"), action: {
-                                var tempData = self.treeData
+                                var tempData = data
                                 tempData.value = .text(val: "")
-                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                             }),
                             .default(Text("Long Text"), action: {
-                                var tempData = self.treeData
+                                var tempData = data
                                 tempData.value = .longText(val: "")
-                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                             }),
                             .default(Text("Date"), action: {
-                                var tempData = self.treeData
+                                var tempData = data
                                 tempData.value = .date(val: TreeDateType(date: Date(), type: UIDatePicker.Mode.date.rawValue))
-                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                             }),
                             .default(Text("On/Off"), action: {
-                                var tempData = self.treeData
+                                var tempData = data
                                 tempData.value = .toggle(val: false)
-                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                             }),
                             .default(Text("Image"), action: {
-                                var tempData = self.treeData
+                                var tempData = data
                                 tempData.value = .image(imagePath: "")
-                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                             }),
                             .cancel()
                         ])
@@ -146,7 +147,7 @@ struct TreeNode: View {
                                                 doneCompletion: { (text) in
                                                     var tempData = data
                                                     tempData.value = .text(val: text)
-                                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                                    TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                             })
                     }, label: {
                         Text(val.count > 0 ? val : "...")
@@ -166,7 +167,7 @@ struct TreeNode: View {
                         ViewModel().showDetailView(title: data.title, text: val) { (text) in
                             var tempData = data
                             tempData.value = .longText(val: text)
-                            TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                            TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                         }
                     }, label: {
                         Image(systemName: "doc.plaintext")
@@ -179,13 +180,13 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Stepper(onIncrement: {
-                        var tempData = self.treeData
+                        var tempData = data
                         tempData.value = .int(val: val + 1)
-                        TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                        TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                     }, onDecrement: {
-                        var tempData = self.treeData
+                        var tempData = data
                         tempData.value = .int(val: val - 1)
-                        TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                        TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                     }) {
                         Button(action: {
                             UIApplication.shared.windows[0]
@@ -200,7 +201,7 @@ struct TreeNode: View {
                                             return
                                         }
                                         tempData.value = .int(val: intVal)
-                                        TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                        TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                 })
                         }, label: {
                             Text("\(val)")
@@ -225,7 +226,7 @@ struct TreeNode: View {
                                 pickerView.showDate(title: "Select Date", datePickerMode: UIDatePicker.Mode.dateAndTime) { (date) in
                                     var tempData = data
                                     tempData.value = .date(val: TreeDateType(date: date, type: UIDatePicker.Mode.dateAndTime.rawValue))
-                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                    TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                 }
                                 pickerView.overrideUserInterfaceStyle = .light
                                 
@@ -236,7 +237,7 @@ struct TreeNode: View {
                                 pickerView.showDate(title: "Select Date", datePickerMode: UIDatePicker.Mode.date) { (date) in
                                     var tempData = data
                                     tempData.value = .date(val: TreeDateType(date: date, type: UIDatePicker.Mode.date.rawValue))
-                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                    TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                 }
                                 pickerView.overrideUserInterfaceStyle = .light
                                 
@@ -247,7 +248,7 @@ struct TreeNode: View {
                                 pickerView.showDate(title: "Select Date", datePickerMode: UIDatePicker.Mode.time) { (date) in
                                     var tempData = data
                                     tempData.value = .date(val: TreeDateType(date: date, type: UIDatePicker.Mode.time.rawValue))
-                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                    TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                 }
                                 pickerView.overrideUserInterfaceStyle = .light
                                 
@@ -264,55 +265,78 @@ struct TreeNode: View {
                     self.getTitleView(data: data)
                     Spacer()
                     OQToggleView(model: ToggleModel(isOn: val, action: { (isOn) in
-                        var tempData = self.treeData
+                        var tempData = data
                         tempData.value = .toggle(val: isOn)
-                        TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                        TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                     }))
                 }
             )
-        case .image(let imagePath):
+        case .image(let recordName):
             return AnyView(
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
                         //상세 내용 보기 화면
-                        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-                        let path = "\(documentsPath)/\(imagePath)"
-                        if let image = UIImage(contentsOfFile: path) {
+                        if let image = ViewModel().getImageOrNil(name: recordName) {
                             ViewModel().showImageCropView(image: image) { (image) in
-                                let fileManager = FileManager.default
-                                
                                 guard let newImage = image else {
-                                    //이미지 삭제
-                                    try! fileManager.removeItem(at: URL(fileURLWithPath: path))
-                                    var tempData = self.treeData
+                                    var tempData = data
                                     tempData.value = .image(imagePath: "")
-                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                    TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                     return
                                 }
                                 
-                                guard let data = newImage.jpegData(compressionQuality: 1) ?? newImage.pngData() else {
+                                let resizedImage = newImage.resizeTo1MB()
+                                guard let imgData = resizedImage?.jpegData(compressionQuality: 1) ?? newImage.pngData() else {
                                     return
                                 }
                                 
-                                try! fileManager.removeItem(at: URL(fileURLWithPath: path))
-                                
-                                let fileName = "\(Date().timeIntervalSinceReferenceDate).png"
-                                let newPath = "\(documentsPath)/\(fileName)"
-                                fileManager.createFile(atPath: newPath, contents: data, attributes: nil)
-                                
-                                var tempData = self.treeData
-                                tempData.value = .image(imagePath: fileName)
-                                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                ViewModel().saveImage(data: data, imgData: imgData)
+                                ViewModel().removeImage(name: recordName)   //이미지 삭제
                             }
                         } else {
-                            self.showingView.toggle()
+                            if recordName.count == 0 {
+                                self.showingView.toggle()
+                            } else {
+                                CloudManager.shared.getData(recordType: "Image",
+                                                            recordName: recordName) { (result) in
+                                                                switch result {
+                                                                case .success(let records):
+                                                                    guard let imgData = records[0].value(forKey: "data") as? Data else {
+                                                                        print("No image data!")
+                                                                        return
+                                                                    }
+                                                                    
+                                                                    let newRecordName = records[0].recordID.recordName
+                                                                    
+                                                                    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                                                                    
+                                                                    let newPath = "\(documentsPath)/\(newRecordName).png"
+                                                                    do {
+                                                                        try imgData.write(to: URL(fileURLWithPath: newPath))
+                                                                        
+                                                                        // 데이터가 안바뀌면 리스트도 업데이트 안되기 때문에 다음과 같이 처리
+                                                                        DispatchQueue.main.async {
+                                                                            var tempData = data
+                                                                            tempData.value = .image(imagePath: "")
+                                                                            TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                                                                tempData.value = .image(imagePath: newRecordName)
+                                                                                TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                                                                            }
+                                                                        }
+                                                                    } catch {
+                                                                        print(error.localizedDescription)
+                                                                    }
+                                                                case .failure(let error):
+                                                                    print(error.localizedDescription)
+                                                                }
+                                }
+                            }
                         }
                     }, label: {
-                        { ViewModel().getImage(path: imagePath) }()
-                            .resizable()
-                            .scaledToFit()
+                        ViewModel().getImage(name: recordName)
                     }).actionSheet(isPresented: self.$showingView) {
                         ActionSheet(title: Text("Type Select"), message: Text("Please select Image Picker type."), buttons: [
                             .default(Text("Camera"), action: {
@@ -326,10 +350,8 @@ struct TreeNode: View {
                             .cancel()
                         ])
                     }.sheet(isPresented: $showImagePicker) {
-                        ImagePicker(pickerType: self.pickerType) { (path) in
-                            var tempData = self.treeData
-                            tempData.value = .image(imagePath: path)
-                            TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                        ImagePicker(pickerType: self.pickerType) { (imgData) in
+                            ViewModel().saveImage(data: data, imgData: imgData)
                         }
                     }
                 }

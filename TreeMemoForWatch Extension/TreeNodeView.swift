@@ -68,10 +68,10 @@ struct TreeNode: View {
                 NavigationLink(
                     destination: WatchInputFieldView(desc: "Input memo title.",
                                                      completeHandler: { (text) in
-                                                        var tempData = self.treeData
+                                                        var tempData = data
                                                         tempData.title = text
                                                         tempData.value = .none
-                                                        TreeMemoState.shared.treeData[self.treeData.key]!.append(tempData)
+                                                        TreeMemoState.shared.treeData[data.key]!.append(tempData)
                     })) {
                         HStack {
                             self.getTitleView(data: data)
@@ -100,9 +100,9 @@ struct TreeNode: View {
                             }),
                             .default(Text("On/Off"), action: {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + self.watchDelay) {
-                                    var tempData = self.treeData
+                                    var tempData = data
                                     tempData.value = .toggle(val: false)
-                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                    TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                 }
                             }),
                             .default(Text("Date"), action: {
@@ -113,24 +113,24 @@ struct TreeNode: View {
                             }),
                             .default(Text("Text"), action: {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + self.watchDelay) {
-                                    var tempData = self.treeData
+                                    var tempData = data
                                     tempData.value = .text(val: "")
-                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                    TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                 }
                             }),
                             .default(Text("Number"), action: {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + self.watchDelay) {
-                                    var tempData = self.treeData
+                                    var tempData = data
                                     tempData.value = .int(val: 0)
-                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                    TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                 }
                             }),
                             .default(Text("Folder"), action: {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + self.watchDelay) {
-                                    var tempData = self.treeData
+                                    var tempData = data
                                     let newChildKey = UUID()
                                     tempData.value = .child(key: newChildKey)
-                                    TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                    TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                     let subTreeData = [TreeModel]()
                                     TreeMemoState.shared.treeData.updateValue(subTreeData, forKey: newChildKey)
                                 }
@@ -162,7 +162,7 @@ struct TreeNode: View {
                                                          completeHandler: { (text) in
                                                             var tempData = data
                                                             tempData.value = .text(val: text)
-                                                            TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                                                            TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                         })) {
                             Text(val.count > 0 ? val : "...")
                                 .minimumScaleFactor(0.7)
@@ -194,7 +194,7 @@ struct TreeNode: View {
                         destination: WatchInputNumberView(tempInt: Float(val) ,completeHandler: { (number) in
                             var tempData = data
                             tempData.value = .int(val: number)
-                            TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                            TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                         })) {
                             Text("\(val)")
                     }
@@ -212,9 +212,9 @@ struct TreeNode: View {
             return AnyView(
                 HStack {
                     Button(action: {
-                        var tempData = self.treeData
+                        var tempData = data
                         tempData.value = .toggle(val: !val)
-                        TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
+                        TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                     }, label: {
                         self.getTitleView(data: data)
                         Spacer()

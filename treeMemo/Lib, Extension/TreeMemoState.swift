@@ -31,36 +31,44 @@ class TreeMemoState: ObservableObject {
     @Published var treeData = TreeDataType()
     
     let storedDataKey = "storedDataKey"
-    let treeStore = UserDefaults(suiteName: "group.oq.treememo")!
+    
+    #if os(iOS)
+    let treeStore = CloudManager.shared.store
+    #else
+    let treeStore = UserDefaults.init()
+    #endif
     
     init() {
         self.cancellable = self.$treeData
-            .debounce(for: 0.5, scheduler: RunLoop.main)
-            .map({ (treeData) -> TreeDataType? in
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .sink(receiveValue: { (treeData) in
                 if self.notSaveOnce {
                     self.notSaveOnce = false
-                    return nil
+                    return
                 }
                 
                 print("데이터 저장!")
                 self.saveTreeData(treeData)
                 // Watch <-> Phone Data sharing
-                self.wcSession.sendTreeData(treeData: treeData)
-                return treeData
-            })
-            .debounce(for: 2, scheduler: RunLoop.main)
-            .sink(receiveValue: { (treeData) in
-                guard let treeData = treeData else {
-                    return
-                }
-                
-                print("클라우드 동기화!!")
+                self.wcSession.sendTreeData(data: self.getData(treeData: treeData))
             })
     }
     
     // MARK: 트리데이터 초기화
     func initTreeData() {
-        self.updateTreeDataWithNotSave(treeData: self.loadTreeData())
+        if let data = self.self.treeStore.data(forKey: self.storedDataKey),
+            let treeData = try? PropertyListDecoder().decode(TreeDataType.self, from: data) {
+            
+            self.updateTreeDataWithNotSave(treeData: treeData)
+        } else {
+            //페이지 첫 진입
+            var treeData = TreeDataType()
+            let rootData = [TreeModel]()
+            
+            treeData.updateValue(rootData, forKey: RootKey)
+            self.treeData = treeData
+            self.updateTreeDataWithNotSave(treeData: treeData)
+        }
     }
     
     func saveTreeData(_ value: TreeDataType) {
@@ -69,29 +77,13 @@ class TreeMemoState: ObservableObject {
             return
         }
         
-        treeStore.set(encodedTreeData, forKey: self.storedDataKey)
-    }
-    
-    func loadTreeData() -> TreeDataType {
-        if let data = treeStore.value(forKey: self.storedDataKey) as? Data,
-            let treeData = try? PropertyListDecoder().decode(TreeDataType.self, from: data) {
-            
-            return treeData
-        } else {
-            //페이지 첫 진입
-            var treeData = TreeDataType()
-            let rootData = [TreeModel]()
-            
-            treeData.updateValue(rootData, forKey: RootKey)
-            self.treeData = treeData
-            return treeData
-        }
+        self.treeStore.set(encodedTreeData, forKey: self.storedDataKey)
     }
     
     func removeAllTreeData() {
-        treeStore.removeObject(forKey: self.storedDataKey)
+        self.treeStore.removeObject(forKey: self.storedDataKey)
         self.initTreeData()
-        self.wcSession.sendTreeData(treeData: self.treeData)
+        self.wcSession.sendTreeData(data: self.getData(treeData: self.treeData))
     }
     
     func updateTreeDataWithNotSave(treeData: TreeDataType) {
@@ -180,5 +172,14 @@ class TreeMemoState: ObservableObject {
         default:
             break
         }
+    }
+    
+    func getData(treeData: TreeDataType) -> Data {
+        guard let jsonData = try? JSONEncoder().encode(treeData) else {
+            print("treeData could not encoding!")
+            return Data()
+        }
+
+        return jsonData
     }
 }

@@ -21,6 +21,7 @@ class OQImageViewController: UIViewController {
     var image: UIImage!
     var saveClosure: ((UIImage?) -> Void)?
     @Published var isCropMode = false
+    var isEdited = false
     
     private var cancellableBag = Set<AnyCancellable>()
     
@@ -68,7 +69,10 @@ extension OQImageViewController {
                     self.cropPickerView.image = self.image
                     self.isCropMode = false
                 } else {    //화면 닫기
-                    self.saveClosure?(self.image)
+                    if self.isEdited {
+                        self.saveClosure?(self.image)
+                    }
+                    
                     self.dismiss(animated: true)
                 }
         }.store(in: &self.cancellableBag)
@@ -98,6 +102,7 @@ extension OQImageViewController {
                         
                         self.image = image
                         self.cropPickerView.image = image
+                        self.isEdited = true
                     }
                     self.isCropMode = false
                 } else {    //이미지 삭제
@@ -151,7 +156,9 @@ extension OQImageViewController {
                         UIView.animate(withDuration: 0.2, animations: {
                             self.view.frame.origin.y = self.view.frame.height
                         }, completion: { _ in
-                            self.saveClosure?(self.image)
+                            if self.isEdited {
+                                self.saveClosure?(self.image)
+                            }
                             self.dismiss(animated: true)
                         })
                     } else {

@@ -14,27 +14,28 @@ struct ImagePicker: UIViewControllerRepresentable {
     var presentationMode
     
     let pickerType: UIImagePickerController.SourceType
-    let savePathHandler: (String) -> Void
+    let savePathHandler: (Data) -> Void
     
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         @Binding var presentationMode: PresentationMode
         var image: Image?
-        let savePathHandler: (String) -> Void
+        let savePathHandler: (Data) -> Void
         
         init(presentationMode: Binding<PresentationMode>,
              type: UIImagePickerController.SourceType = .photoLibrary,
-             savePathHandler: @escaping (String) -> Void) {
+             savePathHandler: @escaping (Data) -> Void) {
             _presentationMode = presentationMode
             self.savePathHandler = savePathHandler
         }
         
         func imagePickerController(_ picker: UIImagePickerController,
                                    didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            presentationMode.dismiss()
+            
             let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
             if self.saveImage(image: uiImage) {
                 image = Image(uiImage: uiImage)
             }
-            presentationMode.dismiss()
         }
         
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -42,22 +43,13 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
         
         func saveImage(image: UIImage) -> Bool {
-            guard let data = image.jpegData(compressionQuality: 1) ?? image.pngData() else {
+            let resizedImage = image.resizeTo1MB()
+            guard let data = resizedImage?.jpegData(compressionQuality: 1) ?? image.pngData() else {
                 return false
             }
-            guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
-                return false
-            }
-            do {
-                let fileName = "\(Date().timeIntervalSinceReferenceDate).png"
-                let path = directory.appendingPathComponent(fileName)!
-                try data.write(to: path)
-                self.savePathHandler(fileName)
-                return true
-            } catch {
-                print(error.localizedDescription)
-                return false
-            }
+            
+            self.savePathHandler(data)
+            return true
         }
     }
     

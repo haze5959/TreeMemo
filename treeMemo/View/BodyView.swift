@@ -15,7 +15,7 @@ struct BodyView: View {
     let title: String?
     let treeDataKey: UUID
     
-    //뷰디드로드 같은 초기화 구문이 없어서 이런거 추가함... 스위프트ui 존망이다 진짜
+    // 뷰디드로드 같은 초기화 구문이 없어서 이런거 추가함... 스위프트ui 존망이다 진짜
     @State private var depth: Int = 0
     @State private var isNeedInit = true
     @State private var isNeedDismiss = false

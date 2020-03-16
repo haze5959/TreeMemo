@@ -8,15 +8,70 @@
 
 import UIKit
 import SwiftUI
+import CloudKit
 
 class ViewModel: ObservableObject {
-    func getImage(path: String) -> Image {
+    func getImageOrNil(name: String) -> UIImage? {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let imagePath = "\(documentsPath)/\(path)"
+        let imagePath = "\(documentsPath)/\(name).png"
         if let image = UIImage(contentsOfFile: imagePath) {
-            return Image(uiImage: image)
+            return image
         } else {
-            return Image(systemName: "photo")
+            return nil
+        }
+    }
+    
+    func getImage(name: String) -> some View {
+        if name.count == 0 {
+            return AnyView(Image(systemName: "photo")
+                .padding())
+        } else {
+            if let image = self.getImageOrNil(name: name) {
+                return AnyView(Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .padding(.trailing))
+            } else {
+                return AnyView(Image(systemName: "icloud.and.arrow.down")
+                    .padding())
+            }
+        }
+    }
+    
+    func saveImage(data: TreeModel, imgData: Data) {
+        let record = CKRecord(recordType: "Image")
+        record.setValue(imgData, forKey: "data")
+        CloudManager.shared.makeData(record: record) { (result) in
+            switch result {
+            case .success(let record):
+                let recordName = record.recordID.recordName
+                let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                let newPath = "\(documentsPath)/\(recordName).png"
+                DispatchQueue.main.async {
+                    do {
+                        try imgData.write(to: URL(fileURLWithPath: newPath))
+                        var tempData = data
+                        tempData.value = .image(imagePath: recordName)
+                        TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func removeImage(name: String) {
+        do {
+            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+            let path = "\(documentsPath)/\(name).png"
+            try FileManager.default.removeItem(at: URL(fileURLWithPath: path))
+            
+            CloudManager.shared.deleteData(recordType: "Image", recordName: name)
+        } catch {
+            print(error.localizedDescription)
         }
     }
     

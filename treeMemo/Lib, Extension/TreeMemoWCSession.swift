@@ -18,20 +18,13 @@ class TreeMemoWCSession: NSObject, WCSessionDelegate {
         self.wcSession.activate()
     }
     
-    func sendTreeData(treeData: TreeDataType) {
-        self.wcSession.sendMessageData(self.getData(treeData: treeData),
-                                       replyHandler: nil) { (error) in
-                                        print("wcSession message error: \(error)")
+    func sendTreeData(data: Data) {
+        if self.wcSession.isReachable {
+            self.wcSession.sendMessageData(data,
+                                           replyHandler: nil) { (error) in
+                                            print("wcSession message error: \(error)")
+            }
         }
-    }
-    
-    func getData(treeData: TreeDataType) -> Data {
-        guard let jsonData = try? JSONEncoder().encode(treeData) else {
-            print("treeData could not encoding!")
-            return Data()
-        }
-
-        return jsonData
     }
     
     func decodeData(data: Data) -> TreeDataType {
