@@ -29,7 +29,7 @@ open class PinWheelView {
         self.showProgressView(rootVC.view)
     }
     
-    open func showProgressView(_ view: UIView, text: String = "iCloud Sync...") {
+    open func showProgressView(_ view: UIView, text: String = "iCloud Sync...", completion: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             self.containerView.frame = view.frame
             self.containerView.center = view.center
@@ -55,6 +55,12 @@ open class PinWheelView {
             view.addSubview(self.containerView)
             
             self.activityIndicator.startAnimating()
+            
+            if let completion = completion {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    completion()
+                }
+            }
         }
     }
     

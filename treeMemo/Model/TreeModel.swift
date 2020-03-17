@@ -20,11 +20,11 @@ enum TreeValueType: Codable {
     case none   //설정 안된 초기 셀
     case child(key: UUID)
     case text(val: String)
-    case longText(val: String)
+    case longText(recordName: String)
     case int(val: Int)
     case date(val: TreeDateType)
     case toggle(val: Bool)
-    case image(imagePath: String)
+    case image(recordName: String)
     
     private enum CodingKeys: String, CodingKey {
         case new
@@ -58,7 +58,7 @@ enum TreeValueType: Codable {
             self = .text(val: value)
             return
         } else if let value = try? values.decode(String.self, forKey: .longText) {
-            self = .longText(val: value)
+            self = .longText(recordName: value)
             return
         } else if let value = try? values.decode(Int.self, forKey: .int) {
             self = .int(val: value)
@@ -70,7 +70,7 @@ enum TreeValueType: Codable {
             self = .toggle(val: value)
             return
         } else if let value = try? values.decode(String.self, forKey: .image) {
-            self = .image(imagePath: value)
+            self = .image(recordName: value)
             return
         }
         

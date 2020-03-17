@@ -98,9 +98,20 @@ struct TreeNode: View {
                                 TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                             }),
                             .default(Text("Long Text"), action: {
-                                var tempData = data
-                                tempData.value = .longText(val: "")
-                                TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                                let record = CKRecord(recordType: "Text")
+                                record.setValue("", forKey: "text")
+                                CloudManager.shared.makeData(record: record) { (result) in
+                                    switch result {
+                                    case .success(let record):
+                                        let recordName = record.recordID.recordName
+                                        var tempData = data
+                                        tempData.value = .longText(recordName: recordName)
+                                        TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                                        UserDefaults().set("", forKey: "LT_\(recordName)")
+                                    case .failure(let error):
+                                        print(error.localizedDescription)
+                                    }
+                                }
                             }),
                             .default(Text("Date"), action: {
                                 var tempData = data
@@ -114,7 +125,7 @@ struct TreeNode: View {
                             }),
                             .default(Text("Image"), action: {
                                 var tempData = data
-                                tempData.value = .image(imagePath: "")
+                                tempData.value = .image(recordName: "")
                                 TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                             }),
                             .cancel()
@@ -157,17 +168,26 @@ struct TreeNode: View {
                         .padding()
                 }
             )
-        case .longText(let val):
+        case .longText(let recordName):
             return AnyView(
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
                         //상세 내용 보기 화면
-                        ViewModel().showDetailView(title: data.title, text: val) { (text) in
-                            var tempData = data
-                            tempData.value = .longText(val: text)
-                            TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                        ViewModel().showDetailView(title: data.title, recordName: recordName) { (longText) in
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                CloudManager.shared.updateData(recordName: recordName,
+                                                               key: "text",
+                                                               value: longText as CKRecordValue) { (result) in
+                                                                switch result {
+                                                                case .success:
+                                                                    UserDefaults().set(longText, forKey: "LT_\(recordName)")
+                                                                case .failure(let error):
+                                                                    print(error.localizedDescription)
+                                                                }
+                                }
+                            }
                         }
                     }, label: {
                         Image(systemName: "doc.plaintext")
@@ -268,7 +288,7 @@ struct TreeNode: View {
                         var tempData = data
                         tempData.value = .toggle(val: isOn)
                         TreeMemoState.shared.treeData[data.key]![data.index] = tempData
-                    }))
+                        })).padding()
                 }
             )
         case .image(let recordName):
@@ -282,56 +302,58 @@ struct TreeNode: View {
                             ViewModel().showImageCropView(image: image) { (image) in
                                 guard let newImage = image else {
                                     var tempData = data
-                                    tempData.value = .image(imagePath: "")
+                                    tempData.value = .image(recordName: "")
                                     TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                     return
                                 }
                                 
-                                let resizedImage = newImage.resizeTo1MB()
-                                guard let imgData = resizedImage?.jpegData(compressionQuality: 1) ?? newImage.pngData() else {
+                                guard let imgData = newImage.pngData() else {
                                     return
                                 }
                                 
-                                ViewModel().saveImage(data: data, imgData: imgData)
                                 ViewModel().removeImage(name: recordName)   //이미지 삭제
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    ViewModel().saveImage(data: data, imgData: imgData)
+                                }
                             }
                         } else {
                             if recordName.count == 0 {
                                 self.showingView.toggle()
                             } else {
-                                CloudManager.shared.getData(recordType: "Image",
-                                                            recordName: recordName) { (result) in
-                                                                switch result {
-                                                                case .success(let records):
-                                                                    guard let imgData = records[0].value(forKey: "data") as? Data else {
-                                                                        print("No image data!")
-                                                                        return
-                                                                    }
-                                                                    
-                                                                    let newRecordName = records[0].recordID.recordName
-                                                                    
-                                                                    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-                                                                    
-                                                                    let newPath = "\(documentsPath)/\(newRecordName).png"
-                                                                    do {
-                                                                        try imgData.write(to: URL(fileURLWithPath: newPath))
-                                                                        
-                                                                        // 데이터가 안바뀌면 리스트도 업데이트 안되기 때문에 다음과 같이 처리
-                                                                        DispatchQueue.main.async {
-                                                                            var tempData = data
-                                                                            tempData.value = .image(imagePath: "")
-                                                                            TreeMemoState.shared.treeData[data.key]![data.index] = tempData
-                                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                                                                tempData.value = .image(imagePath: newRecordName)
-                                                                                TreeMemoState.shared.treeData[data.key]![data.index] = tempData
-                                                                            }
-                                                                        }
-                                                                    } catch {
-                                                                        print(error.localizedDescription)
-                                                                    }
-                                                                case .failure(let error):
-                                                                    print(error.localizedDescription)
-                                                                }
+                                CloudManager
+                                    .shared
+                                    .getData(recordType: "Image",
+                                             recordName: recordName) { (result) in
+                                                switch result {
+                                                case .success(let records):
+                                                    guard records.count > 0, let imgData = records[0].value(forKey: "data") as? Data else {
+                                                        print("No image data!")
+                                                        return
+                                                    }
+                                                    
+                                                    let newRecordName = records[0].recordID.recordName
+                                                    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                                                    
+                                                    let newPath = "\(documentsPath)/\(newRecordName).png"
+                                                    do {
+                                                        try imgData.write(to: URL(fileURLWithPath: newPath))
+                                                        
+                                                        // 데이터가 안바뀌면 리스트도 업데이트 안되기 때문에 다음과 같이 처리
+                                                        DispatchQueue.main.async {
+                                                            var tempData = data
+                                                            tempData.value = .image(recordName: "")
+                                                            TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                                                tempData.value = .image(recordName: newRecordName)
+                                                                TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                                                            }
+                                                        }
+                                                    } catch {
+                                                        print(error.localizedDescription)
+                                                    }
+                                                case .failure(let error):
+                                                    print(error.localizedDescription)
+                                                }
                                 }
                             }
                         }
@@ -370,9 +392,9 @@ struct TreeNode_Preview: PreviewProvider {
             TreeNode(treeData: TreeModel(title: "date", value: .date(val: TreeDateType(date: Date(), type: 1)), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "int", value: .int(val: 22), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "text", value: .text(val: "텍스트텍스트텍스트텍스 트텍스트텍스트텍스트텍스트텍스트텍스트텍스 트텍스트텍스트텍스 트텍스트텍스트텍스트텍스트텍스트"), key:RootKey, index: 0))
-            TreeNode(treeData: TreeModel(title: "longText", value: .longText(val: "긴 텍스트"), key:RootKey, index: 0))
+            TreeNode(treeData: TreeModel(title: "longText", value: .longText(recordName: "2123"), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "toggle", value: .toggle(val: true), key:RootKey, index: 0))
-            TreeNode(treeData: TreeModel(title: "image", value: .image(imagePath: "nono"), key:RootKey, index: 0))
+            TreeNode(treeData: TreeModel(title: "image", value: .image(recordName: "12313"), key:RootKey, index: 0))
             
         }.previewLayout(.sizeThatFits)
             .padding(10)

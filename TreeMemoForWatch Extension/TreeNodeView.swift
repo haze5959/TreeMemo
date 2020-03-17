@@ -170,16 +170,14 @@ struct TreeNode: View {
                     }
                 }
             )
-        case .longText(let val):
+        case .longText(let recordName):
             return AnyView(
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
                     NavigationLink(
                         destination:
-                        ScrollView(.vertical) {
-                            Text(val)
-                        }.navigationBarTitle(data.title)
+                        WatchLongTextView(title: data.title, recordName: recordName)
                     ) {
                         Image(systemName: "doc.plaintext")
                     }
@@ -254,9 +252,9 @@ struct TreeNode_Preview: PreviewProvider {
             TreeNode(treeData: TreeModel(title: "date", value: .date(val: TreeDateType(date: Date(), type: 1)), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "int", value: .int(val: 22), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "text", value: .text(val: "텍스트텍스트텍스트텍스 트텍스트텍스트텍스트텍스트텍스트텍스트텍스 트텍스트텍스트텍스 트텍스트텍스트텍스트텍스트텍스트"), key:RootKey, index: 0))
-            TreeNode(treeData: TreeModel(title: "longText", value: .longText(val: "긴 텍스트"), key:RootKey, index: 0))
+            TreeNode(treeData: TreeModel(title: "longText", value: .longText(recordName: "12313"), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "toggle", value: .toggle(val: true), key:RootKey, index: 0))
-            TreeNode(treeData: TreeModel(title: "image", value: .image(imagePath: "nono"), key:RootKey, index: 0))
+            TreeNode(treeData: TreeModel(title: "image", value: .image(recordName: "12313"), key:RootKey, index: 0))
             
         }.previewLayout(.sizeThatFits)
             .padding(10)

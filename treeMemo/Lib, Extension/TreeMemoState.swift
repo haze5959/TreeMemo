@@ -69,6 +69,8 @@ class TreeMemoState: ObservableObject {
             self.treeData = treeData
             self.updateTreeDataWithNotSave(treeData: treeData)
         }
+        
+        self.wcSession.requestTreeData()
     }
     
     func saveTreeData(_ value: TreeDataType) {
@@ -80,15 +82,26 @@ class TreeMemoState: ObservableObject {
         self.treeStore.set(encodedTreeData, forKey: self.storedDataKey)
     }
     
+    #if os(iOS)
     func removeAllTreeData() {
-        self.treeStore.removeObject(forKey: self.storedDataKey)
-        self.initTreeData()
-        self.wcSession.sendTreeData(data: self.getData(treeData: self.treeData))
+        PinWheelView.shared.showProgressView()
+        CloudManager.shared.deleteData(recordType: "Image")
+        CloudManager.shared.deleteData(recordType: "Text")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            PinWheelView.shared.hideProgressView()
+            self.treeStore.removeObject(forKey: self.storedDataKey)
+            self.initTreeData()
+            self.wcSession.sendTreeData(data: self.getData(treeData: self.treeData))
+        }
     }
+    #endif
     
     func updateTreeDataWithNotSave(treeData: TreeDataType) {
-        self.notSaveOnce = true
-        self.treeData = treeData
+        DispatchQueue.main.async {
+            self.notSaveOnce = true
+            self.treeData = treeData
+        }
     }
     
     /**
@@ -109,6 +122,7 @@ class TreeMemoState: ObservableObject {
         return subTreeData
     }
     
+    #if os(iOS)
     func removeTreeData(key: UUID, indexSet: IndexSet) {
         guard var subTreeData = self.treeData[key] else {
             print("Can't find data with key!")
@@ -124,6 +138,29 @@ class TreeMemoState: ObservableObject {
         subTreeData.remove(atOffsets: indexSet)
         self.treeData[key] = subTreeData
     }
+    
+    func removeRecursiveData(treeData: TreeModel) {
+        switch treeData.value {
+        case .child(let key):
+            guard let subTreeDatas = self.treeData[key] else {
+                print("Can't find data with key!")
+                return
+            }
+            
+            for subTreeData in subTreeDatas {
+                self.removeRecursiveData(treeData: subTreeData)
+            }
+            
+            self.treeData.removeValue(forKey: key)
+        case .image(let recordName):
+            CloudManager.shared.deleteData(recordType: "Image", recordName: recordName)
+        case .longText(let recordName):
+            CloudManager.shared.deleteData(recordType: "Text", recordName: recordName)
+        default:
+            break
+        }
+    }
+    #endif
     
     func moveTreeData(key: UUID, indexSet: IndexSet, to destination: Int) {
         guard var subTreeData = self.treeData[key] else {
@@ -154,24 +191,6 @@ class TreeMemoState: ObservableObject {
     
     func getPlusTreeModel(key: UUID, index: Int) -> TreeModel {
         return TreeModel(title: "New", value: .new, key: key, index: index)
-    }
-    
-    func removeRecursiveData(treeData: TreeModel) {
-        switch treeData.value {
-        case .child(let key):
-            guard let subTreeDatas = self.treeData[key] else {
-                print("Can't find data with key!")
-                return
-            }
-            
-            for subTreeData in subTreeDatas {
-                self.removeRecursiveData(treeData: subTreeData)
-            }
-            
-            self.treeData.removeValue(forKey: key)
-        default:
-            break
-        }
     }
     
     func getData(treeData: TreeDataType) -> Data {

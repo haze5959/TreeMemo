@@ -23,6 +23,8 @@ class OQImageViewController: UIViewController {
     @Published var isCropMode = false
     var isEdited = false
     
+    lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handleSheetViewGesture))
+    
     private var cancellableBag = Set<AnyCancellable>()
     
     override func viewDidLoad() {
@@ -50,7 +52,8 @@ extension OQImageViewController {
             self.cropPickerView.image = self.image.rotate(radians: 0)
         }
         
-        self.setScrollHideGesture()
+        
+        self.view.addGestureRecognizer(self.panGesture)
     }
     
     func setBindings() {
@@ -60,6 +63,8 @@ extension OQImageViewController {
                     self.cropPickerView.image = self.cropPickerView.image?.rotate(radians: .pi/2)
                 } else {    //크롭모드 전환
                     self.isCropMode = true
+                    self.shareBtn.isHidden = true
+                    self.panGesture.isEnabled = false
                 }
         }.store(in: &self.cancellableBag)
         
@@ -68,6 +73,8 @@ extension OQImageViewController {
                 if self.isCropMode {
                     self.cropPickerView.image = self.image
                     self.isCropMode = false
+                    self.shareBtn.isHidden = false
+                    self.panGesture.isEnabled = true
                 } else {    //화면 닫기
                     if self.isEdited {
                         self.saveClosure?(self.image)
@@ -105,6 +112,8 @@ extension OQImageViewController {
                         self.isEdited = true
                     }
                     self.isCropMode = false
+                    self.shareBtn.isHidden = false
+                    self.panGesture.isEnabled = true
                 } else {    //이미지 삭제
                     let alertController = UIAlertController(title: "", message: "Are you sure you want to delete the image?", preferredStyle: .alert)
                     alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
@@ -140,11 +149,6 @@ extension OQImageViewController {
 
 // MARK: 숨김 제스쳐 설정 관련
 extension OQImageViewController {
-    func setScrollHideGesture() {
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handleSheetViewGesture))
-        self.view.addGestureRecognizer(panGesture)
-    }
-    
     @IBAction func handleSheetViewGesture(recognizer: UIPanGestureRecognizer) {
         if !self.isCropMode {
             switch recognizer.state {

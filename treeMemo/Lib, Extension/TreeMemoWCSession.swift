@@ -24,6 +24,27 @@ class TreeMemoWCSession: NSObject, WCSessionDelegate {
                                            replyHandler: nil) { (error) in
                                             print("wcSession message error: \(error)")
             }
+        } else {
+            print("WCSession not reachable")
+        }
+    }
+    
+    func requestTreeData() {
+        if self.wcSession.isReachable {
+            self.wcSession.sendMessage(["request": true],
+                                       replyHandler: { (result) in
+                                        if let treeData = result["data"] as? Data {
+                                            let treeModel = self.decodeData(data: treeData)
+                                            TreeMemoState.shared.saveTreeData(treeModel)
+                                            TreeMemoState.shared.updateTreeDataWithNotSave(treeData: treeModel)
+                                        } else {
+                                            print("wcSession message error: type dismatch")
+                                        }
+            }) { (error) in
+                print("wcSession message error: \(error)")
+            }
+        } else {
+            print("WCSession not reachable")
         }
     }
     
@@ -53,8 +74,17 @@ class TreeMemoWCSession: NSObject, WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
         DispatchQueue.main.async {
             let treeData = self.decodeData(data: messageData)
-            TreeMemoState.shared.saveTreeData(treeData) // 클라우드 업데이트를 안하기 위함
+            TreeMemoState.shared.saveTreeData(treeData)
             TreeMemoState.shared.updateTreeDataWithNotSave(treeData: treeData)
+        }
+    }
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        if let isRequest = message["request"] as? Bool {
+            if isRequest {
+                let state = TreeMemoState.shared
+                replyHandler(["data": state.getData(treeData: state.treeData)])
+            }
         }
     }
 }

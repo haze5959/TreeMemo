@@ -30,11 +30,13 @@ struct ImagePicker: UIViewControllerRepresentable {
         
         func imagePickerController(_ picker: UIImagePickerController,
                                    didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            presentationMode.dismiss()
-            
             let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-            if self.saveImage(image: uiImage) {
-                image = Image(uiImage: uiImage)
+            PinWheelView.shared.showProgressView(picker.view) {
+                if self.saveImage(image: uiImage) {
+                    self.image = Image(uiImage: uiImage)
+                }
+
+                self.presentationMode.dismiss()
             }
         }
         
@@ -44,7 +46,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         
         func saveImage(image: UIImage) -> Bool {
             let resizedImage = image.resizeTo1MB()
-            guard let data = resizedImage?.jpegData(compressionQuality: 1) ?? image.pngData() else {
+            guard let data = resizedImage?.pngData() else {
                 return false
             }
             

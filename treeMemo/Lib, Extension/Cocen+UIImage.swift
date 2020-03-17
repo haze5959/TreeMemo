@@ -169,7 +169,7 @@ public extension UIImage {
         var imageSizeKB = Double(imgData.count) / 1000.0
         
         while imageSizeKB > 1000 {
-            guard let resizedImage = resizingImage.resizedImage(percentage: 0.9),
+            guard let resizedImage = resizingImage.resizedImage(percentage: 0.8),
                 let imageData = resizingImage.pngData() else {
                     return nil
             }

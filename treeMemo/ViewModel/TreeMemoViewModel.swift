@@ -51,7 +51,7 @@ class ViewModel: ObservableObject {
                     do {
                         try imgData.write(to: URL(fileURLWithPath: newPath))
                         var tempData = data
-                        tempData.value = .image(imagePath: recordName)
+                        tempData.value = .image(recordName: recordName)
                         TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                     } catch {
                         print(error.localizedDescription)
@@ -94,11 +94,34 @@ class ViewModel: ObservableObject {
         return dateFormatter.string(from: date)
     }
     
-    func showDetailView(title: String, text: String, completion: @escaping (String)->Void) {
-        let rootVC = UIApplication.shared.windows[0].rootViewController
-        let textDetailVC = UIHostingController(rootView: TextDetailView(title: title, text: text, completeHandler: completion))
-        
-        rootVC?.present(textDetailVC, animated: true)
+    func showDetailView(title: String, recordName: String, completion: @escaping (String)->Void) {
+        if let longText = UserDefaults().string(forKey: "LT_\(recordName)") {
+            let rootVC = UIApplication.shared.windows[0].rootViewController
+            let textDetailVC = UIHostingController(rootView: TextDetailView(title: title, text: longText, completeHandler: completion))
+            
+            rootVC?.present(textDetailVC, animated: true)
+        } else {    // 클라우드에서 값을 가져온다.
+            CloudManager.shared.getData(recordType: "Text",
+                                        recordName: recordName) { (result) in
+                                            switch result {
+                                            case .success(let records):
+                                                guard records.count > 0, let longText = records[0].value(forKey: "text") as? String else {
+                                                    print("No longText data!")
+                                                    return
+                                                }
+                                                
+                                                UserDefaults().set(longText, forKey: "LT_\(recordName)")
+                                                DispatchQueue.main.async {
+                                                    let rootVC = UIApplication.shared.windows[0].rootViewController
+                                                    let textDetailVC = UIHostingController(rootView: TextDetailView(title: title, text: longText, completeHandler: completion))
+                                                    
+                                                    rootVC?.present(textDetailVC, animated: true)
+                                                }
+                                            case .failure(let error):
+                                                print(error.localizedDescription)
+                                            }
+            }
+        }
     }
     
     func showImageCropView(image: UIImage, saveClosure: @escaping (UIImage?) -> Void) {

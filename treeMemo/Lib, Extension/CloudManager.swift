@@ -22,6 +22,7 @@ class CloudManager {
     
     var container: CKContainer!
     var privateDB: CKDatabase!
+    
     let store = NSUbiquitousKeyValueStore.default
     
     init() {
@@ -39,6 +40,12 @@ class CloudManager {
             //The user’s iCloud account is available..
             self.container = CKContainer.init(identifier: "iCloud.com.oq.treememo")
             self.privateDB = self.container.privateCloudDatabase
+            
+            NotificationCenter
+                .default
+                .addObserver(self, selector: #selector(self.ubiquitousKeyValueStoreDidChange),
+                             name: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
+                             object: self.store)
         }
     }
     
@@ -130,11 +137,14 @@ class CloudManager {
         }
     }
     
-    func deleteData(recordType: String, recordName: String) {
-        let recordID = CKRecord(recordType: recordType, recordID: .init(recordName: recordName))
-        let predicate = NSPredicate(format: "recordID = %@", recordID)
-        let query = CKQuery(recordType: recordType, predicate: predicate)
+    func deleteData(recordType: String, recordName: String? = nil) {
+        var predicate = NSPredicate(value: true)
+        if let recordName = recordName {
+            let recordID = CKRecord(recordType: recordType, recordID: .init(recordName: recordName))
+            predicate = NSPredicate(format: "recordID = %@", recordID)
+        }
         
+        let query = CKQuery(recordType: recordType, predicate: predicate)
         self.privateDB.perform(query, inZoneWith: nil) { records, error in
             guard error == nil else {
                 print("err: \(String(describing: error))")
@@ -159,5 +169,9 @@ class CloudManager {
             
             rootVC.present(alert, animated: true)
         }
+    }
+    
+    @objc public func ubiquitousKeyValueStoreDidChange(notification: NSNotification) {
+        TreeMemoState.shared.initTreeData()
     }
 }
