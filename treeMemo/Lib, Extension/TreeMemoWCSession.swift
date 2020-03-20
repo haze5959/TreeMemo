@@ -18,17 +18,20 @@ class TreeMemoWCSession: NSObject, WCSessionDelegate {
         self.wcSession.activate()
     }
     
-    func sendTreeData(data: Data) {
+    func sendTreeData(data: Data, completion: ((Bool) -> Void)? = nil) {
         if self.wcSession.isReachable {
             self.wcSession.sendMessageData(data,
                                            replyHandler: nil) { (error) in
                                             print("wcSession message error: \(error)")
+                                            completion?(false)
             }
         } else {
             print("WCSession not reachable")
+            completion?(false)
         }
     }
     
+    #if os(watchOS)
     func requestTreeData() {
         if self.wcSession.isReachable {
             self.wcSession.sendMessage(["request": true],
@@ -39,14 +42,18 @@ class TreeMemoWCSession: NSObject, WCSessionDelegate {
                                             TreeMemoState.shared.updateTreeDataWithNotSave(treeData: treeModel)
                                         } else {
                                             print("wcSession message error: type dismatch")
+                                            WatchAlertState.shared.notPared = true
                                         }
             }) { (error) in
                 print("wcSession message error: \(error)")
+                WatchAlertState.shared.notPared = true
             }
         } else {
             print("WCSession not reachable")
+            WatchAlertState.shared.notPared = true
         }
     }
+    #endif
     
     func decodeData(data: Data) -> TreeDataType {
         guard let treeData = try? JSONDecoder().decode(TreeDataType.self, from: data) else {
@@ -58,7 +65,14 @@ class TreeMemoWCSession: NSObject, WCSessionDelegate {
     }
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print("Watch activationState: \(activationState)")
+        switch activationState {
+        case .activated:
+            print("Watch activationState: activated")
+        case .inactive:
+            print("Watch activationState: inactive")
+        case .notActivated:
+            print("Watch activationState: notActivated")
+        }
     }
     
 #if os(iOS)

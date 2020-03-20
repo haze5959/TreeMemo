@@ -21,6 +21,7 @@
 		170FA2FB23B87BCC006A86BD /* OQImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170FA2F923B87BCC006A86BD /* OQImageViewController.swift */; };
 		170FA2FC23B87BCC006A86BD /* OQImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 170FA2FA23B87BCC006A86BD /* OQImageViewController.xib */; };
 		170FA2FE23B8813F006A86BD /* Combine+OQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170FA2FD23B8813F006A86BD /* Combine+OQ.swift */; };
+		17E86D1224222C9E00D2CB19 /* WatchAlertState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E86D1124222C9E00D2CB19 /* WatchAlertState.swift */; };
 		17ED24BF23DD881600538988 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ED24BE23DD881600538988 /* SideMenuView.swift */; };
 		17ED24C123DD8E8F00538988 /* EnvironmentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ED24C023DD8E8F00538988 /* EnvironmentState.swift */; };
 		17ED24C323DD9D8D00538988 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ED24C223DD9D8D00538988 /* CircleImageView.swift */; };
@@ -137,6 +138,7 @@
 		170FA2F923B87BCC006A86BD /* OQImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQImageViewController.swift; sourceTree = "<group>"; };
 		170FA2FA23B87BCC006A86BD /* OQImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OQImageViewController.xib; sourceTree = "<group>"; };
 		170FA2FD23B8813F006A86BD /* Combine+OQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+OQ.swift"; sourceTree = "<group>"; };
+		17E86D1124222C9E00D2CB19 /* WatchAlertState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAlertState.swift; sourceTree = "<group>"; };
 		17ED24BE23DD881600538988 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		17ED24C023DD8E8F00538988 /* EnvironmentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentState.swift; sourceTree = "<group>"; };
 		17ED24C223DD9D8D00538988 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				C31239A023FD1C8500E4D82B /* BodyView.swift */,
 				C3CDC2A52408F732005A7CF9 /* WatchInputFieldView.swift */,
 				C31C6CE32420740A0088632D /* WatchLongTextView.swift */,
+				17E86D1124222C9E00D2CB19 /* WatchAlertState.swift */,
 			);
 			path = "TreeMemoForWatch Extension";
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				C312398423FD1ACB00E4D82B /* NotificationView.swift in Sources */,
 				C312398623FD1ACB00E4D82B /* ComplicationController.swift in Sources */,
 				C30D9F74240CAF3B00C60019 /* WatchInputNumberView.swift in Sources */,
+				17E86D1224222C9E00D2CB19 /* WatchAlertState.swift in Sources */,
 				C312399F23FD1C3200E4D82B /* TreeModel.swift in Sources */,
 				C312399C23FD1C0C00E4D82B /* EnvironmentState.swift in Sources */,
 			);

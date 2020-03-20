@@ -12,7 +12,6 @@ import SwiftUI
 struct TreeNode: View {
     var treeData: TreeModel
     @State var showingView = false
-    @State var showingAlert = false
     
     @Environment(\.presentationMode) var presentation
     let watchDelay = DispatchTimeInterval.milliseconds(500)   // 뷰 관련 작업 중 바로하면 안먹히는게 있어서 딜레이 적용
@@ -57,7 +56,7 @@ struct TreeNode: View {
     func showAlertAboutNotSupport() {
         DispatchQueue.main.asyncAfter(deadline: .now() + self.watchDelay) {
             print("워치에서는 설정 불가")
-            self.showingAlert = true
+            WatchAlertState.shared.notSupport = true
         }
     }
     
@@ -136,8 +135,6 @@ struct TreeNode: View {
                                 }
                             }),
                         ])
-                    }.alert(isPresented: self.$showingAlert) {
-                        Alert(title: Text("This feature is not supported on Apple Watch."))
                     }
                 }
             )
@@ -233,9 +230,7 @@ struct TreeNode: View {
                         self.showAlertAboutNotSupport()
                     }, label: {
                         Image(systemName: "photo")
-                    }).alert(isPresented: self.$showingAlert) {
-                        Alert(title: Text("This feature is not supported on Apple Watch."))
-                    }
+                    })
                 }
             )
         }
