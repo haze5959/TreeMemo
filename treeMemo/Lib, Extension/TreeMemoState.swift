@@ -34,9 +34,6 @@ class TreeMemoState: ObservableObject {
     
     #if os(iOS)
     let treeStore = CloudManager.shared.store
-    #else
-    let treeStore = UserDefaults.init()
-    #endif
     
     init() {
         self.cancellable = self.$treeData
@@ -53,9 +50,37 @@ class TreeMemoState: ObservableObject {
                 self.wcSession.sendTreeData(data: self.getData(treeData: treeData))
             })
     }
+    #else
+    let treeStore = UserDefaults.init()
+    
+    init() {
+        self.cancellable = self.$treeData
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .sink(receiveValue: { (treeData) in
+                if self.notSaveOnce {
+                    self.notSaveOnce = false
+                    return
+                }
+                
+                print("데이터 저장!")
+                
+                // Watch <-> Phone Data sharing
+                self.wcSession.sendTreeData(data: self.getData(treeData: treeData)) { (isSuccess) in
+                    if isSuccess {
+                        self.saveTreeData(treeData)
+                    } else {
+                        WatchAlertState.shared.notPared = true
+                    }
+                }
+            })
+    }
+    #endif
+    
+    
     
     // MARK: 트리데이터 초기화
     func initTreeData() {
+        #if os(iOS)
         if let data = self.self.treeStore.data(forKey: self.storedDataKey),
             let treeData = try? PropertyListDecoder().decode(TreeDataType.self, from: data) {
             
@@ -69,8 +94,9 @@ class TreeMemoState: ObservableObject {
             self.treeData = treeData
             self.updateTreeDataWithNotSave(treeData: treeData)
         }
-        
+        #else
         self.wcSession.requestTreeData()
+        #endif
     }
     
     func saveTreeData(_ value: TreeDataType) {
