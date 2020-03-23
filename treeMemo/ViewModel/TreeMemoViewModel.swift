@@ -6,7 +6,9 @@
 //  Copyright © 2019 OGyu kwon. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
+#endif
 import SwiftUI
 import CloudKit
 

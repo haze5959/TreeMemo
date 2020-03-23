@@ -6,7 +6,7 @@
 //  Copyright © 2019 OGyu kwon. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 let RootKey = UUID(uuidString: "00000000-0000-0000-0000-000000000000")!
 

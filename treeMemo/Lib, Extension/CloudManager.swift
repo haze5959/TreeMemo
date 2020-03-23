@@ -6,8 +6,10 @@
 //  Copyright © 2020 OGyu kwon. All rights reserved.
 //
 
-import Foundation
+#if os(iOS)
 import UIKit
+#endif
+import Foundation
 import CloudKit
 
 enum CMError: Error {
