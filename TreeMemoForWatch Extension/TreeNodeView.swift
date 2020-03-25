@@ -56,7 +56,7 @@ struct TreeNode: View {
     func showAlertAboutNotSupport() {
         DispatchQueue.main.asyncAfter(deadline: .now() + self.watchDelay) {
             print("워치에서는 설정 불가")
-            WatchAlertState.shared.notSupport = true
+            WatchAlertState.shared.show(showCase: .notSupport)
         }
     }
     

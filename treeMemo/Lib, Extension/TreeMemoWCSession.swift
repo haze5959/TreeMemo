@@ -42,15 +42,15 @@ class TreeMemoWCSession: NSObject, WCSessionDelegate {
                                             TreeMemoState.shared.updateTreeDataWithNotSave(treeData: treeModel)
                                         } else {
                                             print("wcSession message error: type dismatch")
-                                            WatchAlertState.shared.notPared = true
+                                            WatchAlertState.shared.show(showCase: .notPared)
                                         }
             }) { (error) in
                 print("wcSession message error: \(error)")
-                WatchAlertState.shared.notPared = true
+                WatchAlertState.shared.show(showCase: .notPared)
             }
         } else {
             print("WCSession not reachable")
-            WatchAlertState.shared.notPared = true
+            WatchAlertState.shared.show(showCase: .notPared)
         }
     }
     #endif

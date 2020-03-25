@@ -17,10 +17,14 @@ struct ContentView: View {
             VStack {
                 //바디
                 BodyView(title: nil, treeDataKey: RootKey)
-                    .alert(isPresented: self.$alertState.notSupport) {
-                        Alert(title: Text(self.alertState.notSupportText))}
-                    .alert(isPresented: self.$alertState.notPared) {
-                        Alert(title: Text(self.alertState.notParedText))}
+                    .alert(isPresented: self.$alertState.showAlert) {
+                        switch self.alertState.activeAlert {
+                        case .notSupport:
+                            return Alert(title: Text(self.alertState.notSupportText))
+                        case .notPared:
+                            return Alert(title: Text(self.alertState.notParedText))
+                        }
+                }
             }
         }
     }

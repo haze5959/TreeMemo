@@ -9,11 +9,21 @@
 import SwiftUI
 import Combine
 
+enum ActiveAlert {
+    case notSupport
+    case notPared
+}
+
 class WatchAlertState: ObservableObject {
     static let shared = WatchAlertState()
-    @Published var notSupport = false
-    @Published var notPared = false
+    @Published var showAlert = false
+    var activeAlert: ActiveAlert = .notSupport
     
     let notSupportText = "This feature is not supported on Apple Watch."
     let notParedText = "Can't pair with the iPhone app. Please open or restart the iPhone app."
+    
+    func show(showCase: ActiveAlert) {
+        self.activeAlert = showCase
+        self.showAlert = true
+    }
 }

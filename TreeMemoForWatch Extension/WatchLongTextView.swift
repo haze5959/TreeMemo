@@ -19,6 +19,7 @@ struct WatchLongTextView: View {
         ScrollView(.vertical) {
             Text(self.text)
                 .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .center)
         }.navigationBarTitle(self.title)
             .onAppear {
                 self.getTextData(recordName: self.recordName) { (result) in

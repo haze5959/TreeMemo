@@ -55,7 +55,7 @@ class TreeMemoState: ObservableObject {
     
     init() {
         self.cancellable = self.$treeData
-            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .debounce(for: 0.5, scheduler: RunLoop.main)
             .sink(receiveValue: { (treeData) in
                 if self.notSaveOnce {
                     self.notSaveOnce = false
@@ -69,7 +69,7 @@ class TreeMemoState: ObservableObject {
                     if isSuccess {
                         self.saveTreeData(treeData)
                     } else {
-                        WatchAlertState.shared.notPared = true
+                        WatchAlertState.shared.show(showCase: .notPared)
                     }
                 }
             })
@@ -95,6 +95,7 @@ class TreeMemoState: ObservableObject {
             self.updateTreeDataWithNotSave(treeData: treeData)
         }
         #else
+        self.notSaveOnce = true
         self.wcSession.requestTreeData()
         #endif
     }
@@ -136,9 +137,14 @@ class TreeMemoState: ObservableObject {
     func getTreeData(key: UUID, isEditMode: Bool = false) -> [TreeModel] {
         guard var subTreeData = self.treeData[key] else {
             print("Can't find data with key!")
+            #if os(iOS)
             let subTreeData = [TreeModel]()
             self.treeData.updateValue(subTreeData, forKey: key)
             return subTreeData
+            #else
+            WatchAlertState.shared.show(showCase: .notPared)
+            return [TreeModel]()
+            #endif
         }
         
         if !isEditMode || subTreeData.count == 0 {
