@@ -22,7 +22,9 @@ struct ContentView: View {
                         case .notSupport:
                             return Alert(title: Text(self.alertState.notSupportText))
                         case .notPared:
-                            return Alert(title: Text(self.alertState.notParedText))
+                            return Alert(title: Text(self.alertState.notParedText), dismissButton: .cancel(Text("Refresh"), action: {
+                                TreeMemoState.shared.wcSession.requestTreeData()
+                            }))
                         }
                 }
             }

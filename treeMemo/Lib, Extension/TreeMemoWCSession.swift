@@ -72,6 +72,8 @@ class TreeMemoWCSession: NSObject, WCSessionDelegate {
             print("Watch activationState: inactive")
         case .notActivated:
             print("Watch activationState: notActivated")
+        default:
+            break
         }
     }
     
