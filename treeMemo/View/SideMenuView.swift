@@ -37,6 +37,8 @@ struct SideMenuView: View {
                     
                     Button(action: {
                         print("프리미엄 버전 구입")
+                        let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
+                        sceneDelegate.showPhurcaseDialog()
                     }) {
                         HStack {
                             Image(systemName: "rosette")

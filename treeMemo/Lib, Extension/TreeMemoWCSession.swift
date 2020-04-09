@@ -32,23 +32,28 @@ class TreeMemoWCSession: NSObject, WCSessionDelegate {
     }
     
     #if os(watchOS)
+    var isParingSuccess = false
     func requestTreeData() {
         if self.wcSession.isReachable {
             self.wcSession.sendMessage(["request": true],
                                        replyHandler: { (result) in
                                         if let treeData = result["data"] as? Data {
+                                            self.isParingSuccess = true
                                             let treeModel = self.decodeData(data: treeData)
                                             TreeMemoState.shared.saveTreeData(treeModel)
                                             TreeMemoState.shared.updateTreeDataWithNotSave(treeData: treeModel)
                                         } else {
+                                            self.isParingSuccess = false
                                             print("wcSession message error: type dismatch")
                                             WatchAlertState.shared.show(showCase: .notPared)
                                         }
             }) { (error) in
+                self.isParingSuccess = false
                 print("wcSession message error: \(error)")
                 WatchAlertState.shared.show(showCase: .notPared)
             }
         } else {
+            self.isParingSuccess = false
             print("WCSession not reachable")
             WatchAlertState.shared.show(showCase: .notPared)
         }
