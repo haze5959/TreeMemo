@@ -23,7 +23,9 @@ struct ContentView: View {
                             return Alert(title: Text(self.alertState.notSupportText))
                         case .notPared:
                             return Alert(title: Text(self.alertState.notParedText), dismissButton: .cancel(Text("Refresh"), action: {
-                                TreeMemoState.shared.wcSession.requestTreeData()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                    TreeMemoState.shared.wcSession.requestTreeData()
+                                }
                             }))
                         }
                 }

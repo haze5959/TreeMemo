@@ -99,7 +99,7 @@ class TreeMemoState: ObservableObject {
             self.updateTreeDataWithNotSave(treeData: treeData)
         }
         #else
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.notSaveOnce = true
             self.wcSession.requestTreeData()
         }
