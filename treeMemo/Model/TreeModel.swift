@@ -25,6 +25,7 @@ enum TreeValueType: Codable {
     case date(val: TreeDateType)
     case toggle(val: Bool)
     case image(recordName: String)
+    case link(val: String)
     
     private enum CodingKeys: String, CodingKey {
         case new
@@ -36,6 +37,7 @@ enum TreeValueType: Codable {
         case date
         case toggle
         case image
+        case link
     }
     
     enum TreeValueTypeCodingError: Error {
@@ -72,6 +74,9 @@ enum TreeValueType: Codable {
         } else if let value = try? values.decode(String.self, forKey: .image) {
             self = .image(recordName: value)
             return
+        } else if let value = try? values.decode(String.self, forKey: .link) {
+            self = .link(val: value)
+            return
         }
         
         throw TreeValueTypeCodingError.decoding("Whoops! \(dump(values))")
@@ -98,6 +103,8 @@ enum TreeValueType: Codable {
             try container.encode(val, forKey: .toggle)
         case .image(let imageData):
             try container.encode(imageData, forKey: .image)
+        case .link(let val):
+            try container.encode(val, forKey: .link)
         }
     }
 }

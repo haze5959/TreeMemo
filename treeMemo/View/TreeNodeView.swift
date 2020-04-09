@@ -128,6 +128,11 @@ struct TreeNode: View {
                                 tempData.value = .image(recordName: "")
                                 TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                             }),
+                            .default(Text("Link"), action: {
+                                var tempData = data
+                                tempData.value = .link(val: "")
+                                TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                            }),
                             .cancel()
                         ])
                     }
@@ -288,7 +293,7 @@ struct TreeNode: View {
                         var tempData = data
                         tempData.value = .toggle(val: isOn)
                         TreeMemoState.shared.treeData[data.key]![data.index] = tempData
-                        })).padding()
+                    })).padding()
                 }
             )
         case .image(let recordName):
@@ -378,6 +383,55 @@ struct TreeNode: View {
                     }
                 }
             )
+        case .link(let val):
+            return AnyView(
+                HStack {
+                    self.getTitleView(data: data)
+                    Spacer()
+                    Button(action: {
+                        self.showingView.toggle()
+                    }, label: {
+                        Image(systemName: "link")
+                            .padding()
+                    }).actionSheet(isPresented: self.$showingView) {
+                        ActionSheet(title: Text("Menu"), message: Text("Please select menu."), buttons: [
+                            .default(Text("Add website"), action: {
+                                UIApplication.shared.windows[0]
+                                    .rootViewController?
+                                    .showTextFieldAlert(title: "Input Value",
+                                                        text: "",
+                                                        placeHolder: "www.google.com",
+                                                        doneCompletion: { (text) in
+                                                            var tempData = data
+                                                            tempData.value = .link(val: text)
+                                                            TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                                    })
+                            }),
+                            .default(Text("Add phone number"), action: {
+                                UIApplication.shared.windows[0]
+                                    .rootViewController?
+                                    .showTextFieldAlert(title: "Input Value",
+                                                        text: "",
+                                                        placeHolder: "tel number...",
+                                                        isNumberOnly: true,
+                                                        doneCompletion: { (text) in
+                                                            var tempData = data
+                                                            tempData.value = .link(val: "tel:\(text)")
+                                                            TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                                    })
+                            }),
+                            .default(Text("Open"), action: {
+                                if !ViewModel().openLink(val) {
+                                    print("url is unavailable: \(val)")
+                                    UIApplication.shared.windows[0]
+                                        .rootViewController?.showConfirmAlert(title: "Info", message: "link is unavailable. [\(val)]")
+                                }
+                            }),
+                            .cancel()
+                        ])
+                    }
+                }
+            )
         }
     }
 }
@@ -395,7 +449,7 @@ struct TreeNode_Preview: PreviewProvider {
             TreeNode(treeData: TreeModel(title: "longText", value: .longText(recordName: "2123"), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "toggle", value: .toggle(val: true), key:RootKey, index: 0))
             TreeNode(treeData: TreeModel(title: "image", value: .image(recordName: "12313"), key:RootKey, index: 0))
-            
+            TreeNode(treeData: TreeModel(title: "link", value: .link(val: "www.naver.com"), key:RootKey, index: 0))
         }.previewLayout(.sizeThatFits)
             .padding(10)
     }

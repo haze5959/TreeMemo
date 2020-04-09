@@ -50,6 +50,13 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
+    func showConfirmAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true)
+    }
+    
     /**
      키보드 가리기 제스처 추가
      */

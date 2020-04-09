@@ -79,6 +79,8 @@
 		C355BBEC2387C09A0090F7CC /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C355BBEB2387C09A0090F7CC /* HeaderView.swift */; };
 		C355BBEE2387C2780090F7CC /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C355BBED2387C2780090F7CC /* BodyView.swift */; };
 		C36AC523238CCE9A00237549 /* TreeMemoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36AC522238CCE9A00237549 /* TreeMemoState.swift */; };
+		C3C82027243EE39500F554A4 /* Cocen+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C82026243EE39500F554A4 /* Cocen+String.swift */; };
+		C3C82028243EE39F00F554A4 /* Cocen+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C82026243EE39500F554A4 /* Cocen+String.swift */; };
 		C3CDC2A62408F732005A7CF9 /* WatchInputFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDC2A52408F732005A7CF9 /* WatchInputFieldView.swift */; };
 		C3FF60C92383E1EC003E57DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF60C82383E1EC003E57DE /* AppDelegate.swift */; };
 		C3FF60CB2383E1EC003E57DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF60CA2383E1EC003E57DE /* SceneDelegate.swift */; };
@@ -232,6 +234,7 @@
 		C355BBEB2387C09A0090F7CC /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C355BBED2387C2780090F7CC /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
 		C36AC522238CCE9A00237549 /* TreeMemoState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoState.swift; sourceTree = "<group>"; };
+		C3C82026243EE39500F554A4 /* Cocen+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Cocen+String.swift"; sourceTree = "<group>"; };
 		C3CDC2A52408F732005A7CF9 /* WatchInputFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchInputFieldView.swift; sourceTree = "<group>"; };
 		C3FF60C52383E1EC003E57DE /* treeMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treeMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3FF60C82383E1EC003E57DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -475,6 +478,7 @@
 		C3FF611023862223003E57DE /* Lib, Extension */ = {
 			isa = PBXGroup;
 			children = (
+				C3C82026243EE39500F554A4 /* Cocen+String.swift */,
 				C31C6CDF241F5C910088632D /* PinWheelView.swift */,
 				C31C6CDC241F53620088632D /* Cocen+UIImage.swift */,
 				170FA2E823B87A8C006A86BD /* CropPickerView */,
@@ -725,6 +729,7 @@
 				C312399923FD1C0C00E4D82B /* TreeMemoState.swift in Sources */,
 				C312398423FD1ACB00E4D82B /* NotificationView.swift in Sources */,
 				C312398623FD1ACB00E4D82B /* ComplicationController.swift in Sources */,
+				C3C82028243EE39F00F554A4 /* Cocen+String.swift in Sources */,
 				C30D9F74240CAF3B00C60019 /* WatchInputNumberView.swift in Sources */,
 				17E86D1224222C9E00D2CB19 /* WatchAlertState.swift in Sources */,
 				C312399F23FD1C3200E4D82B /* TreeModel.swift in Sources */,
@@ -796,6 +801,7 @@
 				17ED24C123DD8E8F00538988 /* EnvironmentState.swift in Sources */,
 				C31C6CE0241F5C910088632D /* PinWheelView.swift in Sources */,
 				C3FF60CD2383E1EC003E57DE /* ContentView.swift in Sources */,
+				C3C82027243EE39500F554A4 /* Cocen+String.swift in Sources */,
 				170FA2F323B87A8C006A86BD /* BezierPath+.swift in Sources */,
 				170FA2FB23B87BCC006A86BD /* OQImageViewController.swift in Sources */,
 				C355BBEC2387C09A0090F7CC /* HeaderView.swift in Sources */,

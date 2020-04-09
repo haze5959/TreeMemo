@@ -142,4 +142,33 @@ class ViewModel: ObservableObject {
         let presentedVC = rootVC?.presentedViewController
         presentedVC?.dismiss(animated: true)
     }
+    
+    func openLink(_ url: String) -> Bool {
+        var aUrl: String
+        
+        if !url.isEmpty {
+            aUrl = url
+        } else {
+            return false
+        }
+        
+        if !url.isRegex("://") && !url.isRegex("tel:") {
+            if url.isPhoneNumber() {
+                aUrl = "telprompt://" + url
+            } else {
+                aUrl = "http://" + url
+            }
+        }
+        
+        if let bUrl: URL = URL(string: aUrl) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(bUrl, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(bUrl)
+            }
+            return true
+        } else {
+            return false
+        }
+    }
 }

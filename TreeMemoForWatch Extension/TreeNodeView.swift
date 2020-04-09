@@ -215,6 +215,18 @@ struct TreeNode: View {
                     })
                 }
             )
+        case .link:
+            return AnyView(
+                HStack {
+                    self.getTitleView(data: data)
+                    Spacer()
+                    Button(action: {
+                        self.showAlertAboutNotSupport()
+                    }, label: {
+                        Image(systemName: "link")
+                    })
+                }
+            )
         }
     }
 }
