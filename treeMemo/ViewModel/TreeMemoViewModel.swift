@@ -100,7 +100,7 @@ class ViewModel: ObservableObject {
         if let longText = UserDefaults().string(forKey: "LT_\(recordName)") {
             let rootVC = UIApplication.shared.windows[0].rootViewController
             let textDetailVC = UIHostingController(rootView: TextDetailView(title: title, text: longText, completeHandler: completion))
-            
+            textDetailVC.modalPresentationStyle = .fullScreen
             rootVC?.present(textDetailVC, animated: true)
         } else {    // 클라우드에서 값을 가져온다.
             CloudManager.shared.getData(recordType: "Text",
@@ -116,7 +116,7 @@ class ViewModel: ObservableObject {
                                                 DispatchQueue.main.async {
                                                     let rootVC = UIApplication.shared.windows[0].rootViewController
                                                     let textDetailVC = UIHostingController(rootView: TextDetailView(title: title, text: longText, completeHandler: completion))
-                                                    
+                                                    textDetailVC.modalPresentationStyle = .fullScreen
                                                     rootVC?.present(textDetailVC, animated: true)
                                                 }
                                             case .failure(let error):

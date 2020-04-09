@@ -22,15 +22,6 @@ struct TreeNode: View {
     }
     
     func getTitleView(data: TreeModel) -> some View {
-        // 셀 하나에 링크를 두개 이상 추가하면 링크들이 전부 클릭되어버려서 없앰
-        //        return NavigationLink(
-        //            destination: WatchInputFieldView(completeHandler: { (text) in
-        //                var tempData = data
-        //                tempData.title = text
-        //                TreeMemoState.shared.treeData[self.treeData.key]![self.treeData.index] = tempData
-        //            })) {
-        //                Text(data.title)
-        //        }
         return Text(data.title)
     }
     
@@ -94,21 +85,12 @@ struct TreeNode: View {
                             .frame(width: 25, height: 25)
                     }).actionSheet(isPresented: self.$showingView) {
                         ActionSheet(title: Text("Type Select"), message: Text("Please select memo type or folder."), buttons: [
-                            .default(Text("Image"), action: {
-                                self.showAlertAboutNotSupport()
-                            }),
                             .default(Text("On/Off"), action: {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + self.watchDelay) {
                                     var tempData = data
                                     tempData.value = .toggle(val: false)
                                     TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                 }
-                            }),
-                            .default(Text("Date"), action: {
-                                self.showAlertAboutNotSupport()
-                            }),
-                            .default(Text("Long Text"), action: {
-                                self.showAlertAboutNotSupport()
                             }),
                             .default(Text("Text"), action: {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + self.watchDelay) {

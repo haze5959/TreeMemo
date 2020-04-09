@@ -12,6 +12,8 @@ import Combine
 struct TextDetailView: View {
     let title: String
     @State var text: String
+    @State var showConfireAlert = false
+    @State var isEdited = false
     let completeHandler: (String) -> Void
     @ObservedObject var keyboard = KeyboardResponder()
     
@@ -19,11 +21,15 @@ struct TextDetailView: View {
         ZStack {
             Color(UIColor.systemBackground)
             NavigationView {
-                TextView(text: self.$text)
+                TextView(text: self.$text, isEdited: self.$isEdited)
                     .navigationBarTitle(Text(self.title), displayMode: .inline)
                     .navigationBarItems(leading: Button(action: {
                         // Close Event
-                        ViewModel().dismissViewController()
+                        if self.isEdited {
+                            self.showConfireAlert = true
+                        } else {
+                            ViewModel().dismissViewController()
+                        }
                     }, label: {
                         Image(systemName: "chevron.left")
                             .imageScale(.large)
@@ -40,12 +46,21 @@ struct TextDetailView: View {
                             .padding()
                     }))
             }.padding(.bottom, keyboard.currentHeight)
-        }
+        }.alert(isPresented: self.$showConfireAlert, content: {
+            Alert(title: Text("Info"),
+                  message: Text("Are you sure you want to exit editing without saving?"),
+                  primaryButton: Alert.Button.default(Text("Exit"),
+                                                      action: {
+                                                        ViewModel().dismissViewController()
+                  }),
+                  secondaryButton: Alert.Button.cancel())
+        })
     }
 }
 
 struct TextView: UIViewRepresentable {
     @Binding var text: String
+    @Binding var isEdited: Bool
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -83,6 +98,7 @@ struct TextView: UIViewRepresentable {
         
         func textViewDidChange(_ textView: UITextView) {
             self.parent.text = textView.text
+            self.parent.isEdited = true
         }
     }
 }
