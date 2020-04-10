@@ -29,14 +29,15 @@
 import Foundation
 
 public struct PremiumProducts {
-  
-  public static let premiumVersion = "treememo_premium_version"
-  
-  private static let productIdentifiers: Set<ProductIdentifier> = [PremiumProducts.premiumVersion]
-
-  public static let store = IAPHelper(productIds: PremiumProducts.productIdentifiers)
+    
+    public static let premiumVersion = "treememo_premium_version"
+    public static let donation = "treememo_donation"
+    
+    private static let productIdentifiers: Set<ProductIdentifier> = [PremiumProducts.premiumVersion, PremiumProducts.donation]
+    
+    public static let store = IAPHelper(productIds: PremiumProducts.productIdentifiers)
 }
 
 func resourceNameForProductIdentifier(_ productIdentifier: String) -> String? {
-  return productIdentifier.components(separatedBy: ".").last
+    return productIdentifier.components(separatedBy: ".").last
 }
