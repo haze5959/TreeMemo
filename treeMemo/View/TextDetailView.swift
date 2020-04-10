@@ -19,7 +19,7 @@ struct TextDetailView: View {
     
     var body: some View {
         ZStack {
-            Color(UIColor.systemBackground)
+            Color(.systemBackground)
             NavigationView {
                 TextView(text: self.$text, isEdited: self.$isEdited)
                     .navigationBarTitle(Text(self.title), displayMode: .inline)
@@ -33,7 +33,7 @@ struct TextDetailView: View {
                     }, label: {
                         Image(systemName: "chevron.left")
                             .imageScale(.large)
-                            .foregroundColor(Color(UIColor.label))
+                            .foregroundColor(Color(.label))
                             .padding()
                     }), trailing: Button(action: {
                         // Save Event
@@ -42,7 +42,7 @@ struct TextDetailView: View {
                     }, label: {
                         Image(systemName: "pencil")
                             .imageScale(.large)
-                            .foregroundColor(Color(UIColor.label))
+                            .foregroundColor(Color(.label))
                             .padding()
                     }))
             }.padding(.bottom, keyboard.currentHeight)
@@ -75,7 +75,7 @@ struct TextView: UIViewRepresentable {
         myTextView.isScrollEnabled = true
         myTextView.isEditable = true
         myTextView.isUserInteractionEnabled = true
-        myTextView.backgroundColor = UIColor(white: 0.0, alpha: 0.05)
+        myTextView.backgroundColor = .init(white: 0.0, alpha: 0.05)
         
         return myTextView
     }

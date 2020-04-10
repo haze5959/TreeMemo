@@ -397,7 +397,7 @@ struct TreeNode: View {
                         Image(systemName: "link")
                             .padding()
                     }).actionSheet(isPresented: self.$showingView) {
-                        ActionSheet(title: Text("Menu"), message: Text("Please select menu."), buttons: [
+                        ActionSheet(title: Text("Menu"), message: Text("Please select menu.\n[\(val)]"), buttons: [
                             .default(Text("Add website"), action: {
                                 UIApplication.shared.windows[0]
                                     .rootViewController?

@@ -22,7 +22,7 @@ struct HeaderView: View {
                     Image(systemName: "gear")
                         .imageScale(.large)
                         .padding()
-                        .foregroundColor(Color(UIColor.label))
+                        .foregroundColor(Color(.label))
                 })
                 
                 //스페이서
@@ -41,7 +41,7 @@ struct HeaderView: View {
                     Image(systemName: "list.number")
                         .imageScale(.large)
                         .padding()
-                        .foregroundColor(Color(UIColor.label))
+                        .foregroundColor(Color(.label))
                 })
             }
             
@@ -53,7 +53,7 @@ struct HeaderView: View {
                     Image(systemName: "house")
                         .imageScale(.small)
                         .padding()
-                        .foregroundColor(Color(UIColor.label))
+                        .foregroundColor(Color(.label))
                 })
                 
                 if self.treeMemoState.treeHierarchy.count > 0 {
@@ -61,7 +61,7 @@ struct HeaderView: View {
                         HStack {
                             Image(systemName: "chevron.compact.right")
                                 .imageScale(.small)
-                                .foregroundColor(Color(UIColor.label))
+                                .foregroundColor(Color(.label))
                             
                             Button(action: {
                                 TreeMemoState.shared.selectTreeHierarchy(index: index)
@@ -70,7 +70,7 @@ struct HeaderView: View {
                                     .font(Font.system(size: 10))
                                     .lineLimit(2)
                                     .padding()
-                                    .foregroundColor(Color(UIColor.label))
+                                    .foregroundColor(Color(.label))
                                     .frame(maxWidth: 80)
                             })
                         }

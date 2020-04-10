@@ -3,7 +3,3 @@ platform :ios, '13.0'
 
 target 'treeMemo' do
 end
-
-target 'TreeMemoForMac' do
-
-end

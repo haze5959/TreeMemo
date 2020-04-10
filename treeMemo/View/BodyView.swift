@@ -24,7 +24,7 @@ struct BodyView: View {
     @ObservedObject var treeMemoState = TreeMemoState.shared
     
     @Environment(\.presentationMode) var presentation
-    
+    #if os(iOS)
     var body: some View {
         List {
             ForEach(self.treeMemoState.getTreeData(key: self.treeDataKey, isEditMode: self.environment.isEdit)) { treeData in
@@ -70,6 +70,37 @@ struct BodyView: View {
                 }
         }
     }
+    #else
+    var body: some View {
+        List {
+            ForEach(self.treeMemoState.getTreeData(key: self.treeDataKey, isEditMode: self.environment.isEdit)) { treeData in
+                TreeNode(treeData: treeData)
+                    .buttonStyle(PlainButtonStyle())
+            }
+            .onMove(perform: move)
+            .onDelete(perform: delete)
+        }.onAppear {
+            if self.isNeedInit, let title = self.title {
+                self.isNeedInit = false
+                self.treeMemoState.treeHierarchy.append(title)
+                self.depth = self.treeMemoState.treeHierarchy.count
+                
+                self.treeMemoState.$treeHierarchy
+                    .receive(on: DispatchQueue.main)
+                    .sink { (treeHierarchy) in
+                        if treeHierarchy.count < self.depth {
+                            self.isNeedDismiss = true
+                            self.presentation.wrappedValue.dismiss()
+                        }
+                }.store(in: &self.subscriptions)
+            }
+            
+            if self.isNeedDismiss {
+                self.presentation.wrappedValue.dismiss()
+            }
+        }
+    }
+    #endif
     
     func move(from source: IndexSet, to destination: Int) {
         self.treeMemoState.moveTreeData(key: self.treeDataKey, indexSet: source, to: destination)

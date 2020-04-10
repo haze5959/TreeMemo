@@ -13,7 +13,9 @@ import Combine
 typealias TreeDataType = [UUID: [TreeModel]]
 class TreeMemoState: ObservableObject {
     static let shared = TreeMemoState()
+    #if !os(macOS)
     let wcSession = TreeMemoWCSession()
+    #endif
     
     @Published var treeHierarchy = [String]()
     
@@ -50,6 +52,22 @@ class TreeMemoState: ObservableObject {
                 self.wcSession.sendTreeData(data: self.getData(treeData: treeData))
             })
     }
+    #elseif os(macOS)
+    let treeStore = CloudManager.shared.store
+    
+    init() {
+        self.cancellable = self.$treeData
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .sink(receiveValue: { (treeData) in
+                if self.notSaveOnce {
+                    self.notSaveOnce = false
+                    return
+                }
+                
+                print("데이터 저장!")
+                self.saveTreeData(treeData)
+            })
+    }
     #else
     let treeStore = UserDefaults.init()
     
@@ -79,12 +97,10 @@ class TreeMemoState: ObservableObject {
             })
     }
     #endif
-    
-    
-    
+
     // MARK: 트리데이터 초기화
     func initTreeData() {
-        #if os(iOS)
+        #if os(iOS) || os(macOS)
         if let data = self.self.treeStore.data(forKey: self.storedDataKey),
             let treeData = try? PropertyListDecoder().decode(TreeDataType.self, from: data) {
             
@@ -143,7 +159,7 @@ class TreeMemoState: ObservableObject {
     func getTreeData(key: UUID, isEditMode: Bool = false) -> [TreeModel] {
         guard var subTreeData = self.treeData[key] else {
             print("Can't find data with key!")
-            #if os(iOS)
+            #if os(iOS) || os(macOS)
             let subTreeData = [TreeModel]()
             self.treeData.updateValue(subTreeData, forKey: key)
             return subTreeData
@@ -160,7 +176,7 @@ class TreeMemoState: ObservableObject {
         return subTreeData
     }
     
-    #if os(iOS)
+    #if os(iOS) || os(macOS)
     func removeTreeData(key: UUID, indexSet: IndexSet) {
         guard var subTreeData = self.treeData[key] else {
             print("Can't find data with key!")

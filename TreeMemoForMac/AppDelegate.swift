@@ -13,27 +13,44 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow!
-
+    
+    let statusItem:NSStatusItem  = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
+    let popover = NSPopover()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
-
-        // Create the window and set the content view. 
-        window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-            backing: .buffered, defer: false)
-        window.center()
-        window.setFrameAutosaveName("Main Window")
-        window.contentView = NSHostingView(rootView: contentView)
-        window.makeKeyAndOrderFront(nil)
+        TreeMemoState.shared.initTreeData()
+        self.setUpStatusItem()
+        self.setUpPopoverVC()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        CloudManager.shared.store.synchronize()
     }
+}
 
-
+extension AppDelegate {
+    func setUpStatusItem() {
+        //get instance statusBar and set Btn
+        if let button = self.statusItem.button {
+//            button.image = #imageLiteral(resourceName: "TestImg")
+            button.action = #selector(togglePopover(_:))
+        }
+    }
+    
+    func setUpPopoverVC() {
+        let contentView = ContentView().environmentObject(EnvironmentState())
+        self.popover.contentViewController = NSHostingController(rootView: contentView)
+    }
+    
+    // MARK: StatusBar Btn Evnet
+    @objc func togglePopover(_ sender: Any?) {
+        if popover.isShown {
+            self.popover.performClose(sender)
+        } else {
+            if let button = self.statusItem.button {
+                self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+            }
+        }
+    }
 }
 

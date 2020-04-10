@@ -156,6 +156,11 @@ class CloudManager {
         }
     }
     
+    #if os(macOS)
+    func alertPopUp(bodyStr:String) {
+        // TODO: 얼럿
+    }
+    #else
     func alertPopUp(bodyStr:String) {
         DispatchQueue.main.async {
             guard let rootVC = UIApplication.shared.windows[0].rootViewController else {
@@ -172,6 +177,7 @@ class CloudManager {
             rootVC.present(alert, animated: true)
         }
     }
+    #endif
     
     @objc public func ubiquitousKeyValueStoreDidChange(notification: NSNotification) {
         TreeMemoState.shared.initTreeData()

@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct SideMenuView: View {
     @EnvironmentObject var environment: EnvironmentState
     
@@ -88,6 +89,41 @@ struct SideMenuView: View {
         }
     }
 }
+#else
+struct SideMenuView: View {
+    @EnvironmentObject var environment: EnvironmentState
+    
+    let width: CGFloat
+    let isOpen: Bool
+    
+    var body: some View {
+        ZStack {
+            GeometryReader { _ in
+                EmptyView()
+            }
+            .background(Color.gray.opacity(0.3))
+            .opacity(self.isOpen ? 1.0 : 0.0)
+            .animation(Animation.easeIn(duration: 0.25))
+            .onTapGesture {
+                self.environment.openSideMenu.toggle()
+            }
+            
+            HStack {
+                List {
+                    Text("개발중")
+                }
+                .frame(width: self.width)
+                .background(Color.black)
+                .offset(x: self.isOpen ? 0 : -self.width)
+                .animation(.default)
+                
+                Spacer()
+            }
+        }
+    }
+}
+#endif
+
 
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
