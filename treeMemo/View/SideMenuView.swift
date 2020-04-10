@@ -58,6 +58,17 @@ struct SideMenuView: View {
                             Text("Remove All Data")
                         }.padding()
                     }
+                    
+                    Button(action: {
+                        print("도네이션")
+                        let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
+                        sceneDelegate.showDonationDialog()
+                    }) {
+                        HStack {
+                            Image(systemName: "hand.thumbsup")
+                            Text("Donation")
+                        }.padding()
+                    }
                 }
                 .frame(width: self.width)
                 .background(Color.black)

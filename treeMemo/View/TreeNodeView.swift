@@ -73,7 +73,7 @@ struct TreeNode: View {
                     Button(action: {
                         self.showingView.toggle()
                     }, label: {
-                        Image(systemName: "plus.square")    //
+                        Image(systemName: "plus.square")
                             .resizable()
                             .frame(width: 25, height: 25)
                             .padding()
@@ -114,6 +114,7 @@ struct TreeNode: View {
                                 }
                             }),
                             .default(Text("Date"), action: {
+                                self.showingView = false
                                 var tempData = data
                                 tempData.value = .date(val: TreeDateType(date: Date(), type: UIDatePicker.Mode.date.rawValue))
                                 TreeMemoState.shared.treeData[data.key]![data.index] = tempData
@@ -124,11 +125,13 @@ struct TreeNode: View {
                                 TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                             }),
                             .default(Text("Image"), action: {
+                                self.showingView = false
                                 var tempData = data
                                 tempData.value = .image(recordName: "")
                                 TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                             }),
                             .default(Text("Link"), action: {
+                                self.showingView = false
                                 var tempData = data
                                 tempData.value = .link(val: "")
                                 TreeMemoState.shared.treeData[data.key]![data.index] = tempData

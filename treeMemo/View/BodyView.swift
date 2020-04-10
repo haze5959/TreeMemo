@@ -50,7 +50,6 @@ struct BodyView: View {
                     }
         }, including: self.environment.isEdit ? .subviews : .gesture)
             .onAppear {
-                print("qoqoqoqoqoqoqo: \(self.depth)")
                 if self.isNeedInit, let title = self.title {
                     self.isNeedInit = false
                     self.treeMemoState.treeHierarchy.append(title)

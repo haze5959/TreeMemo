@@ -152,6 +152,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
     
+    func showDonationDialog() {
+    }
+    
     @objc func buyComplete() {
         PinWheelView.shared.hideProgressView()
         
