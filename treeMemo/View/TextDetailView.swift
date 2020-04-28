@@ -14,6 +14,7 @@ struct TextDetailView: View {
     @State var text: String
     @State var showConfireAlert = false
     @State var isEdited = false
+    @State var selectedRange: UITextRange?
     let completeHandler: (String) -> Void
     @ObservedObject var keyboard = KeyboardResponder()
     
@@ -21,7 +22,7 @@ struct TextDetailView: View {
         ZStack {
             Color(.systemBackground)
             NavigationView {
-                TextView(text: self.$text, isEdited: self.$isEdited)
+                TextView(text: self.$text, isEdited: self.$isEdited, selectedRange: self.$selectedRange)
                     .navigationBarTitle(Text(self.title), displayMode: .inline)
                     .navigationBarItems(leading: Button(action: {
                         // Close Event
@@ -61,6 +62,7 @@ struct TextDetailView: View {
 struct TextView: UIViewRepresentable {
     @Binding var text: String
     @Binding var isEdited: Bool
+    @Binding var selectedRange: UITextRange?
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -76,16 +78,17 @@ struct TextView: UIViewRepresentable {
         myTextView.isEditable = true
         myTextView.isUserInteractionEnabled = true
         myTextView.backgroundColor = .init(white: 0.0, alpha: 0.05)
+        myTextView.becomeFirstResponder()
         
         return myTextView
     }
     
     func updateUIView(_ uiView: UITextView, context: Context) {
         uiView.text = text
+        uiView.selectedTextRange = self.selectedRange
     }
     
     class Coordinator : NSObject, UITextViewDelegate {
-        
         var parent: TextView
         
         init(_ uiTextView: TextView) {
@@ -99,6 +102,7 @@ struct TextView: UIViewRepresentable {
         func textViewDidChange(_ textView: UITextView) {
             self.parent.text = textView.text
             self.parent.isEdited = true
+            self.parent.selectedRange = textView.selectedTextRange
         }
     }
 }

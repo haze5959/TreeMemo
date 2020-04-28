@@ -383,6 +383,8 @@
 		C31C6CEC2420BF8B0088632D /* TreeMemoForMac */ = {
 			isa = PBXGroup;
 			children = (
+				C3EAB80924400C200054F7EF /* macOS+Extension.swift */,
+				C3EAB80D244012FC0054F7EF /* IndicatorView.swift */,
 				C3EAB81324401B550054F7EF /* TreeNodeView.swift */,
 				C31C6CED2420BF8B0088632D /* AppDelegate.swift */,
 				C31C6CF12420BF8D0088632D /* Assets.xcassets */,
@@ -418,15 +420,6 @@
 				C3C8202B243EEF7300F554A4 /* PremiumProducts.swift */,
 			);
 			path = IAPHelper;
-			sourceTree = "<group>";
-		};
-		C3EAB80C244012FC0054F7EF /* Mac */ = {
-			isa = PBXGroup;
-			children = (
-				C3EAB80924400C200054F7EF /* macOS+Extension.swift */,
-				C3EAB80D244012FC0054F7EF /* IndicatorView.swift */,
-			);
-			path = Mac;
 			sourceTree = "<group>";
 		};
 		C3FF60BC2383E1EC003E57DE = {
@@ -514,7 +507,6 @@
 		C3FF611023862223003E57DE /* Lib, Extension */ = {
 			isa = PBXGroup;
 			children = (
-				C3EAB80C244012FC0054F7EF /* Mac */,
 				C3C82030243EF5BF00F554A4 /* Dialog.swift */,
 				C3C82029243EEF7300F554A4 /* IAPHelper */,
 				C3C82026243EE39500F554A4 /* Cocen+String.swift */,

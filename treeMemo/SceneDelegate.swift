@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.makeKeyAndVisible()
         }
         
-        self.showReviewTimer(second: 180)
+        self.showReviewTimer(second: 300)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 10) {
             if !PremiumProducts.store.isProductPurchased(PremiumProducts.premiumVersion) {
                 self.showPhurcaseDialog()
