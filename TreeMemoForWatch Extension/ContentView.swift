@@ -22,8 +22,11 @@ struct ContentView: View {
                         case .notSupport:
                             return Alert(title: Text(self.alertState.notSupportText))
                         case .notPared:
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                TreeMemoState.shared.wcSession.requestTreeData()
+                            }
                             return Alert(title: Text(self.alertState.notParedText), dismissButton: .cancel(Text("Refresh"), action: {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     TreeMemoState.shared.wcSession.requestTreeData()
                                 }
                             }))

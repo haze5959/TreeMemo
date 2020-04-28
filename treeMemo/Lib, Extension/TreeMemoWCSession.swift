@@ -42,6 +42,7 @@ class TreeMemoWCSession: NSObject, WCSessionDelegate {
                                             let treeModel = self.decodeData(data: treeData)
                                             TreeMemoState.shared.saveTreeData(treeModel)
                                             TreeMemoState.shared.updateTreeDataWithNotSave(treeData: treeModel)
+                                            WatchAlertState.shared.hide()
                                         } else {
                                             self.isParingSuccess = false
                                             print("wcSession message error: type dismatch")

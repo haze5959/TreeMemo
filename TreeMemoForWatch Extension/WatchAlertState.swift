@@ -26,4 +26,8 @@ class WatchAlertState: ObservableObject {
         self.activeAlert = showCase
         self.showAlert = true
     }
+    
+    func hide() {
+        self.showAlert = false
+    }
 }
