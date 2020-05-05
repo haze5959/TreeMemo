@@ -97,7 +97,7 @@ class TreeMemoState: ObservableObject {
             })
     }
     #endif
-
+    
     // MARK: 트리데이터 초기화
     func initTreeData() {
         #if os(iOS) || os(macOS)
@@ -222,15 +222,21 @@ class TreeMemoState: ObservableObject {
             return
         }
         
-        subTreeData.move(fromOffsets: indexSet, toOffset: destination)
+        let pastIndex = indexSet.last! as Int
+        var nowIndex = destination
+        if destination > pastIndex {
+            nowIndex -= 1
+        }
         
+        let tempData = subTreeData.remove(at: pastIndex)
+        subTreeData.insert(tempData, at: nowIndex)
         var movedTreeData = [TreeModel]()
         for (index, treeData) in subTreeData.enumerated() {
             var tempTreeData = treeData
             tempTreeData.index = index
             movedTreeData.append(tempTreeData)
         }
-
+        
         self.treeData[key] = movedTreeData
     }
     
@@ -252,7 +258,7 @@ class TreeMemoState: ObservableObject {
             print("treeData could not encoding!")
             return Data()
         }
-
+        
         return jsonData
     }
 }
