@@ -26,6 +26,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
+            
+            if let useDarkMode = UserDefaults().object(forKey: "UDUseDarkMode") as? Bool {
+                window.overrideUserInterfaceStyle = useDarkMode ? .dark : .light
+            }
+            
             window.rootViewController = UIHostingController(rootView: contentView)
             window.rootViewController?.hideKeyboardWhenTappedAround()
             self.window = window
