@@ -252,9 +252,19 @@ struct TreeNode: View {
                             .default(Text("D-Day"), action: {
                                 let pickerView = OQPickerView.sharedInstance
                                 pickerView.showDate(title: "Select Date", datePickerMode: UIDatePicker.Mode.date) { (date) in
-                                    var tempData = data
-                                    tempData.value = .date(val: TreeDateType(date: date, type: DateTypeDDay))
-                                    TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                                    UIApplication.shared.windows[0]
+                                        .rootViewController?
+                                        .showAlert(title: "D-Day Type",
+                                                   message: "Would you like to include the first day?",
+                                                   doneCompletion: {
+                                                    var tempData = data
+                                                    tempData.value = .date(val: TreeDateType(date: date, type: DateTypeDDayIncludeFirstDay))
+                                                    TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                                        }, cancelCompletion: {
+                                            var tempData = data
+                                            tempData.value = .date(val: TreeDateType(date: date, type: DateTypeDDay))
+                                            TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                                        })
                                 }
                                 pickerView.overrideUserInterfaceStyle = .light
                                 

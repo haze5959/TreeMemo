@@ -96,16 +96,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func showPhurcaseDialog() {
-        guard var rootVC = self.window?.rootViewController else {
+        guard let rootVC = self.window?.rootViewController else {
             print("Not found rootVC!")
             return
         }
         
-        if let presentedVC = rootVC.presentedViewController {
+        // 이상하게 보이는 경우가 있어서 차라리 안보여준다.
+//        if let presentedVC = rootVC.presentedViewController {
 //            rootVC = presentedVC
-            // 이상하게 보이는 경우가 있어서 차라리 안보여준다.
-            return
-        }
+//            return
+//        }
         
         if IAPHelper.canMakePayments() {
             let loadingDialog = Dialog.loading(title: "Please wait...", message: "", image: nil)

@@ -89,8 +89,13 @@ class ViewModel: ObservableObject {
             dateFormatter.timeStyle = .none
             dateFormatter.dateStyle = .long
         } else if type?.rawValue == DateTypeDDay {
-            
-            return ""
+            dateFormatter.dateStyle = .short
+            dateFormatter.timeStyle = .none
+            return "[🗓\(dateFormatter.string(from: date))] D-Day: \(date.relativeDaysFromToday())"
+        } else if type?.rawValue == DateTypeDDayIncludeFirstDay {
+            dateFormatter.dateStyle = .short
+            dateFormatter.timeStyle = .none
+            return "[🗓\(dateFormatter.string(from: date))] D-Day: \(date.relativeDaysFromToday(includeFirstDay: true))"
         } else {    //time
             dateFormatter.timeStyle = .short
             dateFormatter.dateStyle = .none

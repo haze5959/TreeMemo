@@ -38,9 +38,11 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
-    func showAlert(title: String, message: String, doneCompletion: @escaping () -> Void) {
+    func showAlert(title: String, message: String, doneCompletion: @escaping () -> Void, cancelCompletion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel,handler: { action in
+            cancelCompletion?()
+        }))
         
         let doneBtn = UIAlertAction(title: "Done", style: .default, handler: { action in
             doneCompletion()

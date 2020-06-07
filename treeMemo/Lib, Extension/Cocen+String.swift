@@ -534,9 +534,20 @@ extension UnicodeScalar {
 }
 
 extension Date {
-    func relativeDaysFromToday() -> String {
-        let interval = Date().timeIntervalSince(self)
+    func relativeDaysFromToday(includeFirstDay: Bool = false) -> String {
+        var pivotDate = self
+        if includeFirstDay {
+            var dayComponent = DateComponents()
+            dayComponent.day = -1
+            let theCalendar = Calendar.current
+            if let nextDate = theCalendar.date(byAdding: dayComponent, to: self) {
+                pivotDate = nextDate
+            }
+        }
+        
+        let interval = Date().timeIntervalSince(pivotDate)
         let days = Int(interval / 86400)
-        print("\(days)일만큼 차이납니다.")
+        
+        return "\(days)"
     }
 }

@@ -11,6 +11,7 @@ import Foundation
 let RootKey = UUID(uuidString: "00000000-0000-0000-0000-000000000000")!
 
 let DateTypeDDay = 4
+let DateTypeDDayIncludeFirstDay = 5
 struct TreeDateType: Codable {
     let date: Date
     let type: Int   //UIDatePicker.Mode로 파싱하는게 필요
