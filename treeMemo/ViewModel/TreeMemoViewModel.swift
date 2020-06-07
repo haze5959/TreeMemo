@@ -88,6 +88,9 @@ class ViewModel: ObservableObject {
         } else if type == .date {
             dateFormatter.timeStyle = .none
             dateFormatter.dateStyle = .long
+        } else if type?.rawValue == DateTypeDDay {
+            
+            return ""
         } else {    //time
             dateFormatter.timeStyle = .short
             dateFormatter.dateStyle = .none

@@ -97,7 +97,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         if let presentedVC = rootVC.presentedViewController {
-            rootVC = presentedVC
+//            rootVC = presentedVC
+            // 이상하게 보이는 경우가 있어서 차라리 안보여준다.
+            return
         }
         
         if IAPHelper.canMakePayments() {

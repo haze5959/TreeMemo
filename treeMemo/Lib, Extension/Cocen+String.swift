@@ -532,3 +532,11 @@ extension UnicodeScalar {
         return value == 8205
     }
 }
+
+extension Date {
+    func relativeDaysFromToday() -> String {
+        let interval = Date().timeIntervalSince(self)
+        let days = Int(interval / 86400)
+        print("\(days)일만큼 차이납니다.")
+    }
+}

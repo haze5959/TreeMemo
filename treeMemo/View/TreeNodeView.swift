@@ -249,6 +249,17 @@ struct TreeNode: View {
                         Text("\(ViewModel().getDateString(treeDate: val))")
                     }).actionSheet(isPresented: self.$showingView) {
                         ActionSheet(title: Text("Type Select"), message: Text("Please select date type."), buttons: [
+                            .default(Text("D-Day"), action: {
+                                let pickerView = OQPickerView.sharedInstance
+                                pickerView.showDate(title: "Select Date", datePickerMode: UIDatePicker.Mode.date) { (date) in
+                                    var tempData = data
+                                    tempData.value = .date(val: TreeDateType(date: date, type: DateTypeDDay))
+                                    TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                                }
+                                pickerView.overrideUserInterfaceStyle = .light
+                                
+                                UIApplication.shared.windows[0].rootViewController?.view.addSubview(pickerView)
+                            }),
                             .default(Text("Date And Time"), action: {
                                 let pickerView = OQPickerView.sharedInstance
                                 pickerView.showDate(title: "Select Date", datePickerMode: UIDatePicker.Mode.dateAndTime) { (date) in

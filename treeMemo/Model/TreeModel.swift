@@ -10,13 +10,14 @@ import Foundation
 
 let RootKey = UUID(uuidString: "00000000-0000-0000-0000-000000000000")!
 
+let DateTypeDDay = 4
 struct TreeDateType: Codable {
     let date: Date
     let type: Int   //UIDatePicker.Mode로 파싱하는게 필요
 }
 
 enum TreeValueType: Codable {
-    case new    //새로 만들기 버튼ㅓㅏㅏ
+    case new    //새로 만들기 버튼
     case none   //설정 안된 초기 셀
     case child(key: UUID)
     case text(val: String)
