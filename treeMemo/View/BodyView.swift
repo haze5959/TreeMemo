@@ -73,6 +73,7 @@ struct BodyView: View {
             }
         } else {
             LoadingView()
+                .padding(.top, -200)
         }
     }
     #else

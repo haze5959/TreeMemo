@@ -11,6 +11,7 @@ import SwiftUI
 #if os(iOS)
 struct SideMenuView: View {
     @EnvironmentObject var environment: EnvironmentState
+    @Environment(\.colorScheme) var colorScheme
     
     let width: CGFloat
     let isOpen: Bool
@@ -67,6 +68,22 @@ struct SideMenuView: View {
                             Text("Remove All Data")
                         }.padding()
                     }
+                    
+                    HStack {
+                        Text("Dark Mode")
+                        OQToggleView(model: ToggleModel(isOn: self.colorScheme == .dark, action: { (isOn) in
+                            UserDefaults().set(isOn, forKey: "UDUseDarkMode")
+                            
+                            UIApplication.shared.windows[0]
+                                .rootViewController?
+                                .showConfirmAlert(title: "",
+                                                  message: "The app is closed to reflect the dark mode.",
+                                                  confirmText: "OK",
+                                                  doneCompletion: {
+                                                    exit(0)
+                                })
+                        }))
+                    }.padding()
                     
                     Button(action: {
                         print("도네이션")

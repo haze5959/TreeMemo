@@ -50,9 +50,11 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
-    func showConfirmAlert(title: String, message: String) {
+    func showConfirmAlert(title: String, message: String, confirmText: String = "Cancel", doneCompletion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: confirmText, style: .cancel, handler: { action in
+            doneCompletion?()
+        }))
         
         self.present(alert, animated: true)
     }
