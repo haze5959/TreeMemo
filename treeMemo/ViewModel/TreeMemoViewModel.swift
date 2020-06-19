@@ -41,6 +41,7 @@ class ViewModel: ObservableObject {
     }
     
     func saveImage(data: TreeModel, imgData: Data) {
+        #if !TODAY_EXTENTION
         let record = CKRecord(recordType: "Image")
         record.setValue(imgData, forKey: "data")
         CloudManager.shared.makeData(record: record) { (result) in
@@ -63,9 +64,11 @@ class ViewModel: ObservableObject {
                 print(error.localizedDescription)
             }
         }
+        #endif
     }
     
     func removeImage(name: String) {
+        #if !TODAY_EXTENTION
         do {
             let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
             let path = "\(documentsPath)/\(name).png"
@@ -75,6 +78,7 @@ class ViewModel: ObservableObject {
         } catch {
             print(error.localizedDescription)
         }
+        #endif
     }
     
     func getDateString(treeDate: TreeDateType) -> String {
@@ -86,16 +90,16 @@ class ViewModel: ObservableObject {
             dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .short
         } else if type == .date {
-            dateFormatter.timeStyle = .none
+            dateFormatter.timeStyle = .medium
             dateFormatter.dateStyle = .long
         } else if type?.rawValue == DateTypeDDay {
-            dateFormatter.dateStyle = .short
+            dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .none
-            return "[🗓\(dateFormatter.string(from: date))] D-Day: \(date.relativeDaysFromToday())"
+            return "(\(dateFormatter.string(from: date))) D-Day: \(date.relativeDaysFromToday())"
         } else if type?.rawValue == DateTypeDDayIncludeFirstDay {
             dateFormatter.dateStyle = .short
             dateFormatter.timeStyle = .none
-            return "[🗓\(dateFormatter.string(from: date))] D-Day: \(date.relativeDaysFromToday(includeFirstDay: true))"
+            return "(\(dateFormatter.string(from: date))) D-Day: \(date.relativeDaysFromToday(includeFirstDay: true))"
         } else {    //time
             dateFormatter.timeStyle = .short
             dateFormatter.dateStyle = .none
@@ -104,6 +108,7 @@ class ViewModel: ObservableObject {
         return dateFormatter.string(from: date)
     }
     
+    #if !TODAY_EXTENTION
     func showDetailView(title: String, recordName: String, completion: @escaping (String)->Void) {
         if let longText = UserDefaults().string(forKey: "LT_\(recordName)") {
             let rootVC = UIApplication.shared.windows[0].rootViewController
@@ -179,4 +184,5 @@ class ViewModel: ObservableObject {
             return false
         }
     }
+    #endif
 }

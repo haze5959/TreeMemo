@@ -101,7 +101,7 @@ class TreeMemoState: ObservableObject {
     // MARK: 트리데이터 초기화
     func initTreeData() {
         #if os(iOS) || os(macOS)
-        if let data = self.self.treeStore.data(forKey: self.storedDataKey),
+        if let data = self.treeStore.data(forKey: self.storedDataKey),
             let treeData = try? PropertyListDecoder().decode(TreeDataType.self, from: data) {
             
             self.updateTreeDataWithNotSave(treeData: treeData)
@@ -129,9 +129,18 @@ class TreeMemoState: ObservableObject {
         }
         
         self.treeStore.set(encodedTreeData, forKey: self.storedDataKey)
+        
+        if let rootTreeData = value[RootKey] {
+            guard let encodedRootTreeData = try? PropertyListEncoder().encode(rootTreeData) else {
+                print("save encoding fail!")
+                return
+            }
+            
+            UserDefaults(suiteName: "group.oq.treememo")?.set(encodedRootTreeData, forKey: "RootTreeData")
+        }
     }
     
-    #if os(iOS)
+    #if os(iOS) && !TODAY_EXTENTION
     func removeAllTreeData() {
         PinWheelView.shared.showProgressView()
         CloudManager.shared.deleteData(recordType: "Image")
