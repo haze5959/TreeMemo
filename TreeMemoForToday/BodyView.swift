@@ -9,15 +9,12 @@
 import SwiftUI
 import Combine
 
-struct BodyView: View {    
-    let treeDataKey: UUID
-
-    @State private var subscriptions = Set<AnyCancellable>()
+struct BodyView: View {
     @ObservedObject var treeMemoState = TreeMemoState.shared
     
     var body: some View {
         List {
-            ForEach(self.treeMemoState.getTreeData(key: self.treeDataKey)) { treeData in
+            ForEach(self.treeMemoState.getTreeData()) { treeData in
                 TreeNode(treeData: treeData)
                     .buttonStyle(PlainButtonStyle())
             }

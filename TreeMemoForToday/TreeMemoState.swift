@@ -14,7 +14,8 @@ typealias TreeDataType = [UUID: [TreeModel]]
 class TreeMemoState: ObservableObject {
     static let shared = TreeMemoState()
     
-    @Published var treeHierarchy = [String]()
+    @Published var treeDataKey = RootKey
+    @Published var previousTreeDataKey = [RootKey]
     
     private var cancellable: AnyCancellable?
     private var notSaveOnce = false
@@ -34,8 +35,8 @@ class TreeMemoState: ObservableObject {
     // MARK: 트리데이터 초기화
     func initTreeData() {
         if let data = UserDefaults(suiteName: "group.oq.treememo")?.data(forKey: "RootTreeData"),
-            let treeData = try? PropertyListDecoder().decode([TreeModel].self, from: data) {
-            self.treeData = [RootKey: treeData]
+            let treeData = try? PropertyListDecoder().decode(TreeDataType.self, from: data) {
+            self.treeData = treeData
         } else {
             //페이지 첫 진입
             var treeData = TreeDataType()
@@ -49,12 +50,17 @@ class TreeMemoState: ObservableObject {
     /**
      해당 Key의 트리데이터 리턴
      */
-    func getTreeData(key: UUID, isEditMode: Bool = false) -> [TreeModel] {
-        guard let subTreeData = self.treeData[key] else {
+    func getTreeData(isEditMode: Bool = false) -> [TreeModel] {
+        guard var subTreeData = self.treeData[self.treeDataKey] else {
             print("Can't find data with key!")
             let subTreeData = [TreeModel]()
-            self.treeData.updateValue(subTreeData, forKey: key)
+            self.treeData.updateValue(subTreeData, forKey: self.treeDataKey)
             return subTreeData
+        }
+        
+        if self.treeDataKey != RootKey {    // 루트가 아니라면
+            let model = TreeModel(title: "Back", value: .back, key: self.treeDataKey, index: 0)
+            subTreeData.insert(model, at: 0)
         }
         
         return subTreeData
@@ -69,7 +75,11 @@ class TreeMemoState: ObservableObject {
         return jsonData
     }
     
-    func selectTreeHierarchy(index: Int) {
-        print("today ext is not support.")
+    func historyBack() {
+        if let treeDataKey = self.previousTreeDataKey.popLast() {
+            self.treeDataKey = treeDataKey
+        } else {
+            self.treeDataKey = RootKey
+        }
     }
 }

@@ -9,17 +9,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var environment: EnvironmentState
-    
     var body: some View {
-        ZStack {
-            Color(.systemBackground)
-            
-            VStack {
-                //바디
-                BodyView(treeDataKey: RootKey)
-            }
-        }
+        //바디
+        BodyView()
     }
 }
 

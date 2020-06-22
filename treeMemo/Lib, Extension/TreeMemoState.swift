@@ -129,15 +129,7 @@ class TreeMemoState: ObservableObject {
         }
         
         self.treeStore.set(encodedTreeData, forKey: self.storedDataKey)
-        
-        if let rootTreeData = value[RootKey] {
-            guard let encodedRootTreeData = try? PropertyListEncoder().encode(rootTreeData) else {
-                print("save encoding fail!")
-                return
-            }
-            
-            UserDefaults(suiteName: "group.oq.treememo")?.set(encodedRootTreeData, forKey: "RootTreeData")
-        }
+        UserDefaults(suiteName: "group.oq.treememo")?.set(encodedTreeData, forKey: "RootTreeData")
     }
     
     #if os(iOS) && !TODAY_EXTENTION
@@ -151,6 +143,8 @@ class TreeMemoState: ObservableObject {
             self.treeStore.removeObject(forKey: self.storedDataKey)
             self.initTreeData()
             self.wcSession.sendTreeData(data: self.getData(treeData: self.treeData))
+            
+            UserDefaults(suiteName: "group.oq.treememo")?.removeObject(forKey: "RootTreeData")
         }
     }
     #endif

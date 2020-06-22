@@ -11,6 +11,7 @@ import CloudKit
 
 // MARK: TreeNode
 struct TreeNode: View {
+    @EnvironmentObject var envi: EnvironmentProperty
     var treeData: TreeModel
     
     var body: some View {
@@ -20,10 +21,10 @@ struct TreeNode: View {
     
     func getTitleView(data: TreeModel) -> some View {
         return Button(action: {
+            self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
         }, label: {
             Text(data.title)
-        })
-            .padding()
+        }).padding()
     }
     
     func getCellView(data: TreeModel) -> some View {
@@ -33,10 +34,9 @@ struct TreeNode: View {
                 HStack {
                     Spacer()
                     Button(action: {
+                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
                     }, label: {
                         Image(systemName: "plus.circle")
-                            .resizable()
-                            .frame(width: 25, height: 25)
                             .padding()
                     })
                     Spacer()
@@ -48,10 +48,9 @@ struct TreeNode: View {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
+                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
                     }, label: {
                         Image(systemName: "plus.square")
-                            .resizable()
-                            .frame(width: 25, height: 25)
                             .padding()
                     })
                 }
@@ -61,7 +60,13 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Image(systemName: "folder")
+                    Button(action: {
+                        TreeMemoState.shared.treeDataKey = key
+                        TreeMemoState.shared.previousTreeDataKey.append(data.key)
+                    }, label: {
+                        Image(systemName: "folder")
+                            .padding()
+                    })
                 }
             )
         case .text(let val):
@@ -70,6 +75,7 @@ struct TreeNode: View {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
+                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
                     }, label: {
                         Text(val.count > 0 ? val : "...")
                             .minimumScaleFactor(0.8)
@@ -83,7 +89,7 @@ struct TreeNode: View {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
-                        //상세 내용 보기 화면
+                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
                     }, label: {
                         Image(systemName: "doc.plaintext")
                             .padding()
@@ -94,21 +100,12 @@ struct TreeNode: View {
             return AnyView(
                 HStack {
                     self.getTitleView(data: data)
-                    Stepper(onIncrement: {
-                        var tempData = data
-                        tempData.value = .int(val: val + 1)
-                        TreeMemoState.shared.treeData[data.key]![data.index] = tempData
-                    }, onDecrement: {
-                        var tempData = data
-                        tempData.value = .int(val: val - 1)
-                        TreeMemoState.shared.treeData[data.key]![data.index] = tempData
-                    }) {
-                        Button(action: {
-                        }, label: {
-                            Text("\(val)")
-                        })
-                            .padding()
-                    }
+                    Spacer()
+                    Button(action: {
+                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
+                    }, label: {
+                        Text("\(val)").minimumScaleFactor(0.8)
+                    }).padding()
                 }
             )
         case .date(let val):
@@ -117,6 +114,7 @@ struct TreeNode: View {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
+                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
                     }, label: {
                         Text("\(ViewModel().getDateString(treeDate: val))")
                     })
@@ -127,32 +125,50 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    OQToggleView(model: ToggleModel(isOn: val, action: { (isOn) in
-                        var tempData = data
-                        tempData.value = .toggle(val: isOn)
-                        TreeMemoState.shared.treeData[data.key]![data.index] = tempData
-                    })).padding()
-                }
-            )
-        case .image(let recordName):
-            return AnyView(
-                HStack {
-                    self.getTitleView(data: data)
-                    Spacer()
                     Button(action: {
+                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
                     }, label: {
-                        ViewModel().getImage(name: recordName)
+                        if val {
+                            Image(systemName: "lightbulb.fill").padding()
+                        } else {
+                            Image(systemName: "lightbulb.slash").padding()
+                        }
                     })
                 }
             )
-        case .link(let val):
+        case .image:
             return AnyView(
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
+                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
+                    }, label: {
+                        Image(systemName: "photo")
+                            .padding()
+                    })
+                }
+            )
+        case .link:
+            return AnyView(
+                HStack {
+                    self.getTitleView(data: data)
+                    Spacer()
+                    Button(action: {
+                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
                     }, label: {
                         Image(systemName: "link")
+                            .padding()
+                    })
+                }
+            )
+        case .back:
+            return AnyView(
+                HStack {
+                    Button(action: {
+                        TreeMemoState.shared.historyBack()
+                    }, label: {
+                        Image(systemName: "arrow.left")
                             .padding()
                     })
                 }

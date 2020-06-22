@@ -11,30 +11,30 @@ import SwiftUI
 import NotificationCenter
 
 class TodayViewController: UIViewController, NCWidgetProviding {
-    let hostingController = UIHostingController(rootView: ContentView())
+    var hostingController: UIViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         
+        let envi = EnvironmentProperty()
+        envi.todayVC = self
+        let contentView = ContentView().environmentObject(envi)
+        self.hostingController = UIHostingController(rootView: contentView)
+        self.hostingController?.view.backgroundColor = .clear
+        
         TreeMemoState.shared.initTreeData()
-        self.addPopup(self.hostingController)
+        self.addPopup(self.hostingController!)
     }
-        
+    
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        // Perform any setup necessary in order to update the view.
-        
-        // If an error is encountered, use NCUpdateResult.Failed
-        // If there's no update required, use NCUpdateResult.NoData
-        // If there's an update, use NCUpdateResult.NewData
-        
         completionHandler(NCUpdateResult.newData)
     }
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         let expanded = activeDisplayMode == .expanded
-        preferredContentSize = expanded ? CGSize(width: maxSize.width, height: 400) : maxSize
-        self.hostingController.view.frame.size = preferredContentSize
+        preferredContentSize = expanded ? CGSize(width: maxSize.width, height: 500) : maxSize
+        self.hostingController?.view.frame.size = preferredContentSize
     }
     
     /**
