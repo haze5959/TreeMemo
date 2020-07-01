@@ -428,8 +428,9 @@ struct TreeNode: View {
                                                         text: "",
                                                         placeHolder: "www.google.com",
                                                         doneCompletion: { (text) in
+                                                            let url = text.makeUrlValidation()
                                                             var tempData = data
-                                                            tempData.value = .link(val: text)
+                                                            tempData.value = .link(val: url)
                                                             TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                     })
                             }),

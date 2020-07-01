@@ -511,6 +511,14 @@ public extension String {
     var localized: String {
         return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
     }
+    
+    func makeUrlValidation() -> String {
+        if self.hasPrefix("http://") || self.hasPrefix("https://") {
+            return self
+        } else {
+            return "http://\(self)"
+        }
+    }
 }
 
 extension UnicodeScalar {

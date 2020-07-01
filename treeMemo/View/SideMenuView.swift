@@ -80,6 +80,7 @@ struct SideMenuView: View {
                                                   message: "The app is closed to reflect the dark mode.",
                                                   confirmText: "OK",
                                                   doneCompletion: {
+                                                    CloudManager.shared.store.synchronize()
                                                     exit(0)
                                 })
                         }))

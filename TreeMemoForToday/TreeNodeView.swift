@@ -150,13 +150,13 @@ struct TreeNode: View {
                     })
                 }
             )
-        case .link:
+        case .link(let url):
             return AnyView(
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
-                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
+                        self.envi.todayVC?.extensionContext?.open(URL(string: url)!, completionHandler: nil)
                     }, label: {
                         Image(systemName: "link")
                             .padding()
