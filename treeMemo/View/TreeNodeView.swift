@@ -27,6 +27,7 @@ struct TreeNode: View {
             UIApplication.shared.windows[0]
                 .rootViewController?
                 .showTextFieldAlert(title: "Input Title",
+                                    text: data.title,
                                     placeHolder: data.title,
                                     doneCompletion: { (text) in
                                         var tempData = data
