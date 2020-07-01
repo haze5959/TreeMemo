@@ -44,7 +44,7 @@ extension UIViewController {
             cancelCompletion?()
         }))
         
-        let doneBtn = UIAlertAction(title: "Done", style: .default, handler: { action in
+        let doneBtn = UIAlertAction(title: "OK", style: .default, handler: { action in
             doneCompletion()
         })
         alert.addAction(doneBtn)

@@ -181,19 +181,24 @@ class TreeMemoState: ObservableObject {
     
     #if os(iOS) || os(macOS)
     func removeTreeData(key: UUID, indexSet: IndexSet) {
-        guard var subTreeData = self.treeData[key] else {
-            print("Can't find data with key!")
-            return
+        guard var subTreeData = self.treeData[key],
+            let index = indexSet.map({$0}).first else {
+                print("Can't find data with key!")
+                return
         }
         
-        // 삭제될 데이터
-        if let index = indexSet.map({$0}).first {
-            let treeData = subTreeData[index]
-            self.removeRecursiveData(treeData: treeData)
+        let treeData = subTreeData[index]
+        self.removeRecursiveData(treeData: treeData)
+        subTreeData.remove(at: index)
+        
+        var movedTreeData = [TreeModel]()
+        for (index, treeData) in subTreeData.enumerated() {
+            var tempTreeData = treeData
+            tempTreeData.index = index
+            movedTreeData.append(tempTreeData)
         }
         
-        subTreeData.remove(atOffsets: indexSet)
-        self.treeData[key] = subTreeData
+        self.treeData[key] = movedTreeData
     }
     
     func removeRecursiveData(treeData: TreeModel) {
