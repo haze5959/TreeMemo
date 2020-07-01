@@ -25,7 +25,7 @@ struct TreeNode: View {
         return Text(data.title)
     }
     
-    func getDateString(treeDate: TreeDateType) -> String {
+    func getDateString(treeDate: TreeDateType) -> some View {
         let date = treeDate.date
         let type = treeDate.type // 0: time, 1: date, 2: dateAndTime
         
@@ -34,14 +34,34 @@ struct TreeNode: View {
             dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .short
         } else if type == 1 {
-            dateFormatter.timeStyle = .none
+            dateFormatter.timeStyle = .medium
             dateFormatter.dateStyle = .long
+        } else if type == DateTypeDDay {
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .none
+            return AnyView(
+                HStack {
+                    Text("D-Day ")
+                        .font(Font.system(size: 10, weight: .thin, design: .rounded))
+                    Text(date.relativeDaysFromToday())
+                }
+            )
+        } else if type == DateTypeDDayIncludeFirstDay {
+            dateFormatter.dateStyle = .short
+            dateFormatter.timeStyle = .none
+            return AnyView(
+                HStack {
+                    Text("D-Day ")
+                    .font(Font.system(size: 10, weight: .thin, design: .rounded))
+                    Text(date.relativeDaysFromToday(includeFirstDay: true))
+                }
+            )
         } else {    //time
             dateFormatter.timeStyle = .short
             dateFormatter.dateStyle = .none
         }
         
-        return dateFormatter.string(from: date)
+        return AnyView(Text(dateFormatter.string(from: date)))
     }
     
     func showAlertAboutNotSupport() {
@@ -182,7 +202,7 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Text(self.getDateString(treeDate: val))
+                    self.getDateString(treeDate: val)
                 }
             )
         case .toggle(let val):

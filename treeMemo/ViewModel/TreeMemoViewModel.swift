@@ -81,7 +81,7 @@ class ViewModel: ObservableObject {
         #endif
     }
     
-    func getDateString(treeDate: TreeDateType) -> String {
+    func getDateString(treeDate: TreeDateType) -> some View {
         let date = treeDate.date
         let type = UIDatePicker.Mode(rawValue: treeDate.type)
         
@@ -95,17 +95,33 @@ class ViewModel: ObservableObject {
         } else if type?.rawValue == DateTypeDDay {
             dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .none
-            return "(\(dateFormatter.string(from: date))) D-Day: \(date.relativeDaysFromToday())"
+            return AnyView(
+                HStack {
+                    Text("(\(dateFormatter.string(from: date)))")
+                        .font(Font.system(size: 10, weight: .thin, design: .rounded))
+                    Text("D-Day ")
+                        .fontWeight(.thin)
+                    Text(date.relativeDaysFromToday())
+                }
+            )
         } else if type?.rawValue == DateTypeDDayIncludeFirstDay {
             dateFormatter.dateStyle = .short
             dateFormatter.timeStyle = .none
-            return "(\(dateFormatter.string(from: date))) D-Day: \(date.relativeDaysFromToday(includeFirstDay: true))"
+            return AnyView(
+                HStack {
+                    Text("(\(dateFormatter.string(from: date)))")
+                        .font(Font.system(size: 10, weight: .thin, design: .rounded))
+                    Text("D-Day ")
+                        .fontWeight(.thin)
+                    Text(date.relativeDaysFromToday(includeFirstDay: true))
+                }
+            )
         } else {    //time
             dateFormatter.timeStyle = .short
             dateFormatter.dateStyle = .none
         }
         
-        return dateFormatter.string(from: date)
+        return AnyView(Text(dateFormatter.string(from: date)))
     }
     
     #if !TODAY_EXTENTION

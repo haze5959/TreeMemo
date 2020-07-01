@@ -116,7 +116,8 @@ struct TreeNode: View {
                     Button(action: {
                         self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
                     }, label: {
-                        Text("\(ViewModel().getDateString(treeDate: val))")
+                        ViewModel().getDateString(treeDate: val)
+                            .padding()
                     })
                 }
             )

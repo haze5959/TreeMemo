@@ -246,7 +246,8 @@ struct TreeNode: View {
                     Button(action: {
                         self.showingView.toggle()
                     }, label: {
-                        Text("\(ViewModel().getDateString(treeDate: val))")
+                        ViewModel().getDateString(treeDate: val)
+                            .padding()
                     }).actionSheet(isPresented: self.$showingView) {
                         ActionSheet(title: Text("Type Select"), message: Text("Please select date type."), buttons: [
                             .default(Text("D-Day"), action: {

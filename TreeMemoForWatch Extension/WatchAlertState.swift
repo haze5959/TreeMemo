@@ -20,7 +20,7 @@ class WatchAlertState: ObservableObject {
     var activeAlert: ActiveAlert = .notSupport
     
     let notSupportText = "This feature is not supported on Apple Watch."
-    let notParedText = "Can't pair with the iPhone app. Please open or restart the iPhone app."
+    let notParedText = "Can't pair with the iPhone app. Please wait for a moment or restart the iPhone app."
     
     func show(showCase: ActiveAlert) {
         self.activeAlert = showCase
