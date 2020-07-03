@@ -31,7 +31,7 @@ struct SideMenuView: View {
             HStack {
                 List {
                     VStack {
-                        CircleImageView(image: Image("TestImg"))
+                        CircleImageView(image: Image("Logo"))
                             .frame(width: 200, height: 180, alignment: .center)
                         Text("Tree Memo")
                             .padding(.bottom, 20)

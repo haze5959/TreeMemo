@@ -29,7 +29,7 @@
 		C30038BE239A4A5D001DB62F /* OQToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30038BD239A4A5D001DB62F /* OQToggleView.swift */; };
 		C30D9F74240CAF3B00C60019 /* WatchInputNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30D9F73240CAF3A00C60019 /* WatchInputNumberView.swift */; };
 		C312396E23FD1AC900E4D82B /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C312396C23FD1AC900E4D82B /* Interface.storyboard */; };
-		C312397023FD1ACB00E4D82B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C312396F23FD1ACB00E4D82B /* Assets.xcassets */; };
+		C312397023FD1ACB00E4D82B /* WatchAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C312396F23FD1ACB00E4D82B /* WatchAssets.xcassets */; };
 		C312397723FD1ACB00E4D82B /* TreeMemoForWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C312397623FD1ACB00E4D82B /* TreeMemoForWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C312397C23FD1ACB00E4D82B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312397B23FD1ACB00E4D82B /* ContentView.swift */; };
 		C312397E23FD1ACB00E4D82B /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312397D23FD1ACB00E4D82B /* HostingController.swift */; };
@@ -37,9 +37,9 @@
 		C312398223FD1ACB00E4D82B /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312398123FD1ACB00E4D82B /* NotificationController.swift */; };
 		C312398423FD1ACB00E4D82B /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312398323FD1ACB00E4D82B /* NotificationView.swift */; };
 		C312398623FD1ACB00E4D82B /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C312398523FD1ACB00E4D82B /* ComplicationController.swift */; };
-		C312398823FD1ACB00E4D82B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C312398723FD1ACB00E4D82B /* Assets.xcassets */; };
+		C312398823FD1ACB00E4D82B /* ComplicationAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C312398723FD1ACB00E4D82B /* ComplicationAssets.xcassets */; };
 		C312398B23FD1ACB00E4D82B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C312398A23FD1ACB00E4D82B /* Preview Assets.xcassets */; };
-		C312399023FD1ACB00E4D82B /* TreeMemoForWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C312396A23FD1AC900E4D82B /* TreeMemoForWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C312399023FD1ACB00E4D82B /* Tree Memo.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C312396A23FD1AC900E4D82B /* Tree Memo.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C312399923FD1C0C00E4D82B /* TreeMemoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36AC522238CCE9A00237549 /* TreeMemoState.swift */; };
 		C312399C23FD1C0C00E4D82B /* EnvironmentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ED24C023DD8E8F00538988 /* EnvironmentState.swift */; };
 		C312399F23FD1C3200E4D82B /* TreeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF610B23853C88003E57DE /* TreeModel.swift */; };
@@ -76,7 +76,7 @@
 		C35DF2AA249B4432006BFC79 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35DF2A9249B4432006BFC79 /* NotificationCenter.framework */; };
 		C35DF2AD249B4432006BFC79 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35DF2AC249B4432006BFC79 /* TodayViewController.swift */; };
 		C35DF2B0249B4432006BFC79 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C35DF2AE249B4432006BFC79 /* MainInterface.storyboard */; };
-		C35DF2B4249B4432006BFC79 /* TreeMemoForToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C35DF2A8249B4432006BFC79 /* TreeMemoForToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C35DF2B4249B4432006BFC79 /* TreeMemo.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C35DF2A8249B4432006BFC79 /* TreeMemo.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C35DF2B9249B4977006BFC79 /* Cocen+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C82026243EE39500F554A4 /* Cocen+String.swift */; };
 		C35DF2BA249B497D006BFC79 /* Cocen+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C6CDC241F53620088632D /* Cocen+UIImage.swift */; };
 		C35DF2BD249B499E006BFC79 /* Combine+OQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170FA2FD23B8813F006A86BD /* Combine+OQ.swift */; };
@@ -166,7 +166,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C35DF2B4249B4432006BFC79 /* TreeMemoForToday.appex in Embed App Extensions */,
+				C35DF2B4249B4432006BFC79 /* TreeMemo.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,7 +177,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				C312399023FD1ACB00E4D82B /* TreeMemoForWatch.app in Embed Watch Content */,
+				C312399023FD1ACB00E4D82B /* Tree Memo.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,9 +206,9 @@
 		580FF6BE0D91F3AFB8FE42B4 /* Pods-treeMemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-treeMemo.debug.xcconfig"; path = "Target Support Files/Pods-treeMemo/Pods-treeMemo.debug.xcconfig"; sourceTree = "<group>"; };
 		C30038BD239A4A5D001DB62F /* OQToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQToggleView.swift; sourceTree = "<group>"; };
 		C30D9F73240CAF3A00C60019 /* WatchInputNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchInputNumberView.swift; sourceTree = "<group>"; };
-		C312396A23FD1AC900E4D82B /* TreeMemoForWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreeMemoForWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C312396A23FD1AC900E4D82B /* Tree Memo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tree Memo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C312396D23FD1AC900E4D82B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		C312396F23FD1ACB00E4D82B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C312396F23FD1ACB00E4D82B /* WatchAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WatchAssets.xcassets; sourceTree = "<group>"; };
 		C312397123FD1ACB00E4D82B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C312397623FD1ACB00E4D82B /* TreeMemoForWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TreeMemoForWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C312397B23FD1ACB00E4D82B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -217,7 +217,7 @@
 		C312398123FD1ACB00E4D82B /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		C312398323FD1ACB00E4D82B /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		C312398523FD1ACB00E4D82B /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
-		C312398723FD1ACB00E4D82B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C312398723FD1ACB00E4D82B /* ComplicationAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ComplicationAssets.xcassets; sourceTree = "<group>"; };
 		C312398A23FD1ACB00E4D82B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C312398C23FD1ACB00E4D82B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C312398D23FD1ACB00E4D82B /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
@@ -249,7 +249,7 @@
 		C34439E523A3726D00A33BA7 /* OQPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OQPickerView.swift; sourceTree = "<group>"; };
 		C355BBEB2387C09A0090F7CC /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C355BBED2387C2780090F7CC /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
-		C35DF2A8249B4432006BFC79 /* TreeMemoForToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TreeMemoForToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C35DF2A8249B4432006BFC79 /* TreeMemo.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TreeMemo.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C35DF2A9249B4432006BFC79 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		C35DF2AC249B4432006BFC79 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		C35DF2AF249B4432006BFC79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -271,7 +271,7 @@
 		C3EAB81524403AE40054F7EF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		C3EAB81724403AE90054F7EF /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		C3EAD4DC24A0363B008DB928 /* EnvironmentProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentProperty.swift; sourceTree = "<group>"; };
-		C3FF60C52383E1EC003E57DE /* treeMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = treeMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3FF60C52383E1EC003E57DE /* Tree Memo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tree Memo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3FF60C82383E1EC003E57DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3FF60CA2383E1EC003E57DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C3FF60CC2383E1EC003E57DE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -382,7 +382,7 @@
 			children = (
 				C31239A523FD22FC00E4D82B /* TreeMemoForWatch.entitlements */,
 				C312396C23FD1AC900E4D82B /* Interface.storyboard */,
-				C312396F23FD1ACB00E4D82B /* Assets.xcassets */,
+				C312396F23FD1ACB00E4D82B /* WatchAssets.xcassets */,
 				C312397123FD1ACB00E4D82B /* Info.plist */,
 			);
 			path = TreeMemoForWatch;
@@ -400,7 +400,7 @@
 				C312398123FD1ACB00E4D82B /* NotificationController.swift */,
 				C312398323FD1ACB00E4D82B /* NotificationView.swift */,
 				C312398523FD1ACB00E4D82B /* ComplicationController.swift */,
-				C312398723FD1ACB00E4D82B /* Assets.xcassets */,
+				C312398723FD1ACB00E4D82B /* ComplicationAssets.xcassets */,
 				C312398C23FD1ACB00E4D82B /* Info.plist */,
 				C312398D23FD1ACB00E4D82B /* PushNotificationPayload.apns */,
 				C312398923FD1ACB00E4D82B /* Preview Content */,
@@ -509,12 +509,12 @@
 		C3FF60C62383E1EC003E57DE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C3FF60C52383E1EC003E57DE /* treeMemo.app */,
+				C3FF60C52383E1EC003E57DE /* Tree Memo.app */,
 				C3443991239DD95A00A33BA7 /* treeMemoTests.xctest */,
-				C312396A23FD1AC900E4D82B /* TreeMemoForWatch.app */,
+				C312396A23FD1AC900E4D82B /* Tree Memo.app */,
 				C312397623FD1ACB00E4D82B /* TreeMemoForWatch Extension.appex */,
 				C31C6CEB2420BF8B0088632D /* TreeMemoForMac.app */,
-				C35DF2A8249B4432006BFC79 /* TreeMemoForToday.appex */,
+				C35DF2A8249B4432006BFC79 /* TreeMemo.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -615,7 +615,7 @@
 			);
 			name = TreeMemoForWatch;
 			productName = TreeMemoForWatch;
-			productReference = C312396A23FD1AC900E4D82B /* TreeMemoForWatch.app */;
+			productReference = C312396A23FD1AC900E4D82B /* Tree Memo.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
 		C312397523FD1ACB00E4D82B /* TreeMemoForWatch Extension */ = {
@@ -684,7 +684,7 @@
 			);
 			name = TreeMemoForToday;
 			productName = TreeMemoForToday;
-			productReference = C35DF2A8249B4432006BFC79 /* TreeMemoForToday.appex */;
+			productReference = C35DF2A8249B4432006BFC79 /* TreeMemo.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		C3FF60C42383E1EC003E57DE /* treeMemo */ = {
@@ -706,7 +706,7 @@
 			);
 			name = treeMemo;
 			productName = treeMemo;
-			productReference = C3FF60C52383E1EC003E57DE /* treeMemo.app */;
+			productReference = C3FF60C52383E1EC003E57DE /* Tree Memo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -768,7 +768,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C312397023FD1ACB00E4D82B /* Assets.xcassets in Resources */,
+				C312397023FD1ACB00E4D82B /* WatchAssets.xcassets in Resources */,
 				C312396E23FD1AC900E4D82B /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -778,7 +778,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C312398B23FD1ACB00E4D82B /* Preview Assets.xcassets in Resources */,
-				C312398823FD1ACB00E4D82B /* Assets.xcassets in Resources */,
+				C312398823FD1ACB00E4D82B /* ComplicationAssets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1081,14 +1081,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CODE_SIGN_ENTITLEMENTS = TreeMemoForWatch/TreeMemoForWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				IBSC_MODULE = TreeMemoForWatch_Extension;
 				INFOPLIST_FILE = TreeMemoForWatch/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Tree Memo";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1101,14 +1101,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CODE_SIGN_ENTITLEMENTS = TreeMemoForWatch/TreeMemoForWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				IBSC_MODULE = TreeMemoForWatch_Extension;
 				INFOPLIST_FILE = TreeMemoForWatch/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Tree Memo";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1217,7 +1217,7 @@
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = TreeMemoForToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1225,10 +1225,10 @@
 				);
 				OTHER_SWIFT_FLAGS = "-D TODAY_EXTENTION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.TreeMemoForToday;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TreeMemo;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1240,7 +1240,7 @@
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = TreeMemoForToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1248,10 +1248,10 @@
 				);
 				OTHER_SWIFT_FLAGS = "-D TODAY_EXTENTION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.TreeMemoForToday;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TreeMemo;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1388,7 +1388,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Tree Memo";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1411,7 +1411,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Tree Memo";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

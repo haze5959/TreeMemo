@@ -29,7 +29,7 @@ struct HeaderView: View {
                 Spacer()
                 
                 //타이틀
-                Text(self.treeMemoState.treeHierarchy.last ?? "TreeMemo")
+                Text(self.treeMemoState.treeHierarchy.last ?? "Tree Memo")
                 
                 //스페이서
                 Spacer()

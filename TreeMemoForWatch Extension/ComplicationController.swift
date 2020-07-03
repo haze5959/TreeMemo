@@ -30,9 +30,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     // MARK: - Timeline Population
-    
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
-        // Call the handler with the current timeline entry
         handler(nil)
     }
     
@@ -49,8 +47,25 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: - Placeholder Templates
     
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
-        // This method will be called once per supported complication, and the results will be cached
-        handler(nil)
+        switch complication.family {
+            case .circularSmall:
+                let image: UIImage = UIImage(named: "Complication/Circular")!
+                let template = CLKComplicationTemplateCircularSmallSimpleImage()
+                template.imageProvider = CLKImageProvider(onePieceImage: image)
+                handler(template)
+            case .utilitarianSmall:
+                let image: UIImage = UIImage(named: "Complication/Utilitarian")!
+                let template = CLKComplicationTemplateUtilitarianSmallSquare()
+                template.imageProvider = CLKImageProvider(onePieceImage: image)
+                handler(template)
+            case .modularSmall:
+                let image: UIImage = UIImage(named: "Complication/Modular")!
+                let template = CLKComplicationTemplateModularSmallSimpleImage()
+                template.imageProvider = CLKImageProvider(onePieceImage: image)
+                handler(template)
+            default:
+                handler(nil)
+        }
     }
     
 }

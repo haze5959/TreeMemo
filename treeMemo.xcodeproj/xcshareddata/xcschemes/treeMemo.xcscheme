@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C3FF60C42383E1EC003E57DE"
-               BuildableName = "treeMemo.app"
+               BuildableName = "Tree Memo.app"
                BlueprintName = "treeMemo"
                ReferencedContainer = "container:treeMemo.xcodeproj">
             </BuildableReference>
@@ -55,7 +55,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C3FF60C42383E1EC003E57DE"
-            BuildableName = "treeMemo.app"
+            BuildableName = "Tree Memo.app"
             BlueprintName = "treeMemo"
             ReferencedContainer = "container:treeMemo.xcodeproj">
          </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C3FF60C42383E1EC003E57DE"
-            BuildableName = "treeMemo.app"
+            BuildableName = "Tree Memo.app"
             BlueprintName = "treeMemo"
             ReferencedContainer = "container:treeMemo.xcodeproj">
          </BuildableReference>

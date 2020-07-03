@@ -122,7 +122,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         }
                         
                         DispatchQueue.main.async {
-                            let d = Dialog.alert(title: product.localizedTitle, message: product.localizedDescription, image: #imageLiteral(resourceName: "TestImg"))
+                            let d = Dialog.alert(title: product.localizedTitle, message: product.localizedDescription, image: #imageLiteral(resourceName: "Logo"))
                             
                             let numberFormatter = NumberFormatter()
                             let locale = product.priceLocale
@@ -191,7 +191,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         }
                         
                         DispatchQueue.main.async {
-                            let d = Dialog.alert(title: product.localizedTitle, message: product.localizedDescription, image: #imageLiteral(resourceName: "TestImg"))
+                            let d = Dialog.alert(title: product.localizedTitle, message: product.localizedDescription, image: #imageLiteral(resourceName: "Logo"))
                             
                             let numberFormatter = NumberFormatter()
                             let locale = product.priceLocale
@@ -232,7 +232,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("Not found rootVC!")
             return
         }
-        let d = Dialog.alert(title: "Premium", message: "All features are available.", image: #imageLiteral(resourceName: "TestImg"))
+        let d = Dialog.alert(title: "Premium", message: "All features are available.", image: #imageLiteral(resourceName: "Logo"))
         d.addAction(title: "Confirm", handler: { (dialog) -> (Void) in
             dialog.dismiss()
         })
@@ -246,7 +246,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("Not found rootVC!")
             return
         }
-        let d = Dialog.alert(title: "Info", message: "Purchase completed!", image: #imageLiteral(resourceName: "TestImg"))
+        let d = Dialog.alert(title: "Info", message: "Purchase completed!", image: #imageLiteral(resourceName: "Logo"))
         d.addAction(title: "Confirm", handler: { (dialog) -> (Void) in
             dialog.dismiss()
         })

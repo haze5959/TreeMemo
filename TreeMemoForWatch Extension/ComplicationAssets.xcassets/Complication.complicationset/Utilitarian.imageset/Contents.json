@@ -1,0 +1,32 @@
+{
+  "images" : [
+    {
+      "filename" : "KakaoTalk_Photo_2020-07-02-08-33-50.png",
+      "idiom" : "watch",
+      "scale" : "2x",
+      "screen-width" : "<=145"
+    },
+    {
+      "filename" : "KakaoTalk_Photo_2020-07-02-08-33-51.png",
+      "idiom" : "watch",
+      "scale" : "2x",
+      "screen-width" : ">161"
+    },
+    {
+      "filename" : "KakaoTalk_Photo_2020-07-02-08-33-52.png",
+      "idiom" : "watch",
+      "scale" : "2x",
+      "screen-width" : ">145"
+    },
+    {
+      "filename" : "KakaoTalk_Photo_2020-07-02-08-33-53.png",
+      "idiom" : "watch",
+      "scale" : "2x",
+      "screen-width" : ">183"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
