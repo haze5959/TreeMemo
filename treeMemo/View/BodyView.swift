@@ -14,15 +14,18 @@ struct BodyView: View {
     
     let title: String?
     let treeDataKey: UUID
+    let bodyViewInfo: BodyViewInfo
     
-    @State private var depth: Int = 0
-    @State private var isNeedInit = true
-    @State private var isNeedDismiss = false
-    @State private var subscriptions = Set<AnyCancellable>()
     @State var hideLoadingBar = true
     
     @ObservedObject var treeMemoState = TreeMemoState.shared
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.presentationMode) public var presentation
+    
+    init(title: String?, treeDataKey: UUID) {
+        self.title = title
+        self.treeDataKey = treeDataKey
+        self.bodyViewInfo = BodyViewInfo(title: title)
+    }
     
     #if os(iOS)
     @ViewBuilder
@@ -44,33 +47,21 @@ struct BodyView: View {
                 DragGesture()
                     .onEnded { gesture in
                         if gesture.translation.width > 100 {
-                            if self.depth > 0 {
+                            if self.bodyViewInfo.depth > 0 {
                                 TreeMemoState.shared.popHierarchy()
                             } else {
                                 self.environment.openSideMenu.toggle()
                             }
                         }
             }, including: self.environment.isEdit ? .subviews : .gesture)
-                .onAppear {
-                    if self.isNeedInit, let title = self.title {
-                        self.isNeedInit = false
-                        self.treeMemoState.treeHierarchy.append(title)
-                        self.depth = self.treeMemoState.treeHierarchy.count
-                        
-                        self.treeMemoState.$treeHierarchy
-                            .receive(on: DispatchQueue.main)
-                            .sink { (treeHierarchy) in
-                                if treeHierarchy.count < self.depth {
-                                    self.isNeedDismiss = true
-                                    self.presentation.wrappedValue.dismiss()
-                                }
-                        }.store(in: &self.subscriptions)
-                    }
-                    
-                    if self.isNeedDismiss {
-                        self.presentation.wrappedValue.dismiss()
-                    }
-            }
+            .onAppear { self.bodyViewInfo.apearTask() }
+            .onReceive(self.bodyViewInfo.dismissSub, perform: { _ in
+                if self.presentation.wrappedValue.isPresented {
+                    self.presentation.wrappedValue.dismiss()
+                } else {
+                    self.bodyViewInfo.isNeedDismiss = true
+                }
+            })
         } else {
             LoadingView()
                 .padding(.top, -200)
@@ -85,32 +76,19 @@ struct BodyView: View {
             }
             .onMove(perform: move)
             .onDelete(perform: delete)
-        }.onAppear {
-            if self.isNeedInit, let title = self.title {
-                self.isNeedInit = false
-                self.treeMemoState.treeHierarchy.append(title)
-                self.depth = self.treeMemoState.treeHierarchy.count
-                
-                self.treeMemoState.$treeHierarchy
-                    .receive(on: DispatchQueue.main)
-                    .sink { (treeHierarchy) in
-                        if treeHierarchy.count < self.depth {
-                            self.isNeedDismiss = true
-                            self.presentation.wrappedValue.dismiss()
-                        }
-                }.store(in: &self.subscriptions)
-            }
-            
-            if self.isNeedDismiss {
-                self.presentation.wrappedValue.dismiss()
-            }
         }
+        .onAppear { self.bodyViewInfo.apearTask() }
+        .onReceive(self.bodyViewInfo.dismissSub, perform: { _ in
+            self.presentation.wrappedValue.dismiss()
+        })
     }
     #endif
     
     func move(from source: IndexSet, to destination: Int) {
-        self.treeMemoState.moveTreeData(key: self.treeDataKey, indexSet: source, to: destination)
         self.hideLoadingBar = false
+        DispatchQueue.main.async {
+            self.treeMemoState.moveTreeData(key: self.treeDataKey, indexSet: source, to: destination)
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.hideLoadingBar = true
@@ -118,11 +96,51 @@ struct BodyView: View {
     }
     
     func delete(at offsets: IndexSet) {
-        self.treeMemoState.removeTreeData(key: self.treeDataKey, indexSet: offsets)
         self.hideLoadingBar = false
+        DispatchQueue.main.async {
+            self.treeMemoState.removeTreeData(key: self.treeDataKey, indexSet: offsets)
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.hideLoadingBar = true
+        }
+    }
+}
+
+class BodyViewInfo {
+    public var depth: Int = 0
+    var title: String? = nil
+    public var isNeedInit = true
+    public var isNeedDismiss = false
+    private var subscriptions = Set<AnyCancellable>()
+    let dismissSub = PassthroughSubject<Void, Never>()
+    
+    init(title: String?) {
+        if let title = title {
+            self.title = title
+            TreeMemoState.shared.$treeHierarchy
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] (treeHierarchy) in
+                    guard let self = self else {
+                        return
+                    }
+                    
+                    if treeHierarchy.count < self.depth {
+                        self.dismissSub.send()
+                    }
+            }.store(in: &self.subscriptions)
+        }
+    }
+    
+    func apearTask() {
+        let treeMemoState = TreeMemoState.shared
+        
+        if self.isNeedDismiss {
+            self.dismissSub.send()
+            self.isNeedDismiss = false
+        } else if let title = title, self.depth == 0 || self.depth > treeMemoState.treeHierarchy.count {
+            treeMemoState.treeHierarchy.append(title)
+            self.depth = treeMemoState.treeHierarchy.count
         }
     }
 }

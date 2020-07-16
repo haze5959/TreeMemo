@@ -13,7 +13,6 @@ struct TreeNode: View {
     var treeData: TreeModel
     @State var showingView = false
     
-    @Environment(\.presentationMode) var presentation
     let watchDelay = DispatchTimeInterval.milliseconds(500)   // 뷰 관련 작업 중 바로하면 안먹히는게 있어서 딜레이 적용
     
     var body: some View {

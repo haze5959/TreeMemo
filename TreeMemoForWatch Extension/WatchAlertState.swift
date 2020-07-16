@@ -18,9 +18,20 @@ class WatchAlertState: ObservableObject {
     static let shared = WatchAlertState()
     @Published var showAlert = false
     var activeAlert: ActiveAlert = .notSupport
+    var paringRetryCount = 0
     
     let notSupportText = "This feature is not supported on Apple Watch."
     let notParedText = "Can't pair with the iPhone app. Please wait for a moment or restart the iPhone app."
+    let waitParingText = "Paring with a iPhone. please wait a moment."
+    
+    func getParingText() -> String {
+        if self.paringRetryCount == 0 {
+            self.paringRetryCount += 1
+            return self.waitParingText
+        } else {
+            return self.notParedText
+        }
+    }
     
     func show(showCase: ActiveAlert) {
         self.activeAlert = showCase

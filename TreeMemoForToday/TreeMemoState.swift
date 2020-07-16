@@ -63,6 +63,12 @@ class TreeMemoState: ObservableObject {
             subTreeData.insert(model, at: 0)
         }
         
+        if subTreeData.count > 7 {
+            subTreeData.removeSubrange(7...)
+            let model = TreeModel(title: "", value: .new, key: self.treeDataKey, index: 7)
+            subTreeData.append(model)
+        }
+        
         return subTreeData
     }
     

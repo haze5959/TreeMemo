@@ -240,6 +240,7 @@
 		C31C6CF72420BF8D0088632D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C31C6CF92420BF8D0088632D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C31C6CFA2420BF8D0088632D /* TreeMemoForMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TreeMemoForMac.entitlements; sourceTree = "<group>"; };
+		C340D53A24BFE3A4001FC8A4 /* treeMemoToday.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = treeMemoToday.entitlements; sourceTree = "<group>"; };
 		C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoViewModel.swift; sourceTree = "<group>"; };
 		C3443991239DD95A00A33BA7 /* treeMemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = treeMemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3443993239DD95A00A33BA7 /* treeMemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = treeMemoTests.swift; sourceTree = "<group>"; };
@@ -470,6 +471,7 @@
 		C35DF2AB249B4432006BFC79 /* TreeMemoForToday */ = {
 			isa = PBXGroup;
 			children = (
+				C340D53A24BFE3A4001FC8A4 /* treeMemoToday.entitlements */,
 				C3EAD4DC24A0363B008DB928 /* EnvironmentProperty.swift */,
 				C35DF2D5249B535C006BFC79 /* TreeMemoState.swift */,
 				C35DF2D0249B4FD2006BFC79 /* TreeNodeView.swift */,
@@ -1212,7 +1214,7 @@
 		C35DF2B6249B4432006BFC79 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = treeMemo/treeMemo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TreeMemoForToday/treeMemoToday.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
@@ -1235,7 +1237,7 @@
 		C35DF2B7249B4432006BFC79 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = treeMemo/treeMemo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TreeMemoForToday/treeMemoToday.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				GCC_PREPROCESSOR_DEFINITIONS = "";

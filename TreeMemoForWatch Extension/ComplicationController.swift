@@ -48,23 +48,29 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
         switch complication.family {
-            case .circularSmall:
-                let image: UIImage = UIImage(named: "Complication/Circular")!
-                let template = CLKComplicationTemplateCircularSmallSimpleImage()
-                template.imageProvider = CLKImageProvider(onePieceImage: image)
-                handler(template)
-            case .utilitarianSmall:
-                let image: UIImage = UIImage(named: "Complication/Utilitarian")!
-                let template = CLKComplicationTemplateUtilitarianSmallSquare()
-                template.imageProvider = CLKImageProvider(onePieceImage: image)
-                handler(template)
-            case .modularSmall:
-                let image: UIImage = UIImage(named: "Complication/Modular")!
-                let template = CLKComplicationTemplateModularSmallSimpleImage()
-                template.imageProvider = CLKImageProvider(onePieceImage: image)
-                handler(template)
-            default:
-                handler(nil)
+        case .circularSmall:
+            let image: UIImage = UIImage(named: "Complication/Circular")!
+            let template = CLKComplicationTemplateCircularSmallSimpleImage()
+            template.imageProvider = CLKImageProvider(onePieceImage: image)
+            handler(template)
+        case .utilitarianSmall:
+            let image: UIImage = UIImage(named: "Complication/Utilitarian")!
+            let template = CLKComplicationTemplateUtilitarianSmallSquare()
+            template.imageProvider = CLKImageProvider(onePieceImage: image)
+            handler(template)
+        case .modularSmall:
+            let image: UIImage = UIImage(named: "Complication/Modular")!
+            let template = CLKComplicationTemplateModularSmallSimpleImage()
+            template.imageProvider = CLKImageProvider(onePieceImage: image)
+            handler(template)
+        case .graphicCorner:
+            let image: UIImage = UIImage(named: "Complication/Graphic Corner")!
+            let template = CLKComplicationTemplateGraphicCornerTextImage()
+            template.imageProvider = CLKFullColorImageProvider(fullColorImage: image)
+            template.textProvider = CLKTextProvider(format: "Tree Memo")
+            handler(template)
+        default:
+            handler(nil)
         }
     }
     

@@ -421,7 +421,7 @@ struct TreeNode: View {
                             .padding()
                     }).actionSheet(isPresented: self.$showingView) {
                         ActionSheet(title: Text("Menu"), message: Text("Please select menu.\n[\(val)]"), buttons: [
-                            .default(Text("Add website"), action: {
+                            .default(Text("Edit website"), action: {
                                 UIApplication.shared.windows[0]
                                     .rootViewController?
                                     .showTextFieldAlert(title: "Input Value",
@@ -434,7 +434,7 @@ struct TreeNode: View {
                                                             TreeMemoState.shared.treeData[data.key]![data.index] = tempData
                                     })
                             }),
-                            .default(Text("Add phone number"), action: {
+                            .default(Text("Edit phone number"), action: {
                                 UIApplication.shared.windows[0]
                                     .rootViewController?
                                     .showTextFieldAlert(title: "Input Value",

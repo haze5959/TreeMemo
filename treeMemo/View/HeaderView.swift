@@ -12,12 +12,15 @@ struct HeaderView: View {
     @EnvironmentObject var environment: EnvironmentState
     @ObservedObject var treeMemoState = TreeMemoState.shared
     
+    let impactMed = UIImpactFeedbackGenerator(style: .medium)
+    
     var body: some View {
         VStack {
             HStack(spacing: 0.0) {
                 //설정 버튼
                 Button(action: {
                     self.environment.openSideMenu.toggle()
+                    self.impactMed.impactOccurred()
                 }, label: {
                     Image(systemName: "gear")
                         .imageScale(.large)
@@ -37,6 +40,7 @@ struct HeaderView: View {
                 //편집 버튼
                 Button(action: {
                     self.environment.isEdit.toggle()
+                    self.impactMed.impactOccurred()
                 }, label: {
                     Image(systemName: "list.number")
                         .imageScale(.large)
@@ -49,6 +53,7 @@ struct HeaderView: View {
             HStack {
                 Button(action: {
                     self.treeMemoState.treeHierarchy.removeAll()
+                    self.impactMed.impactOccurred()
                 }, label: {
                     Image(systemName: "house")
                         .imageScale(.small)
@@ -65,6 +70,7 @@ struct HeaderView: View {
                             
                             Button(action: {
                                 TreeMemoState.shared.selectTreeHierarchy(index: index)
+                                self.impactMed.impactOccurred()
                             }, label: {
                                 Text(self.treeMemoState.treeHierarchy[index])
                                     .font(Font.system(size: 10))

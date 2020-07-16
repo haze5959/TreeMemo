@@ -25,7 +25,7 @@ struct ContentView: View {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 TreeMemoState.shared.wcSession.requestTreeData()
                             }
-                            return Alert(title: Text(self.alertState.notParedText), dismissButton: .cancel(Text("Refresh"), action: {
+                            return Alert(title: Text(self.alertState.getParingText()), dismissButton: .cancel(Text("Refresh"), action: {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     TreeMemoState.shared.wcSession.requestTreeData()
                                 }

@@ -29,14 +29,14 @@ struct TreeNode: View {
     
     func getCellView(data: TreeModel) -> some View {
         switch data.value {
-        case .new:
+        case .new:  // 투데이 익스텐션에서는 7개 이상 넘어갔을 때 컷팅용도로 쓰인다.
             return AnyView(
                 HStack {
                     Spacer()
                     Button(action: {
                         self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
                     }, label: {
-                        Image(systemName: "plus.circle")
+                        Image(systemName: "ellipsis")
                             .padding()
                     })
                     Spacer()

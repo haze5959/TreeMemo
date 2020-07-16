@@ -46,10 +46,10 @@ class TreeMemoState: ObservableObject {
                     return
                 }
                 
-                print("데이터 저장!")
                 self.saveTreeData(treeData)
                 // Watch <-> Phone Data sharing
                 self.wcSession.sendTreeData(data: self.getData(treeData: treeData))
+                CloudManager.shared.store.synchronize()
             })
     }
     #elseif os(macOS)
@@ -64,8 +64,8 @@ class TreeMemoState: ObservableObject {
                     return
                 }
                 
-                print("데이터 저장!")
                 self.saveTreeData(treeData)
+                CloudManager.shared.store.synchronize()
             })
     }
     #else
@@ -81,7 +81,6 @@ class TreeMemoState: ObservableObject {
                 }
                 
                 if self.wcSession.isParingSuccess {
-                    print("데이터 저장!")
                     
                     // Watch <-> Phone Data sharing
                     self.wcSession.sendTreeData(data: self.getData(treeData: treeData)) { (isSuccess) in
@@ -115,10 +114,8 @@ class TreeMemoState: ObservableObject {
             self.updateTreeDataWithNotSave(treeData: treeData)
         }
         #else
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.notSaveOnce = true
-            self.wcSession.requestTreeData()
-        }
+        self.notSaveOnce = true
+        self.wcSession.requestTreeData()
         #endif
     }
     
