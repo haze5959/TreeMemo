@@ -22,7 +22,7 @@ struct ContentView: View {
                 //바디
                 NavigationView {
                     BodyView(title: nil, treeDataKey: RootKey)
-                }
+                }.navigationViewStyle(StackNavigationViewStyle())
             }
             
             SideMenuView(width: 240,

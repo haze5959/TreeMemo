@@ -90,7 +90,7 @@ class ViewModel: ObservableObject {
             dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .short
         } else if type == .date {
-            dateFormatter.timeStyle = .medium
+            dateFormatter.timeStyle = .none
             dateFormatter.dateStyle = .long
         } else if type?.rawValue == DateTypeDDay {
             dateFormatter.dateStyle = .medium

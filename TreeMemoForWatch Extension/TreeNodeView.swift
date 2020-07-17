@@ -30,11 +30,11 @@ struct TreeNode: View {
         
         let dateFormatter = DateFormatter()
         if type == 2 {
-            dateFormatter.dateStyle = .medium
+            dateFormatter.dateStyle = .short
             dateFormatter.timeStyle = .short
         } else if type == 1 {
-            dateFormatter.timeStyle = .medium
-            dateFormatter.dateStyle = .long
+            dateFormatter.timeStyle = .none
+            dateFormatter.dateStyle = .short
         } else if type == DateTypeDDay {
             dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .none

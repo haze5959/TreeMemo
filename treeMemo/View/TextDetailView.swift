@@ -47,6 +47,7 @@ struct TextDetailView: View {
                             .padding()
                     }))
             }.padding(.bottom, keyboard.currentHeight)
+            .navigationViewStyle(StackNavigationViewStyle())
         }.alert(isPresented: self.$showConfireAlert, content: {
             Alert(title: Text("Info"),
                   message: Text("Are you sure you want to exit editing without saving?"),
