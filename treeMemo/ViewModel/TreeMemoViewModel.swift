@@ -86,6 +86,7 @@ class ViewModel: ObservableObject {
         let type = UIDatePicker.Mode(rawValue: treeDate.type)
         
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = .current
         if type == .dateAndTime {
             dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .short

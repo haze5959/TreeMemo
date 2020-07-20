@@ -78,7 +78,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         DispatchQueue.main.async {
             if PremiumProducts.store.isProductPurchased(PremiumProducts.premiumVersion) {
                 if !UserDefaults().bool(forKey: "sawReview") {
-                    self.reviewTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(second), repeats: true, block: { timer in
+                    self.reviewTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(second), repeats: false, block: { timer in
                         self.reviewTimer?.invalidate()
                         self.reviewTimer = nil
                         SKStoreReviewController.requestReview()   //리뷰 평점 작성 메서드
@@ -100,12 +100,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("Not found rootVC!")
             return
         }
-        
-        // 이상하게 보이는 경우가 있어서 차라리 안보여준다.
-//        if let presentedVC = rootVC.presentedViewController {
-//            rootVC = presentedVC
-//            return
-//        }
         
         if IAPHelper.canMakePayments() {
             let loadingDialog = Dialog.loading(title: "Please wait...", message: "", image: nil)

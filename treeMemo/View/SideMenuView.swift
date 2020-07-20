@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import StoreKit
 
 #if os(iOS)
 struct SideMenuView: View {
@@ -38,7 +39,6 @@ struct SideMenuView: View {
                     }
                     
                     Button(action: {
-                        print("프리미엄 버전 구입")
                         let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
                         if PremiumProducts.store.isProductPurchased(PremiumProducts.premiumVersion) {
                             sceneDelegate.premiumConfirmAlert()
@@ -87,13 +87,21 @@ struct SideMenuView: View {
                     }.padding()
                     
                     Button(action: {
-                        print("도네이션")
                         let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
                         sceneDelegate.showDonationDialog()
                     }) {
                         HStack {
                             Image(systemName: "hand.thumbsup")
                             Text("Donation")
+                        }.padding()
+                    }
+                    
+                    Button(action: {
+                        SKStoreReviewController.requestReview()   //리뷰 평점 작성 메서드
+                    }) {
+                        HStack {
+                            Image(systemName: "star")
+                            Text("Rating")
                         }.padding()
                     }
                 }

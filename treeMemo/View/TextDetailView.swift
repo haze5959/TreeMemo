@@ -85,8 +85,9 @@ struct TextView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UITextView, context: Context) {
-        uiView.text = text
-        uiView.selectedTextRange = self.selectedRange
+        if !self.isEdited {
+            uiView.text = text
+        }
     }
     
     class Coordinator : NSObject, UITextViewDelegate {
