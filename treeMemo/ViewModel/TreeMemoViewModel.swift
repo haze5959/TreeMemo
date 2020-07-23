@@ -191,11 +191,7 @@ class ViewModel: ObservableObject {
         }
         
         if let bUrl: URL = URL(string: aUrl) {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(bUrl, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(bUrl)
-            }
+            UIApplication.shared.open(bUrl, options: [:], completionHandler: nil)
             return true
         } else {
             return false

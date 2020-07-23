@@ -97,11 +97,11 @@ struct SideMenuView: View {
                     }
                     
                     Button(action: {
-                        SKStoreReviewController.requestReview()   //리뷰 평점 작성 메서드
+                        UIApplication.shared.open(URL(string: "https://itunes.apple.com/app/id1506875143")!, options: [:], completionHandler: nil)
                     }) {
                         HStack {
                             Image(systemName: "star")
-                            Text("Rating")
+                            Text("Review")
                         }.padding()
                     }
                 }

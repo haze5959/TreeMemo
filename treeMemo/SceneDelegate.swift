@@ -78,12 +78,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         DispatchQueue.main.async {
             if PremiumProducts.store.isProductPurchased(PremiumProducts.premiumVersion) {
                 if !UserDefaults().bool(forKey: "sawReview") {
-                    self.reviewTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(second), repeats: false, block: { timer in
-                        self.reviewTimer?.invalidate()
-                        self.reviewTimer = nil
-                        SKStoreReviewController.requestReview()   //리뷰 평점 작성 메서드
-                        UserDefaults().set(true, forKey: "sawReview")
-                    })
+                    SKStoreReviewController.requestReview()   //리뷰 평점 작성 메서드
+                    UserDefaults().set(true, forKey: "sawReview")
                 }
             } else {
                 self.reviewTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(second), repeats: true, block: { timer in
