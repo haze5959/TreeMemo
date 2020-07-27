@@ -7,32 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8D3EE788-C87C-4810-BA2C-61929A5F26F0"
+            uuid = "34F74EA9-3551-41D1-B22D-C555B9E4709F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "treeMemo/SceneDelegate.swift"
+            filePath = "TreeMemoForToday/TreeNodeView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "showDonationDialog()"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "getCellView(data:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "895A186E-AD24-46D9-9715-CAC03135B227"
+            uuid = "28C120CF-1AA1-4AAB-9581-42F2D41CA12E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "treeMemo/SceneDelegate.swift"
+            filePath = "TreeMemoForToday/TreeNodeView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "showDonationDialog()"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "getCellView(data:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

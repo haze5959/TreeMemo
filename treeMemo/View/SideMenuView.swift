@@ -87,16 +87,6 @@ struct SideMenuView: View {
                     }.padding()
                     
                     Button(action: {
-                        let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
-                        sceneDelegate.showDonationDialog()
-                    }) {
-                        HStack {
-                            Image(systemName: "hand.thumbsup")
-                            Text("Donation")
-                        }.padding()
-                    }
-                    
-                    Button(action: {
                         UIApplication.shared.open(URL(string: "https://itunes.apple.com/app/id1506875143")!, options: [:], completionHandler: nil)
                     }) {
                         HStack {

@@ -107,6 +107,29 @@ struct BodyView: View {
     }
 }
 
+#if os(iOS)
+struct SimpleBodyView: View {
+    let title: String?
+    let treeDataKey: UUID
+        
+    @ObservedObject var treeMemoState = TreeMemoState.shared
+    
+    init(title: String?, treeDataKey: UUID) {
+        self.title = title
+        self.treeDataKey = treeDataKey
+    }
+    
+    var body: some View {
+        List {
+            ForEach(self.treeMemoState.getTreeData(key: self.treeDataKey)) { treeData in
+                TreeNode(treeData: treeData)
+                    .buttonStyle(PlainButtonStyle())
+            }
+        }
+    }
+}
+#endif
+
 class BodyViewInfo {
     public var depth: Int = 0
     var title: String? = nil

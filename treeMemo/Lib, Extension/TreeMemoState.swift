@@ -19,7 +19,7 @@ class TreeMemoState: ObservableObject {
     
     @Published var treeHierarchy = [String]()
     
-    private var cancellable: AnyCancellable?
+    private var cancellables = Set<AnyCancellable>()
     private var notSaveOnce = false
     
     /**
@@ -36,9 +36,10 @@ class TreeMemoState: ObservableObject {
     
     #if os(iOS)
     let treeStore = CloudManager.shared.store
+    let naviSub = PassthroughSubject<NaviInfo, Never>()
     
     init() {
-        self.cancellable = self.$treeData
+        self.$treeData
             .debounce(for: 0.2, scheduler: RunLoop.main)
             .sink(receiveValue: { (treeData) in
                 if self.notSaveOnce {
@@ -50,7 +51,7 @@ class TreeMemoState: ObservableObject {
                 // Watch <-> Phone Data sharing
                 self.wcSession.sendTreeData(data: self.getData(treeData: treeData))
                 CloudManager.shared.store.synchronize()
-            })
+            }).store(in: &self.cancellables)
     }
     #elseif os(macOS)
     let treeStore = CloudManager.shared.store
@@ -72,7 +73,7 @@ class TreeMemoState: ObservableObject {
     let treeStore = UserDefaults.init()
     
     init() {
-        self.cancellable = self.$treeData
+        self.$treeData
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .sink(receiveValue: { (treeData) in
                 if self.notSaveOnce {
@@ -93,7 +94,7 @@ class TreeMemoState: ObservableObject {
                 } else {
                     self.wcSession.requestTreeData()
                 }
-            })
+            }).store(in: &self.cancellables)
     }
     #endif
     
@@ -266,4 +267,9 @@ class TreeMemoState: ObservableObject {
         
         return jsonData
     }
+}
+
+struct NaviInfo {
+    let title: String
+    let uuid: UUID
 }

@@ -108,7 +108,6 @@ struct TreeNode: View {
                                         var tempData = data
                                         tempData.value = .longText(recordName: recordName)
                                         TreeMemoState.shared.treeData[data.key]![data.index] = tempData
-                                        UserDefaults().set("", forKey: "LT_\(recordName)")
                                     case .failure(let error):
                                         print(error.localizedDescription)
                                     }
@@ -191,7 +190,7 @@ struct TreeNode: View {
                                                                value: longText as CKRecordValue) { (result) in
                                                                 switch result {
                                                                 case .success:
-                                                                    UserDefaults().set(longText, forKey: "LT_\(recordName)")
+                                                                    break
                                                                 case .failure(let error):
                                                                     print(error.localizedDescription)
                                                                 }

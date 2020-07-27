@@ -127,32 +127,24 @@ class ViewModel: ObservableObject {
     
     #if !TODAY_EXTENTION
     func showDetailView(title: String, recordName: String, completion: @escaping (String)->Void) {
-        if let longText = UserDefaults().string(forKey: "LT_\(recordName)") {
-            let rootVC = UIApplication.shared.windows[0].rootViewController
-            let textDetailVC = UIHostingController(rootView: TextDetailView(title: title, text: longText, completeHandler: completion))
-            textDetailVC.modalPresentationStyle = .fullScreen
-            rootVC?.present(textDetailVC, animated: true)
-        } else {    // 클라우드에서 값을 가져온다.
-            CloudManager.shared.getData(recordType: "Text",
-                                        recordName: recordName) { (result) in
-                                            switch result {
-                                            case .success(let records):
-                                                guard records.count > 0, let longText = records[0].value(forKey: "text") as? String else {
-                                                    print("No longText data!")
-                                                    return
-                                                }
-                                                
-                                                UserDefaults().set(longText, forKey: "LT_\(recordName)")
-                                                DispatchQueue.main.async {
-                                                    let rootVC = UIApplication.shared.windows[0].rootViewController
-                                                    let textDetailVC = UIHostingController(rootView: TextDetailView(title: title, text: longText, completeHandler: completion))
-                                                    textDetailVC.modalPresentationStyle = .fullScreen
-                                                    rootVC?.present(textDetailVC, animated: true)
-                                                }
-                                            case .failure(let error):
-                                                print(error.localizedDescription)
+                    CloudManager.shared.getData(recordType: "Text",
+                                    recordName: recordName) { (result) in
+                                        switch result {
+                                        case .success(let records):
+                                            guard records.count > 0, let longText = records[0].value(forKey: "text") as? String else {
+                                                print("No longText data!")
+                                                return
                                             }
-            }
+                                            
+                                            DispatchQueue.main.async {
+                                                let rootVC = UIApplication.shared.windows[0].rootViewController
+                                                let textDetailVC = UIHostingController(rootView: TextDetailView(title: title, text: longText, completeHandler: completion))
+                                                textDetailVC.modalPresentationStyle = .fullScreen
+                                                rootVC?.present(textDetailVC, animated: true)
+                                            }
+                                        case .failure(let error):
+                                            print(error.localizedDescription)
+                                        }
         }
     }
     

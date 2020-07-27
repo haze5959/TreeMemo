@@ -21,7 +21,8 @@ struct TreeNode: View {
     
     func getTitleView(data: TreeModel) -> some View {
         return Button(action: {
-            self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
+            let urlStr = "treeMemo://\(data.key)"
+            self.envi.todayVC?.extensionContext?.open(URL(string: urlStr)!, completionHandler: nil)
         }, label: {
             Text(data.title)
         }).padding()
@@ -34,7 +35,8 @@ struct TreeNode: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
+                        let urlStr = "treeMemo://\(data.key)"
+                        self.envi.todayVC?.extensionContext?.open(URL(string: urlStr)!, completionHandler: nil)
                     }, label: {
                         Image(systemName: "ellipsis")
                             .padding()
@@ -48,7 +50,8 @@ struct TreeNode: View {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
-                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
+                        let urlStr = "treeMemo://\(data.key)"
+                        self.envi.todayVC?.extensionContext?.open(URL(string: urlStr)!, completionHandler: nil)
                     }, label: {
                         Image(systemName: "plus.square")
                             .padding()
@@ -75,7 +78,8 @@ struct TreeNode: View {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
-                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
+                        let urlStr = "treeMemo://\(data.key)"
+                        self.envi.todayVC?.extensionContext?.open(URL(string: urlStr)!, completionHandler: nil)
                     }, label: {
                         Text(val.count > 0 ? val : "...")
                             .minimumScaleFactor(0.8)
@@ -89,7 +93,8 @@ struct TreeNode: View {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
-                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
+                        let urlStr = "treeMemo://\(data.key)"
+                        self.envi.todayVC?.extensionContext?.open(URL(string: urlStr)!, completionHandler: nil)
                     }, label: {
                         Image(systemName: "doc.plaintext")
                             .padding()
@@ -102,7 +107,8 @@ struct TreeNode: View {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
-                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
+                        let urlStr = "treeMemo://\(data.key)"
+                        self.envi.todayVC?.extensionContext?.open(URL(string: urlStr)!, completionHandler: nil)
                     }, label: {
                         Text("\(val)").minimumScaleFactor(0.8)
                     }).padding()
@@ -114,7 +120,8 @@ struct TreeNode: View {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
-                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
+                        let urlStr = "treeMemo://\(data.key)"
+                        self.envi.todayVC?.extensionContext?.open(URL(string: urlStr)!, completionHandler: nil)
                     }, label: {
                         ViewModel().getDateString(treeDate: val)
                             .padding()
@@ -127,7 +134,8 @@ struct TreeNode: View {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
-                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
+                        let urlStr = "treeMemo://\(data.key)"
+                        self.envi.todayVC?.extensionContext?.open(URL(string: urlStr)!, completionHandler: nil)
                     }, label: {
                         if val {
                             Image(systemName: "lightbulb.fill").padding()
@@ -143,7 +151,8 @@ struct TreeNode: View {
                     self.getTitleView(data: data)
                     Spacer()
                     Button(action: {
-                        self.envi.todayVC?.extensionContext?.open(URL(string: "treeMemo://")!, completionHandler: nil)
+                        let urlStr = "treeMemo://\(data.key)"
+                        self.envi.todayVC?.extensionContext?.open(URL(string: urlStr)!, completionHandler: nil)
                     }, label: {
                         Image(systemName: "photo")
                             .padding()

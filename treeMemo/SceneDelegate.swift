@@ -9,11 +9,13 @@
 import UIKit
 import SwiftUI
 import StoreKit
+import Combine
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     var reviewTimer: Timer?
+    var currentPresentedVC: UIHostingController<SimpleBodyView>? = nil
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -37,11 +39,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.makeKeyAndVisible()
         }
         
-        self.showReviewTimer(second: 300)
+        self.showReviewTimer(second: 200)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 10) {
             if !PremiumProducts.store.isProductPurchased(PremiumProducts.premiumVersion) {
                 self.showPhurcaseDialog()
             }
+        }
+        
+        if let url = connectionOptions.urlContexts.first?.url {
+            self.openViewByUrl(url: url)
         }
     }
     
@@ -73,6 +79,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
     
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else {
+            return
+        }
+
+        self.openViewByUrl(url: url)
+    }
+    
+    func openViewByUrl(url: URL) {
+        let urlStr = url.absoluteString
+        let folderKey = urlStr[11..<urlStr.count]
+        if let uuid = UUID(uuidString: folderKey) {
+            let closure = {
+                let contentView = SimpleBodyView(title: "", treeDataKey: uuid)
+                self.currentPresentedVC = UIHostingController(rootView: contentView)
+                self.window?.rootViewController?.present(self.currentPresentedVC!, animated: true, completion: nil)
+            }
+            
+            if let currentVC = self.currentPresentedVC {
+                currentVC.dismiss(animated: false) {
+                    closure()
+                }
+            } else {
+                closure()
+            }
+        }
+    }
+    
     // MARK: - Review
     func showReviewTimer(second:Int) {
         DispatchQueue.main.async {
@@ -92,9 +126,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func showPhurcaseDialog() {
-        guard let rootVC = self.window?.rootViewController else {
+        guard var rootVC = self.window?.rootViewController else {
             print("Not found rootVC!")
             return
+        }
+        
+        if let topVC = rootVC.presentedViewController {
+            rootVC = topVC
         }
         
         if IAPHelper.canMakePayments() {
@@ -136,67 +174,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                 self.reviewTimer?.invalidate()
                                 self.reviewTimer = nil
                                 self.showReviewTimer(second: 180)
-                            })
-                            
-                            DispatchQueue.main.async {
-                                d.show(in: rootVC)
-                            }
-                        }
-                    } else {
-                        print("showPhurcaseDialog 실패!!!")
-                    }
-                })
-            }
-        } else {
-            let d = Dialog.alert(title: "Info", message: "Payment unavailable.")
-            d.addAction(title: "Done", handler: { (dialog) -> (Void) in
-                dialog.dismiss()
-            })
-            d.show(in: rootVC)
-        }
-    }
-    
-    func showDonationDialog() {
-        guard var rootVC = self.window?.rootViewController else {
-            print("Not found rootVC!")
-            return
-        }
-        
-        if let presentedVC = rootVC.presentedViewController {
-            rootVC = presentedVC
-        }
-        
-        if IAPHelper.canMakePayments() {
-            let loadingDialog = Dialog.loading(title: "Please wait...", message: "", image: nil)
-            loadingDialog.show(in: rootVC)
-            
-            PremiumProducts.store.requestProducts { (success, products) in
-                loadingDialog.dismiss(animated: true, completion: {
-                    if success {
-                        guard let product = products?.filter({
-                            $0.productIdentifier == PremiumProducts.donation
-                        }) .first else {
-                            print("Not found donation")
-                            return
-                        }
-                        
-                        DispatchQueue.main.async {
-                            let d = Dialog.alert(title: product.localizedTitle, message: product.localizedDescription, image: #imageLiteral(resourceName: "Logo"))
-                            
-                            let numberFormatter = NumberFormatter()
-                            let locale = product.priceLocale
-                            numberFormatter.numberStyle = .currency
-                            numberFormatter.locale = locale
-                            d.addAction(title: numberFormatter.string(from: product.price)!, handler: { (dialog) -> (Void) in
-                                PremiumProducts.store.buyProduct(product)
-                                dialog.dismiss()
-                                NotificationCenter.default.addObserver(self, selector: #selector(self.buyComplete),
-                                                                       name: .IAPHelperPurchaseNotification,
-                                                                       object: nil)
-                                NotificationCenter.default.addObserver(self, selector: #selector(self.buyFail),
-                                                                       name: .IAPHelperPurchaseFailNotification,
-                                                                       object: nil)
-                                PinWheelView.shared.showProgressView(rootVC.view, text: "Please wait...")
                             })
                             
                             DispatchQueue.main.async {
