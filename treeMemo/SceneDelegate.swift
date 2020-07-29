@@ -39,7 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.makeKeyAndVisible()
         }
         
-        self.showReviewTimer(second: 200)
+        self.showReviewTimer(second: 120)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 10) {
             if !PremiumProducts.store.isProductPurchased(PremiumProducts.premiumVersion) {
                 self.showPhurcaseDialog()
@@ -71,6 +71,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        
+        self.dismissDialog()
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -85,6 +87,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         self.openViewByUrl(url: url)
+    }
+    
+    func dismissDialog() {
+        guard var rootVC = self.window?.rootViewController else {
+            print("Not found rootVC!")
+            return
+        }
+        
+        if let topVC = rootVC.presentedViewController {
+            rootVC = topVC
+        }
+        
+        if rootVC is Dialog {
+            rootVC.dismiss(animated: true) {
+                self.dismissDialog()
+            }
+        }
     }
     
     func openViewByUrl(url: URL) {
@@ -124,7 +143,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
         }
     }
-    
+        
     func showPhurcaseDialog() {
         guard var rootVC = self.window?.rootViewController else {
             print("Not found rootVC!")
@@ -135,12 +154,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             rootVC = topVC
         }
         
+        guard (rootVC is Dialog) == false else {
+            print("Dialog is exist...")
+            rootVC.dismiss(animated: true, completion: nil)
+            return
+        }
+        
         if IAPHelper.canMakePayments() {
-            let loadingDialog = Dialog.loading(title: "Please wait...", message: "", image: nil)
-            loadingDialog.show(in: rootVC)
+            let dialog = Dialog.loading(title: "Please wait...", message: "", image: nil)
+            dialog.show(in: rootVC)
             
             PremiumProducts.store.requestProducts { (success, products) in
-                loadingDialog.dismiss(animated: true, completion: {
+                dialog.dismiss(animated: true, completion: {
                     if success {
                         guard let product = products?.filter({
                             $0.productIdentifier == PremiumProducts.premiumVersion
@@ -150,13 +175,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         }
                         
                         DispatchQueue.main.async {
-                            let d = Dialog.alert(title: product.localizedTitle, message: product.localizedDescription, image: #imageLiteral(resourceName: "Logo"))
+                            let dialog = Dialog.alert(title: product.localizedTitle, message: product.localizedDescription, image: #imageLiteral(resourceName: "Logo"))
                             
                             let numberFormatter = NumberFormatter()
                             let locale = product.priceLocale
                             numberFormatter.numberStyle = .currency
                             numberFormatter.locale = locale
-                            d.addAction(title: numberFormatter.string(from: product.price)!, handler: { (dialog) -> (Void) in
+                            dialog.addAction(title: numberFormatter.string(from: product.price)!, handler: { (dialog) -> (Void) in
                                 PremiumProducts.store.buyProduct(product)
                                 dialog.dismiss()
                                 NotificationCenter.default.addObserver(self, selector: #selector(self.buyComplete),
@@ -168,16 +193,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                 PinWheelView.shared.showProgressView(rootVC.view, text: "Please wait...")
                             })
                             
-                            d.addAction(title: "Purchase Restore", handler: { (dialog) -> (Void) in
+                            dialog.addAction(title: "Purchase Restore", handler: { (dialog) -> (Void) in
                                 PremiumProducts.store.restorePurchases()
                                 dialog.dismiss()
-                                self.reviewTimer?.invalidate()
-                                self.reviewTimer = nil
-                                self.showReviewTimer(second: 180)
+                                NotificationCenter.default.addObserver(self, selector: #selector(self.buyComplete),
+                                                                       name: .IAPHelperPurchaseNotification,
+                                                                       object: nil)
+                                NotificationCenter.default.addObserver(self, selector: #selector(self.buyFail),
+                                                                       name: .IAPHelperPurchaseFailNotification,
+                                                                       object: nil)
+                                PinWheelView.shared.showProgressView(rootVC.view, text: "Please wait...")
                             })
                             
                             DispatchQueue.main.async {
-                                d.show(in: rootVC)
+                                dialog.show(in: rootVC)
                             }
                         }
                     } else {
@@ -186,11 +215,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 })
             }
         } else {
-            let d = Dialog.alert(title: "Info", message: "Payment unavailable.")
-            d.addAction(title: "Done", handler: { (dialog) -> (Void) in
+            let dialog = Dialog.alert(title: "Info", message: "Payment unavailable.")
+            dialog.addAction(title: "Done", handler: { (dialog) -> (Void) in
                 dialog.dismiss()
             })
-            d.show(in: rootVC)
+            dialog.show(in: rootVC)
         }
     }
     
@@ -199,11 +228,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("Not found rootVC!")
             return
         }
-        let d = Dialog.alert(title: "Premium", message: "All features are available.", image: #imageLiteral(resourceName: "Logo"))
-        d.addAction(title: "Confirm", handler: { (dialog) -> (Void) in
+        let dialog = Dialog.alert(title: "Premium", message: "All features are available.", image: #imageLiteral(resourceName: "Logo"))
+        dialog.addAction(title: "Confirm", handler: { (dialog) -> (Void) in
             dialog.dismiss()
         })
-        d.show(in: rootVC)
+        dialog.show(in: rootVC)
     }
     
     @objc func buyComplete() {
@@ -213,15 +242,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("Not found rootVC!")
             return
         }
-        let d = Dialog.alert(title: "Info", message: "Purchase completed!", image: #imageLiteral(resourceName: "Logo"))
-        d.addAction(title: "Confirm", handler: { (dialog) -> (Void) in
+        let dialog = Dialog.alert(title: "Info", message: "Purchase completed!", image: #imageLiteral(resourceName: "Logo"))
+        dialog.addAction(title: "Confirm", handler: { (dialog) -> (Void) in
             dialog.dismiss()
         })
-        d.show(in: rootVC)
+        dialog.show(in: rootVC)
     }
     
     @objc func buyFail() {
         PinWheelView.shared.hideProgressView()
+        
+        guard let rootVC = self.window?.rootViewController else {
+            print("Not found rootVC!")
+            return
+        }
+        let dialog = Dialog.alert(title: "Info", message: "Purchase fail..", image: #imageLiteral(resourceName: "Logo"))
+        dialog.addAction(title: "Confirm", handler: { (dialog) -> (Void) in
+            dialog.dismiss()
+        })
+        dialog.show(in: rootVC)
     }
 }
 
