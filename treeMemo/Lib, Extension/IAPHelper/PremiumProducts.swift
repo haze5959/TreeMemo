@@ -30,7 +30,7 @@ import Foundation
 
 public struct PremiumProducts {
     
-    public static let premiumVersion = "treememo_premium_version"
+    public static let premiumVersion = "treememo_premium"
     
     private static let productIdentifiers: Set<ProductIdentifier> = [PremiumProducts.premiumVersion]
     

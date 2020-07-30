@@ -242,7 +242,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("Not found rootVC!")
             return
         }
-        let dialog = Dialog.alert(title: "Info", message: "Purchase completed!", image: #imageLiteral(resourceName: "Logo"))
+        
+        var message = "Purchase completed!"
+        if !PremiumProducts.store.isProductPurchased(PremiumProducts.premiumVersion) {
+            message = "Purchase fail.."
+        }
+        
+        let dialog = Dialog.alert(title: "Info", message: message, image: #imageLiteral(resourceName: "Logo"))
         dialog.addAction(title: "Confirm", handler: { (dialog) -> (Void) in
             dialog.dismiss()
         })

@@ -89,11 +89,11 @@
 		C35DF2D4249B520A006BFC79 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31C6CD7241B49F10088632D /* CloudKit.framework */; };
 		C35DF2D6249B535C006BFC79 /* TreeMemoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35DF2D5249B535C006BFC79 /* TreeMemoState.swift */; };
 		C36AC523238CCE9A00237549 /* TreeMemoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36AC522238CCE9A00237549 /* TreeMemoState.swift */; };
+		C39CA39A24D29A9F0059C695 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C39CA39924D29A9F0059C695 /* StoreKit.framework */; };
 		C3C82027243EE39500F554A4 /* Cocen+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C82026243EE39500F554A4 /* Cocen+String.swift */; };
 		C3C82028243EE39F00F554A4 /* Cocen+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C82026243EE39500F554A4 /* Cocen+String.swift */; };
 		C3C8202C243EEF7300F554A4 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C8202A243EEF7300F554A4 /* IAPHelper.swift */; };
 		C3C8202D243EEF7300F554A4 /* PremiumProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C8202B243EEF7300F554A4 /* PremiumProducts.swift */; };
-		C3C8202F243EEFF000F554A4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3C8202E243EEFF000F554A4 /* StoreKit.framework */; };
 		C3C82031243EF5BF00F554A4 /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C82030243EF5BF00F554A4 /* Dialog.swift */; };
 		C3CDC2A62408F732005A7CF9 /* WatchInputFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDC2A52408F732005A7CF9 /* WatchInputFieldView.swift */; };
 		C3EAB80B244011AA0054F7EF /* macOS+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EAB80924400C200054F7EF /* macOS+Extension.swift */; };
@@ -260,6 +260,7 @@
 		C35DF2D0249B4FD2006BFC79 /* TreeNodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeNodeView.swift; sourceTree = "<group>"; };
 		C35DF2D5249B535C006BFC79 /* TreeMemoState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeMemoState.swift; sourceTree = "<group>"; };
 		C36AC522238CCE9A00237549 /* TreeMemoState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoState.swift; sourceTree = "<group>"; };
+		C39CA39924D29A9F0059C695 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C3AAFDCD24C52C68009519BE /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C3AAFDCE24C52C68009519BE /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Interface.strings; sourceTree = "<group>"; };
 		C3AAFDCF24C52C68009519BE /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
@@ -295,7 +296,6 @@
 		C3C82026243EE39500F554A4 /* Cocen+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Cocen+String.swift"; sourceTree = "<group>"; };
 		C3C8202A243EEF7300F554A4 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		C3C8202B243EEF7300F554A4 /* PremiumProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiumProducts.swift; sourceTree = "<group>"; };
-		C3C8202E243EEFF000F554A4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C3C82030243EF5BF00F554A4 /* Dialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		C3CDC2A52408F732005A7CF9 /* WatchInputFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchInputFieldView.swift; sourceTree = "<group>"; };
 		C3EAB80924400C200054F7EF /* macOS+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "macOS+Extension.swift"; sourceTree = "<group>"; };
@@ -357,8 +357,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C39CA39A24D29A9F0059C695 /* StoreKit.framework in Frameworks */,
 				C31C6CD8241B49F10088632D /* CloudKit.framework in Frameworks */,
-				C3C8202F243EEFF000F554A4 /* StoreKit.framework in Frameworks */,
 				60AD6BE10826625625DEDEBC /* libPods-treeMemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,8 +456,8 @@
 		C31C6CD6241B49F10088632D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C39CA39924D29A9F0059C695 /* StoreKit.framework */,
 				C3EAB81724403AE90054F7EF /* CloudKit.framework */,
-				C3C8202E243EEFF000F554A4 /* StoreKit.framework */,
 				C3EAB81524403AE40054F7EF /* StoreKit.framework */,
 				C31C6CD9241B73C80088632D /* CloudKit.framework */,
 				C31C6CD7241B49F10088632D /* CloudKit.framework */,
