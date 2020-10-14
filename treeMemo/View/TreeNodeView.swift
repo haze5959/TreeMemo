@@ -17,6 +17,8 @@ struct TreeNode: View {
     @State var pickerType: UIImagePickerController.SourceType = .photoLibrary
     @State var showImagePicker: Bool = false
     
+    @State var showTitleSheet: Bool = false
+    
     var body: some View {
         self.getCellView(data: self.treeData)
             .frame(height: 50)
@@ -24,20 +26,33 @@ struct TreeNode: View {
     
     func getTitleView(data: TreeModel) -> some View {
         return Button(action: {
-            UIApplication.shared.windows[0]
-                .rootViewController?
-                .showTextFieldAlert(title: "Input Title",
-                                    text: data.title,
-                                    placeHolder: data.title,
-                                    doneCompletion: { (text) in
-                                        var tempData = data
-                                        tempData.title = text
-                                        TreeMemoState.shared.treeData[data.key]![data.index] = tempData
-                })
+            self.showTitleSheet.toggle()
         }, label: {
             Text(data.title)
-        })
-            .padding()
+        }).padding()
+        .actionSheet(isPresented: self.$showTitleSheet) {
+            ActionSheet(title: Text("Type Select"), buttons: [
+                .default(Text("Change title."), action: {
+                    UIApplication.shared.windows[0]
+                        .rootViewController?
+                        .showTextFieldAlert(title: "Input Title",
+                                            text: data.title,
+                                            placeHolder: data.title,
+                                            doneCompletion: { (text) in
+                                                var tempData = data
+                                                tempData.title = text
+                                                TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                                            })
+                }),
+                .default(Text("Change value type."), action: {
+                    TreeMemoState.shared.removeRecursiveData(treeData: data)
+                    var tempData = data
+                    tempData.value = .none
+                    TreeMemoState.shared.treeData[data.key]![data.index] = tempData
+                }),
+                .cancel()
+            ])
+        }
     }
     
     func getCellView(data: TreeModel) -> some View {
