@@ -17,7 +17,7 @@ struct BodyView: View {
             ForEach(self.treeMemoState.getTreeData()) { treeData in
                 TreeNode(treeData: treeData)
                     .buttonStyle(PlainButtonStyle())
-            }
+            }.listRowBackground(Color.clear)
         }
     }
 }

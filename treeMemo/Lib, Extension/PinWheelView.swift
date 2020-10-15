@@ -23,7 +23,7 @@ open class PinWheelView {
     }
     
     open func showProgressView() {
-        #if !TODAY_EXTENTION
+        #if !TODAY_EXTENTION && !WIDGET_EXTENTION
         guard let rootVC = UIApplication.shared.windows[0].rootViewController else {
             return
         }

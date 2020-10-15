@@ -51,6 +51,13 @@
 		C3202471251B3FAF009620AF /* TreeMemoWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C320246C251B3FAE009620AF /* TreeMemoWidget.intentdefinition */; };
 		C3202474251B3FAF009620AF /* TreeMemoWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C3202464251B3FAE009620AF /* TreeMemoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C33556AF253692D1004DA09B /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33556AE253692D1004DA09B /* BodyView.swift */; };
+		C33556CC2537F97A004DA09B /* TreeMemoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35DF2D5249B535C006BFC79 /* TreeMemoState.swift */; };
+		C33556D52537F9C0004DA09B /* Cocen+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C82026243EE39500F554A4 /* Cocen+String.swift */; };
+		C33556DD2537F9C5004DA09B /* Cocen+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C6CDC241F53620088632D /* Cocen+UIImage.swift */; };
+		C33556E52537F9D0004DA09B /* Combine+OQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170FA2FD23B8813F006A86BD /* Combine+OQ.swift */; };
+		C33556ED2537F9D9004DA09B /* OQToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30038BD239A4A5D001DB62F /* OQToggleView.swift */; };
+		C33556F52537F9E9004DA09B /* TreeMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */; };
+		C33556FD2537F9EC004DA09B /* TreeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF610B23853C88003E57DE /* TreeModel.swift */; };
 		C34415D0238F5CB100F0FDD1 /* TreeMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */; };
 		C3443994239DD95A00A33BA7 /* treeMemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3443993239DD95A00A33BA7 /* treeMemoTests.swift */; };
 		C344399C239DDF3000A33BA7 /* OQTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C344399B239DDF3000A33BA7 /* OQTextFieldView.swift */; };
@@ -95,6 +102,7 @@
 		C35DF2D4249B520A006BFC79 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31C6CD7241B49F10088632D /* CloudKit.framework */; };
 		C35DF2D6249B535C006BFC79 /* TreeMemoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35DF2D5249B535C006BFC79 /* TreeMemoState.swift */; };
 		C36AC523238CCE9A00237549 /* TreeMemoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36AC522238CCE9A00237549 /* TreeMemoState.swift */; };
+		C3986FA925381B84002B01BC /* TreeNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3986FA125381B7C002B01BC /* TreeNodeView.swift */; };
 		C39CA39A24D29A9F0059C695 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C39CA39924D29A9F0059C695 /* StoreKit.framework */; };
 		C3C82027243EE39500F554A4 /* Cocen+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C82026243EE39500F554A4 /* Cocen+String.swift */; };
 		C3C8202C243EEF7300F554A4 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C8202A243EEF7300F554A4 /* IAPHelper.swift */; };
@@ -240,6 +248,7 @@
 		C320246D251B3FAF009620AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C320246F251B3FAF009620AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C33556AE253692D1004DA09B /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
+		C33556C22537F79D004DA09B /* TreeMemoWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TreeMemoWidgetExtension.entitlements; sourceTree = "<group>"; };
 		C340D53A24BFE3A4001FC8A4 /* treeMemoToday.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = treeMemoToday.entitlements; sourceTree = "<group>"; };
 		C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoViewModel.swift; sourceTree = "<group>"; };
 		C3443991239DD95A00A33BA7 /* treeMemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = treeMemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -278,6 +287,7 @@
 		C35DF2D0249B4FD2006BFC79 /* TreeNodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeNodeView.swift; sourceTree = "<group>"; };
 		C35DF2D5249B535C006BFC79 /* TreeMemoState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeMemoState.swift; sourceTree = "<group>"; };
 		C36AC522238CCE9A00237549 /* TreeMemoState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMemoState.swift; sourceTree = "<group>"; };
+		C3986FA125381B7C002B01BC /* TreeNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNodeView.swift; sourceTree = "<group>"; };
 		C39CA39924D29A9F0059C695 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C3AAFDCD24C52C68009519BE /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C3AAFDCF24C52C68009519BE /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
@@ -463,6 +473,8 @@
 		C3202469251B3FAE009620AF /* TreeMemoWidget */ = {
 			isa = PBXGroup;
 			children = (
+				C3986FA125381B7C002B01BC /* TreeNodeView.swift */,
+				C33556C22537F79D004DA09B /* TreeMemoWidgetExtension.entitlements */,
 				C320246A251B3FAE009620AF /* TreeMemoWidget.swift */,
 				C320246C251B3FAE009620AF /* TreeMemoWidget.intentdefinition */,
 				C320246D251B3FAF009620AF /* Assets.xcassets */,
@@ -967,8 +979,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C33556F52537F9E9004DA09B /* TreeMemoViewModel.swift in Sources */,
 				C3202470251B3FAF009620AF /* TreeMemoWidget.intentdefinition in Sources */,
+				C3986FA925381B84002B01BC /* TreeNodeView.swift in Sources */,
 				C320246B251B3FAE009620AF /* TreeMemoWidget.swift in Sources */,
+				C33556DD2537F9C5004DA09B /* Cocen+UIImage.swift in Sources */,
+				C33556D52537F9C0004DA09B /* Cocen+String.swift in Sources */,
+				C33556CC2537F97A004DA09B /* TreeMemoState.swift in Sources */,
+				C33556ED2537F9D9004DA09B /* OQToggleView.swift in Sources */,
+				C33556E52537F9D0004DA09B /* Combine+OQ.swift in Sources */,
+				C33556FD2537F9EC004DA09B /* TreeModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1214,6 +1234,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = TreeMemoWidget/TreeMemoWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				INFOPLIST_FILE = TreeMemoWidget/Info.plist;
@@ -1223,6 +1244,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "-D WIDGET_EXTENTION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.TreeMemoWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1237,6 +1259,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = TreeMemoWidget/TreeMemoWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				INFOPLIST_FILE = TreeMemoWidget/Info.plist;
@@ -1246,6 +1269,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "-D WIDGET_EXTENTION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.TreeMemoWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

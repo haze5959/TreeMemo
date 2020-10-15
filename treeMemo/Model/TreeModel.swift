@@ -17,7 +17,7 @@ struct TreeDateType: Codable {
     let type: Int   //UIDatePicker.Mode로 파싱하는게 필요
 }
 
-#if TODAY_EXTENTION
+#if TODAY_EXTENTION || WIDGET_EXTENTION
 enum TreeValueType: Codable {
     case new    //새로 만들기 버튼
     case none   //설정 안된 초기 셀

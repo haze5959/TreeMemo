@@ -130,7 +130,7 @@ class TreeMemoState: ObservableObject {
         UserDefaults(suiteName: "group.oq.treememo")?.set(encodedTreeData, forKey: "RootTreeData")
     }
     
-    #if os(iOS) && !TODAY_EXTENTION
+    #if os(iOS) && !TODAY_EXTENTION && !WIDGET_EXTENTION
     func removeAllTreeData() {
         PinWheelView.shared.showProgressView()
         CloudManager.shared.deleteData(recordType: "Image")

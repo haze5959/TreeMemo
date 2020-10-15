@@ -41,7 +41,7 @@ class ViewModel: ObservableObject {
     }
     
     func saveImage(data: TreeModel, imgData: Data) {
-        #if !TODAY_EXTENTION
+        #if !TODAY_EXTENTION && !WIDGET_EXTENTION
         let record = CKRecord(recordType: "Image")
         record.setValue(imgData, forKey: "data")
         CloudManager.shared.makeData(record: record) { (result) in
@@ -68,7 +68,7 @@ class ViewModel: ObservableObject {
     }
     
     func removeImage(name: String) {
-        #if !TODAY_EXTENTION
+        #if !TODAY_EXTENTION && !WIDGET_EXTENTION
         do {
             let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
             let path = "\(documentsPath)/\(name).png"
@@ -125,7 +125,7 @@ class ViewModel: ObservableObject {
         return AnyView(Text(dateFormatter.string(from: date)))
     }
     
-    #if !TODAY_EXTENTION
+    #if !TODAY_EXTENTION && !WIDGET_EXTENTION
     func showDetailView(title: String, recordName: String, completion: @escaping (String)->Void) {
                     CloudManager.shared.getData(recordType: "Text",
                                     recordName: recordName) { (result) in
