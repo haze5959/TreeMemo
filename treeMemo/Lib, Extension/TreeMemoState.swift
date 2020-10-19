@@ -10,6 +10,10 @@ import Foundation
 import SwiftUI
 import Combine
 
+#if !os(watchOS)
+import WidgetKit
+#endif
+
 typealias TreeDataType = [UUID: [TreeModel]]
 class TreeMemoState: ObservableObject {
     static let shared = TreeMemoState()
@@ -102,7 +106,7 @@ class TreeMemoState: ObservableObject {
     func initTreeData() {
         #if os(iOS) || os(macOS)
         if let data = self.treeStore.data(forKey: self.storedDataKey),
-            let treeData = try? PropertyListDecoder().decode(TreeDataType.self, from: data) {
+           let treeData = try? PropertyListDecoder().decode(TreeDataType.self, from: data) {
             
             self.updateTreeDataWithNotSave(treeData: treeData)
         } else {
@@ -127,7 +131,13 @@ class TreeMemoState: ObservableObject {
         }
         
         self.treeStore.set(encodedTreeData, forKey: self.storedDataKey)
-        UserDefaults(suiteName: "group.oq.treememo")?.set(encodedTreeData, forKey: "RootTreeData")
+        #if !os(watchOS)
+        if #available(iOS 14.0, *) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                WidgetCenter.shared.reloadAllTimelines()
+            }
+        }
+        #endif
     }
     
     #if os(iOS) && !TODAY_EXTENTION && !WIDGET_EXTENTION
@@ -142,7 +152,11 @@ class TreeMemoState: ObservableObject {
             self.initTreeData()
             self.wcSession.sendTreeData(data: self.getData(treeData: self.treeData))
             
-            UserDefaults(suiteName: "group.oq.treememo")?.removeObject(forKey: "RootTreeData")
+            #if !os(watchOS)
+            if #available(iOS 14.0, *) {
+                WidgetCenter.shared.reloadAllTimelines()
+            }
+            #endif
         }
     }
     #endif
@@ -180,9 +194,9 @@ class TreeMemoState: ObservableObject {
     #if os(iOS) || os(macOS)
     func removeTreeData(key: UUID, indexSet: IndexSet) {
         guard var subTreeData = self.treeData[key],
-            let index = indexSet.map({$0}).first else {
-                print("Can't find data with key!")
-                return
+              let index = indexSet.map({$0}).first else {
+            print("Can't find data with key!")
+            return
         }
         
         let treeData = subTreeData[index]

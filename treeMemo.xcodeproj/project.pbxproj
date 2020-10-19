@@ -101,6 +101,7 @@
 		C35DF2D2249B5085006BFC79 /* TreeMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34415CF238F5CB100F0FDD1 /* TreeMemoViewModel.swift */; };
 		C35DF2D4249B520A006BFC79 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31C6CD7241B49F10088632D /* CloudKit.framework */; };
 		C35DF2D6249B535C006BFC79 /* TreeMemoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35DF2D5249B535C006BFC79 /* TreeMemoState.swift */; };
+		C361B7C3253D29DF00BCFF94 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31C6CD7241B49F10088632D /* CloudKit.framework */; };
 		C36AC523238CCE9A00237549 /* TreeMemoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36AC522238CCE9A00237549 /* TreeMemoState.swift */; };
 		C3986FA925381B84002B01BC /* TreeNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3986FA125381B7C002B01BC /* TreeNodeView.swift */; };
 		C39CA39A24D29A9F0059C695 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C39CA39924D29A9F0059C695 /* StoreKit.framework */; };
@@ -352,6 +353,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C361B7C3253D29DF00BCFF94 /* CloudKit.framework in Frameworks */,
 				C3202468251B3FAE009620AF /* SwiftUI.framework in Frameworks */,
 				C3202466251B3FAE009620AF /* WidgetKit.framework in Frameworks */,
 			);
@@ -1244,6 +1246,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				OTHER_SWIFT_FLAGS = "-D WIDGET_EXTENTION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.TreeMemoWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1269,6 +1272,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				OTHER_SWIFT_FLAGS = "-D WIDGET_EXTENTION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.TreeMemoWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1335,6 +1339,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1360,6 +1365,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1382,7 +1388,7 @@
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				IBSC_MODULE = TreeMmoForWatch_Extension;
 				INFOPLIST_FILE = TreeMmoForWatch/Info.plist;
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1405,7 +1411,7 @@
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				IBSC_MODULE = TreeMmoForWatch_Extension;
 				INFOPLIST_FILE = TreeMmoForWatch/Info.plist;
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1430,6 +1436,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				OTHER_SWIFT_FLAGS = "-D TODAY_EXTENTION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.TreeMemoForToday;
 				PRODUCT_NAME = TreeMemo;
@@ -1453,6 +1460,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				OTHER_SWIFT_FLAGS = "-D TODAY_EXTENTION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.TreeMemoForToday;
 				PRODUCT_NAME = TreeMemo;
@@ -1594,6 +1602,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo;
 				PRODUCT_NAME = "Tree Memo";
 				SWIFT_VERSION = 5.0;
@@ -1617,6 +1626,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo;
 				PRODUCT_NAME = "Tree Memo";
 				SWIFT_VERSION = 5.0;

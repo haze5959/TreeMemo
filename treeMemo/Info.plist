@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -33,6 +33,10 @@
 	<string>Using Camera for pick up image.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Using Photo Library for pick up image.</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>FolderNameIntent</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

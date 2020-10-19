@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import CloudKit
 
 typealias TreeDataType = [UUID: [TreeModel]]
 class TreeMemoState: ObservableObject {
@@ -19,6 +20,8 @@ class TreeMemoState: ObservableObject {
     
     private var cancellable: AnyCancellable?
     private var notSaveOnce = false
+    
+    private let storedDataKey = "storedDataKey"
     
     /**
      - 데이터 업데이트 방식
@@ -34,9 +37,9 @@ class TreeMemoState: ObservableObject {
     
     // MARK: 트리데이터 초기화
     func initTreeData() {
-        if let data = UserDefaults(suiteName: "group.oq.treememo")?.data(forKey: "RootTreeData"),
-            let treeData = try? PropertyListDecoder().decode(TreeDataType.self, from: data) {
-            self.treeData = treeData
+        if let data = NSUbiquitousKeyValueStore.default.data(forKey: self.storedDataKey),
+           let treeData = try? PropertyListDecoder().decode(TreeDataType.self, from: data) {
+           self.treeData = treeData
         } else {
             //페이지 첫 진입
             var treeData = TreeDataType()
@@ -72,6 +75,14 @@ class TreeMemoState: ObservableObject {
         return subTreeData
     }
     
+    func getTreeData(with folderName: String?) -> [TreeModel] {
+        if let name = folderName, let folderKey = self.getFolderKey(name: name) {
+            return self.treeData[folderKey]!
+        } else {
+            return self.getTreeData()
+        }
+    }
+    
     func getData(treeData: TreeDataType) -> Data {
         guard let jsonData = try? JSONEncoder().encode(treeData) else {
             print("treeData could not encoding!")
@@ -87,5 +98,26 @@ class TreeMemoState: ObservableObject {
         } else {
             self.treeDataKey = RootKey
         }
+    }
+    
+    func getFolderKey(name: String, folderKey: UUID = RootKey) -> UUID? {
+        let subTreeData = self.treeData[folderKey]!
+        
+        for treeData in subTreeData {
+            switch treeData.value {
+            case .child(let key):
+                if treeData.title == name {
+                    return key
+                } else {
+                    if let uuid = self.getFolderKey(name: name, folderKey: key) {
+                        return uuid
+                    }
+                }
+            default:
+                break
+            }
+        }
+        
+        return nil
     }
 }

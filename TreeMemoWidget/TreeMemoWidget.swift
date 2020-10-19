@@ -9,7 +9,11 @@
 import WidgetKit
 import SwiftUI
 
-struct Provider: TimelineProvider {
+struct Provider: IntentTimelineProvider {
+    typealias Entry = SimpleEntry
+    
+    typealias Intent = FolderNameIntent
+    
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(),
                     data: [TreeModel(title: "Loading...",
@@ -35,7 +39,9 @@ struct Provider: TimelineProvider {
                                      index: 6)])
     }
     
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+    func getSnapshot(for configuration: FolderNameIntent,
+                     in context: Context,
+                     completion: @escaping (SimpleEntry) -> ()) {
         let entry = SimpleEntry(date: Date(),
                                 data: [TreeModel(title: "✈️ Travel",
                                                  value: .date(val: TreeDateType(date: Date(), type: 4)),
@@ -67,12 +73,15 @@ struct Provider: TimelineProvider {
         completion(entry)
     }
     
-    func  getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
+    func getTimeline(for configuration: FolderNameIntent,
+                     in context: Context,
+                     completion: @escaping (Timeline<SimpleEntry>) -> Void) {
         TreeMemoState.shared.initTreeData()
+        let data = TreeMemoState.shared.getTreeData(with: configuration.folderName)
         let entries: [SimpleEntry] = [SimpleEntry(date: Date(),
-                                                  data: TreeMemoState.shared.getTreeData())]
+                                                  data: data)]
         
-        let nextUpdateDate = Calendar.current.date(byAdding: .minute, value: 60, to: Date())!
+        let nextUpdateDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
         
         let timeline = Timeline(entries: entries, policy: .after(nextUpdateDate))
         completion(timeline)
@@ -121,12 +130,13 @@ struct TreeMemoWidget: Widget {
     let kind: String = "TreeMemoWidget"
     
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind,
-                            provider: Provider()) { entry in
+        IntentConfiguration(kind: kind,
+                            intent: FolderNameIntent.self,
+                            provider: Provider()) { (entry) in
             TreeMemoWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("My TreeMemo widget.")
-        .description("TreeMemo widget.")
+        .description("You can change the folder location to show through widget editing.")
         .supportedFamilies([.systemMedium, .systemLarge])
     }
 }
