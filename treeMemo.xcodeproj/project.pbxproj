@@ -1238,6 +1238,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = TreeMemoWidget/TreeMemoWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				INFOPLIST_FILE = TreeMemoWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1246,7 +1247,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				OTHER_SWIFT_FLAGS = "-D WIDGET_EXTENTION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.TreeMemoWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1264,6 +1265,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = TreeMemoWidget/TreeMemoWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				INFOPLIST_FILE = TreeMemoWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1272,7 +1274,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				OTHER_SWIFT_FLAGS = "-D WIDGET_EXTENTION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.TreeMemoWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1330,6 +1332,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"TreeMmoForWatch Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				ENABLE_PREVIEWS = YES;
@@ -1339,7 +1342,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1356,6 +1359,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"TreeMmoForWatch Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				ENABLE_PREVIEWS = YES;
@@ -1365,7 +1369,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1384,11 +1388,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				IBSC_MODULE = TreeMmoForWatch_Extension;
 				INFOPLIST_FILE = TreeMmoForWatch/Info.plist;
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1407,11 +1411,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				IBSC_MODULE = TreeMmoForWatch_Extension;
 				INFOPLIST_FILE = TreeMmoForWatch/Info.plist;
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1427,6 +1431,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TreeMemoForToday/treeMemoToday.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = TreeMemoForToday/Info.plist;
@@ -1436,7 +1441,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				OTHER_SWIFT_FLAGS = "-D TODAY_EXTENTION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.TreeMemoForToday;
 				PRODUCT_NAME = TreeMemo;
@@ -1451,6 +1456,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TreeMemoForToday/treeMemoToday.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = TreeMemoForToday/Info.plist;
@@ -1460,7 +1466,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				OTHER_SWIFT_FLAGS = "-D TODAY_EXTENTION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo.TreeMemoForToday;
 				PRODUCT_NAME = TreeMemo;
@@ -1594,6 +1600,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = treeMemo/treeMemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"treeMemo/Preview Content\"";
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				ENABLE_PREVIEWS = YES;
@@ -1602,7 +1609,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo;
 				PRODUCT_NAME = "Tree Memo";
 				SWIFT_VERSION = 5.0;
@@ -1618,6 +1625,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = treeMemo/treeMemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"treeMemo/Preview Content\"";
 				DEVELOPMENT_TEAM = Z97K7ZHNKX;
 				ENABLE_PREVIEWS = YES;
@@ -1626,7 +1634,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oq.tree.memo;
 				PRODUCT_NAME = "Tree Memo";
 				SWIFT_VERSION = 5.0;
