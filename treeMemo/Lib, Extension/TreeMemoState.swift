@@ -259,12 +259,20 @@ class TreeMemoState: ObservableObject {
     }
     
     func selectTreeHierarchy(index: Int) {
-        let removeCount = self.treeHierarchy.count - (index + 1)
-        self.treeHierarchy.removeLast(removeCount)
+        let removeCount = self.treeHierarchy.count - index
+        if removeCount > 0 {
+            self.popHierarchy(recursiveCount: removeCount - 1)
+        }
     }
     
-    func popHierarchy() {
+    func popHierarchy(recursiveCount: Int = 0) {
         self.treeHierarchy.removeLast(1)
+        
+        if recursiveCount > 0 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.popHierarchy(recursiveCount: recursiveCount - 1)
+            }
+        }
     }
     
     func getPlusTreeModel(key: UUID, index: Int) -> TreeModel {

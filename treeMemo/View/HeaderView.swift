@@ -52,7 +52,7 @@ struct HeaderView: View {
             //계층 정보
             HStack {
                 Button(action: {
-                    self.treeMemoState.treeHierarchy.removeAll()
+                    self.treeMemoState.selectTreeHierarchy(index: 0)
                     self.impactMed.impactOccurred()
                 }, label: {
                     Image(systemName: "house")
@@ -61,26 +61,23 @@ struct HeaderView: View {
                         .foregroundColor(Color(.label))
                 })
                 
-                if self.treeMemoState.treeHierarchy.count > 0 {
-                    ForEach(0..<self.treeMemoState.treeHierarchy.count, id: \.self) { index in
-                        HStack {
-                            Image(systemName: "chevron.compact.right")
-                                .imageScale(.small)
-                                .foregroundColor(Color(.label))
-                            
-                            Button(action: {
-                                TreeMemoState.shared.selectTreeHierarchy(index: index)
-                                self.impactMed.impactOccurred()
-                            }, label: {
-                                Text(self.treeMemoState.treeHierarchy[index])
-                                    .font(Font.system(size: 10))
-                                    .lineLimit(2)
-                                    .padding()
-                                    .foregroundColor(Color(.label))
-                                    .frame(maxWidth: 80)
-                            })
-                        }
-                    }
+                ForEach(0..<self.treeMemoState.treeHierarchy.count, id: \.self) { index in
+                    Image(systemName: "chevron.compact.right")
+                        .imageScale(.small)
+                        .padding(.vertical)
+                        .foregroundColor(Color(.label))
+                    
+                    Button(action: {
+                        self.treeMemoState.selectTreeHierarchy(index: index + 1)
+                        self.impactMed.impactOccurred()
+                    }, label: {
+                        Text(self.treeMemoState.treeHierarchy[index])
+                            .font(Font.system(size: 10))
+                            .lineLimit(2)
+                            .padding(.vertical)
+                            .foregroundColor(Color(.label))
+                            .frame(maxWidth: 80)
+                    })
                 }
                 
                 //스페이서
