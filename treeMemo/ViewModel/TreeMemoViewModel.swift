@@ -140,7 +140,11 @@ class ViewModel: ObservableObject {
                                                 let rootVC = UIApplication.shared.windows[0].rootViewController
                                                 let textDetailVC = UIHostingController(rootView: TextDetailView(title: title, text: longText, completeHandler: completion))
                                                 textDetailVC.modalPresentationStyle = .fullScreen
-                                                rootVC?.present(textDetailVC, animated: true)
+                                                if let presentedVC = rootVC?.presentedViewController {
+                                                    presentedVC.present(textDetailVC, animated: true)
+                                                } else {
+                                                    rootVC?.present(textDetailVC, animated: true)
+                                                }
                                             }
                                         case .failure(let error):
                                             print(error.localizedDescription)
@@ -155,7 +159,12 @@ class ViewModel: ObservableObject {
             imageVC.saveClosure = saveClosure
             imageVC.view.frame = rootVC.view.frame
             imageVC.modalPresentationStyle = .fullScreen
-            rootVC.present(imageVC, animated: true)
+            
+            if let presentedVC = rootVC.presentedViewController {
+                presentedVC.present(imageVC, animated: true)
+            } else {
+                rootVC.present(imageVC, animated: true)
+            }
         }
     }
     

@@ -35,7 +35,11 @@ extension UIViewController {
         
         alert.addAction(doneBtn)
         
-        self.present(alert, animated: true)
+        if let presentedVC = self.presentedViewController {
+            presentedVC.present(alert, animated: true)
+        } else {
+            self.present(alert, animated: true)
+        }
     }
     
     func showAlert(title: String, message: String, doneCompletion: @escaping () -> Void, cancelCompletion: (() -> Void)? = nil) {
@@ -49,7 +53,11 @@ extension UIViewController {
         })
         alert.addAction(doneBtn)
         
-        self.present(alert, animated: true)
+        if let presentedVC = self.presentedViewController {
+            presentedVC.present(alert, animated: true)
+        } else {
+            self.present(alert, animated: true)
+        }
     }
     
     func showConfirmAlert(title: String, message: String, confirmText: String = "Cancel", doneCompletion: (() -> Void)? = nil) {
@@ -58,7 +66,11 @@ extension UIViewController {
             doneCompletion?()
         }))
         
-        self.present(alert, animated: true)
+        if let presentedVC = self.presentedViewController {
+            presentedVC.present(alert, animated: true)
+        } else {
+            self.present(alert, animated: true)
+        }
     }
     
     /**

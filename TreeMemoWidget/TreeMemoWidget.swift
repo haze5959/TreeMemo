@@ -76,15 +76,17 @@ struct Provider: IntentTimelineProvider {
     func getTimeline(for configuration: FolderNameIntent,
                      in context: Context,
                      completion: @escaping (Timeline<SimpleEntry>) -> Void) {
-        TreeMemoState.shared.initTreeData()
-        let data = TreeMemoState.shared.getTreeData(with: configuration.folderName)
-        let entries: [SimpleEntry] = [SimpleEntry(date: Date(),
-                                                  data: data)]
-        
-        let nextUpdateDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
-        
-        let timeline = Timeline(entries: entries, policy: .after(nextUpdateDate))
-        completion(timeline)
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) {
+            TreeMemoState.shared.initTreeData()
+            let data = TreeMemoState.shared.getTreeData(with: configuration.folderName)
+            let entries: [SimpleEntry] = [SimpleEntry(date: Date(),
+                                                      data: data)]
+            
+            let nextUpdateDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
+            
+            let timeline = Timeline(entries: entries, policy: .after(nextUpdateDate))
+            completion(timeline)
+        }
     }
 }
 
@@ -136,7 +138,7 @@ struct TreeMemoWidget: Widget {
             TreeMemoWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("My TreeMemo widget.")
-        .description("You can change the folder location to show through widget editing.")
+        .description("You can change the folder location to show through 'Folder Name' editing.")
         .supportedFamilies([.systemMedium, .systemLarge])
     }
 }

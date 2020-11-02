@@ -19,7 +19,7 @@ struct TreeNode: View {
     
     func getTitleView(data: TreeModel) -> some View {
 //        let urlStr = "treeMemo://\(data.key)"
-        let urlStr = "treeMemo://"
+        let urlStr = "treeMemo://\(data.key)"
         return Link(data.title, destination: URL(string: urlStr)!).padding()
     }
     
@@ -29,7 +29,7 @@ struct TreeNode: View {
             return AnyView(
                 HStack {
                     Spacer()
-                    Link(destination: URL(string: "treeMemo://")!) {
+                    Link(destination: URL(string: "treeMemo://\(data.key)")!) {
                         Image(systemName: "ellipsis")
                             .padding()
                     }
@@ -41,7 +41,7 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Link(destination: URL(string: "treeMemo://")!) {
+                    Link(destination: URL(string: "treeMemo://\(data.key)")!) {
                         Image(systemName: "plus.square")
                             .padding()
                     }
@@ -66,7 +66,7 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Link(destination: URL(string: "treeMemo://")!) {
+                    Link(destination: URL(string: "treeMemo://\(data.key)")!) {
                         Text(val.count > 0 ? val : "...")
                             .minimumScaleFactor(0.8)
                             .lineLimit(2)
@@ -78,7 +78,7 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Link(destination: URL(string: "treeMemo://")!) {
+                    Link(destination: URL(string: "treeMemo://\(data.key)")!) {
                         Image(systemName: "doc.plaintext")
                             .padding()
                     }
@@ -89,7 +89,7 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Link(destination: URL(string: "treeMemo://")!) {
+                    Link(destination: URL(string: "treeMemo://\(data.key)")!) {
                         Text("\(val)").minimumScaleFactor(0.8)
                     }.padding()
                 }
@@ -99,7 +99,7 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Link(destination: URL(string: "treeMemo://")!) {
+                    Link(destination: URL(string: "treeMemo://\(data.key)")!) {
                         ViewModel().getDateString(treeDate: val)
                             .padding()
                     }
@@ -110,7 +110,7 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Link(destination: URL(string: "treeMemo://")!) {
+                    Link(destination: URL(string: "treeMemo://\(data.key)")!) {
                         if val {
                             Image(systemName: "lightbulb.fill").padding()
                         } else {
@@ -124,7 +124,7 @@ struct TreeNode: View {
                 HStack {
                     self.getTitleView(data: data)
                     Spacer()
-                    Link(destination: URL(string: "treeMemo://")!) {
+                    Link(destination: URL(string: "treeMemo://\(data.key)")!) {
                         Image(systemName: "photo")
                             .padding()
                     }

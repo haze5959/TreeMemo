@@ -12,6 +12,10 @@ import UIKit
 import Foundation
 import CloudKit
 
+#if !os(watchOS)
+import WidgetKit
+#endif
+
 enum CMError: Error {
     case msg(_ string: String)
 }
@@ -174,12 +178,21 @@ class CloudManager {
                 self.initIcloud()
             }))
             
-            rootVC.present(alert, animated: true)
+            if let presentedVC = rootVC.presentedViewController {
+                presentedVC.present(alert, animated: true)
+            } else {
+                rootVC.present(alert, animated: true)
+            }
         }
     }
     #endif
     
     @objc public func ubiquitousKeyValueStoreDidChange(notification: NSNotification) {
         TreeMemoState.shared.initTreeData()
+        #if !os(watchOS)
+        if #available(iOS 14.0, *) {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+        #endif
     }
 }

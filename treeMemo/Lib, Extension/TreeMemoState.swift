@@ -6,9 +6,9 @@
 //  Copyright © 2019 OGyu kwon. All rights reserved.
 //
 
-import Foundation
 import SwiftUI
 import Combine
+import os.log
 
 #if !os(watchOS)
 import WidgetKit
@@ -133,9 +133,7 @@ class TreeMemoState: ObservableObject {
         self.treeStore.set(encodedTreeData, forKey: self.storedDataKey)
         #if !os(watchOS)
         if #available(iOS 14.0, *) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                WidgetCenter.shared.reloadAllTimelines()
-            }
+            WidgetCenter.shared.reloadAllTimelines()
         }
         #endif
     }
