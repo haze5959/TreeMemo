@@ -266,7 +266,7 @@ struct TreeNode: View {
                     }).actionSheet(isPresented: self.$showingView) {
                         ActionSheet(title: Text("Type Select"), message: Text("Please select date type."), buttons: [
                             .default(Text("D-Day"), action: {
-                                let pickerView = OQPickerView.sharedInstance
+                                let pickerView = OQPickerView()
                                 pickerView.showDate(title: "Select Date", datePickerMode: UIDatePicker.Mode.date) { (date) in
                                     UIApplication.shared.windows[0]
                                         .rootViewController?
@@ -287,7 +287,7 @@ struct TreeNode: View {
                                 UIApplication.shared.windows[0].rootViewController?.view.addSubview(pickerView)
                             }),
                             .default(Text("Date And Time"), action: {
-                                let pickerView = OQPickerView.sharedInstance
+                                let pickerView = OQPickerView()
                                 pickerView.showDate(title: "Select Date", datePickerMode: UIDatePicker.Mode.dateAndTime) { (date) in
                                     var tempData = data
                                     tempData.value = .date(val: TreeDateType(date: date, type: UIDatePicker.Mode.dateAndTime.rawValue))
@@ -298,7 +298,7 @@ struct TreeNode: View {
                                 UIApplication.shared.windows[0].rootViewController?.view.addSubview(pickerView)
                             }),
                             .default(Text("Date"), action: {
-                                let pickerView = OQPickerView.sharedInstance
+                                let pickerView = OQPickerView()
                                 pickerView.showDate(title: "Select Date", datePickerMode: UIDatePicker.Mode.date) { (date) in
                                     var tempData = data
                                     tempData.value = .date(val: TreeDateType(date: date, type: UIDatePicker.Mode.date.rawValue))
@@ -309,7 +309,7 @@ struct TreeNode: View {
                                 UIApplication.shared.windows[0].rootViewController?.view.addSubview(pickerView)
                             }),
                             .default(Text("Time"), action: {
-                                let pickerView = OQPickerView.sharedInstance
+                                let pickerView = OQPickerView()
                                 pickerView.showDate(title: "Select Date", datePickerMode: UIDatePicker.Mode.time) { (date) in
                                     var tempData = data
                                     tempData.value = .date(val: TreeDateType(date: date, type: UIDatePicker.Mode.time.rawValue))

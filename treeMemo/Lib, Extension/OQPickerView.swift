@@ -12,7 +12,7 @@ import UIKit
  픽커뷰
  - OQ
  */
-public class OQPickerView:
+final class OQPickerView:
 UIView, UIPickerViewDataSource, UIPickerViewDelegate {
     private var dialogView: UIView!
     private var isDate: Bool = true
@@ -33,12 +33,10 @@ UIView, UIPickerViewDataSource, UIPickerViewDelegate {
     private let kDatePickerButtonHeight: CGFloat = 50
     private let kDatePickerButtonSpacerHeight: CGFloat = 1
     
-    public static let sharedInstance = OQPickerView()
-    
     public typealias DatePickerCallback = (_ date: Date) -> Void
     public typealias PickerCallback = (_ string: [String], _ index: [Int]) -> Void
     
-    init() {
+    public init() {
         super.init(frame: CGRect(x: 0,
                                  y: 0,
                                  width: UIScreen.main.bounds.size.width,
@@ -87,11 +85,11 @@ UIView, UIPickerViewDataSource, UIPickerViewDelegate {
                          datePickerMode: UIDatePicker.Mode = .date,
                          callback: @escaping DatePickerCallback) {
         self.isDate = true
+        self.datePickerMode = datePickerMode
         self.setupView()
         self.titleLabel.text = title
         self.doneButton.setTitle(doneButtonTitle, for: .normal)
         self.cancelButton.setTitle(cancelButtonTitle, for: .normal)
-        self.datePickerMode = datePickerMode
         self.dateCallback = callback
         self.defaultDate = defaultDate
         self.datePicker.datePickerMode = self.datePickerMode ?? .date
@@ -184,13 +182,56 @@ UIView, UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     private func createContainerView() -> UIView {
+        let titleHeight: CGFloat = 30
         let screenSize = self.countScreenSize()
-        let dialogSize = CGSize(width: 300, height: 230 + kDatePickerButtonHeight + kDatePickerButtonSpacerHeight)
+        var dialogSize = CGSize(width: 300, height: 230 + kDatePickerButtonHeight + kDatePickerButtonSpacerHeight)
         self.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
-        let dialogContainer = UIView(frame: CGRect(x: (screenSize.width - dialogSize.width) / 2,
-                                                   y: (screenSize.height - dialogSize.height) / 2,
-                                                   width: dialogSize.width,
-                                                   height: dialogSize.height))
+        let dialogContainer = UIView()
+        
+        if self.isDate == true {
+            self.datePicker = UIDatePicker(frame: CGRect(x: 0, y: 30, width: 0, height: 0))
+            self.datePicker.autoresizingMask = UIView.AutoresizingMask.flexibleRightMargin
+            
+            if #available(iOS 14.0, *) {
+                switch self.datePickerMode {
+                case .time:
+                    self.datePicker.preferredDatePickerStyle = .wheels
+                    self.datePicker.frame.size.width = 300
+                case .dateAndTime:
+                    let margin: CGFloat = 20
+                    self.datePicker.preferredDatePickerStyle = .inline
+                    dialogSize.width = self.datePicker.frame.width + margin
+                    dialogSize.height = self.datePicker.frame.height + kDatePickerButtonHeight + kDatePickerButtonSpacerHeight + titleHeight + margin
+                    self.datePicker.frame.origin.y = titleHeight + margin / 2
+                    self.datePicker.frame.origin.x = margin / 2
+                default:
+                    let margin: CGFloat = 20
+                    self.datePicker.preferredDatePickerStyle = .inline
+                    dialogSize.width = self.datePicker.frame.width + margin
+                    dialogSize.height = self.datePicker.frame.height + kDatePickerButtonHeight + kDatePickerButtonSpacerHeight + titleHeight
+                    self.datePicker.frame.origin.y = titleHeight
+                    self.datePicker.frame.origin.x = margin / 2
+                }
+            } else {
+                self.datePicker.frame.size.width = 300
+            }
+            
+            dialogContainer.addSubview(self.datePicker)
+        } else {
+            self.defaultPicker = UIPickerView(frame: CGRect(x: 0, y: 30, width: 0, height: 0))
+            self.defaultPicker.autoresizingMask = UIView.AutoresizingMask.flexibleRightMargin
+            self.defaultPicker.frame.size.width = 300
+            self.defaultPicker.delegate = self
+            self.defaultPicker.dataSource = self
+            dialogContainer.addSubview(self.defaultPicker)
+            
+        }
+        
+        dialogContainer.frame = CGRect(x: (screenSize.width - dialogSize.width) / 2,
+                                       y: (screenSize.height - dialogSize.height) / 2,
+                                       width: dialogSize.width,
+                                       height: dialogSize.height)
+        
         let gradient: CAGradientLayer = CAGradientLayer(layer: self.layer)
         gradient.frame = dialogContainer.bounds
         gradient.colors = [UIColor(red: 218/255,
@@ -230,25 +271,11 @@ UIView, UIPickerViewDataSource, UIPickerViewDelegate {
         lineView.backgroundColor = UIColor(red: 198/255, green: 198/255, blue: 198/255, alpha: 1)
         dialogContainer.addSubview(lineView)
         
-        self.titleLabel = UILabel(frame: CGRect(x: 10, y: 10, width: 280, height: 30))
+        self.titleLabel = UILabel(frame: CGRect(x: 10, y: 10, width: dialogSize.width, height: titleHeight))
         self.titleLabel.textAlignment = NSTextAlignment.center
         self.titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         dialogContainer.addSubview(self.titleLabel)
         
-        if self.isDate == true {
-            self.datePicker = UIDatePicker(frame: CGRect(x: 0, y: 30, width: 0, height: 0))
-            self.datePicker.autoresizingMask = UIView.AutoresizingMask.flexibleRightMargin
-            self.datePicker.frame.size.width = 300
-            dialogContainer.addSubview(self.datePicker)
-        } else {
-            self.defaultPicker = UIPickerView(frame: CGRect(x: 0, y: 30, width: 0, height: 0))
-            self.defaultPicker.autoresizingMask = UIView.AutoresizingMask.flexibleRightMargin
-            self.defaultPicker.frame.size.width = 300
-            self.defaultPicker.delegate = self
-            self.defaultPicker.dataSource = self
-            dialogContainer.addSubview(self.defaultPicker)
-            
-        }
         self.addButtonsToView(container: dialogContainer)
         
         return dialogContainer
