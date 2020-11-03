@@ -52,6 +52,8 @@ class CloudManager {
                 .addObserver(self, selector: #selector(self.ubiquitousKeyValueStoreDidChange),
                              name: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
                              object: self.store)
+            
+            self.store.synchronize()
         }
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import Combine
 
 extension UIViewController {
@@ -116,3 +117,19 @@ extension UIViewController {
     }
 }
 
+extension UIWindow {
+    /// UIApplication.shared.windows.first 리턴
+    static var keyWindow: UIWindow? {
+        return UIApplication.shared.windows.first { $0.isKeyWindow }
+    }
+}
+
+struct Blur: UIViewRepresentable {
+    var style: UIBlurEffect.Style = .systemMaterial
+    func makeUIView(context: Context) -> UIVisualEffectView {
+        return UIVisualEffectView(effect: UIBlurEffect(style: style))
+    }
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+        uiView.effect = UIBlurEffect(style: style)
+    }
+}

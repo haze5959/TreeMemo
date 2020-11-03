@@ -43,6 +43,8 @@ class TreeMemoState: ObservableObject {
     let naviSub = PassthroughSubject<NaviInfo, Never>()
     
     init() {
+        self.treeStore.synchronize()
+        
         self.$treeData
             .debounce(for: 0.2, scheduler: RunLoop.main)
             .sink(receiveValue: { (treeData) in
@@ -54,13 +56,15 @@ class TreeMemoState: ObservableObject {
                 self.saveTreeData(treeData)
                 // Watch <-> Phone Data sharing
                 self.wcSession.sendTreeData(data: self.getData(treeData: treeData))
-                CloudManager.shared.store.synchronize()
+                self.treeStore.synchronize()
             }).store(in: &self.cancellables)
     }
     #elseif os(macOS)
     let treeStore = CloudManager.shared.store
     
     init() {
+        self.treeStore.synchronize()
+        
         self.cancellable = self.$treeData
             .debounce(for: 0.2, scheduler: RunLoop.main)
             .sink(receiveValue: { (treeData) in
@@ -70,7 +74,7 @@ class TreeMemoState: ObservableObject {
                 }
                 
                 self.saveTreeData(treeData)
-                CloudManager.shared.store.synchronize()
+                self.treeStore.synchronize()
             })
     }
     #else

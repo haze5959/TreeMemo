@@ -53,7 +53,7 @@ struct BodyView: View {
                                 self.environment.openSideMenu.toggle()
                             }
                         }
-            }, including: self.environment.isEdit ? .subviews : .gesture)
+                    }, including: self.environment.isEdit ? .subviews : .gesture)
             .onAppear { self.bodyViewInfo.apearTask() }
             .onReceive(self.bodyViewInfo.dismissSub, perform: { _ in
                 if self.presentation.wrappedValue.isPresented {
@@ -63,8 +63,34 @@ struct BodyView: View {
                 }
             })
         } else {
-            LoadingView()
-                .padding(.top, -200)
+            ZStack {
+                List {
+                    ForEach(self.treeMemoState.getTreeData(key: self.treeDataKey, isEditMode: self.environment.isEdit)) { treeData in
+                        TreeNode(treeData: treeData)
+                            .buttonStyle(PlainButtonStyle())
+                    }
+                }
+                .blur(radius: 3)
+                .navigationBarHidden(true)
+                .navigationBarTitle("")
+                
+                ZStack(alignment: .center) {
+                    VStack {
+                        if #available(iOS 14, *) {
+                            ProgressView("Loading...")
+                        } else {
+                            Text("Loading...")
+                            ActivityIndicator(isAnimating: .constant(true), style: .large)
+                        }
+                    }
+                    .frame(width: 120,
+                           height: 120)
+                    .background(Color.secondary.colorInvert())
+                    .foregroundColor(Color.primary)
+                    .cornerRadius(20)
+                    .padding(.top, -120)
+                }
+            }
         }
     }
     #else

@@ -37,10 +37,21 @@ UIView, UIPickerViewDataSource, UIPickerViewDelegate {
     public typealias PickerCallback = (_ string: [String], _ index: [Int]) -> Void
     
     public init() {
-        super.init(frame: CGRect(x: 0,
-                                 y: 0,
-                                 width: UIScreen.main.bounds.size.width,
-                                 height: UIScreen.main.bounds.size.height))
+        if let window = UIWindow.keyWindow {
+            let screenWidth = window.frame.width
+            let screenHeight = window.frame.height
+            super.init(frame: CGRect(x: 0,
+                                     y: 0,
+                                     width: screenWidth,
+                                     height: screenHeight))
+        } else {
+            let screenWidth = UIScreen.main.bounds.size.width
+            let screenHeight = UIScreen.main.bounds.size.height
+            super.init(frame: CGRect(x: 0,
+                                     y: 0,
+                                     width: screenWidth,
+                                     height: screenHeight))
+        }
     }
     
     deinit {
@@ -342,9 +353,15 @@ UIView, UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     private func countScreenSize() -> CGSize {
-        let screenWidth = UIScreen.main.bounds.size.width
-        let screenHeight = UIScreen.main.bounds.size.height
-        return CGSize(width: screenWidth, height: screenHeight)
+        if let window = UIWindow.keyWindow {
+            let screenWidth = window.frame.width
+            let screenHeight = window.frame.height
+            return CGSize(width: screenWidth, height: screenHeight)
+        } else {
+            let screenWidth = UIScreen.main.bounds.size.width
+            let screenHeight = UIScreen.main.bounds.size.height
+            return CGSize(width: screenWidth, height: screenHeight)
+        }
     }
     
     // MARK: - UIPickerViewDataSource
