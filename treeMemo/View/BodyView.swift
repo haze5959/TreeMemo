@@ -151,6 +151,10 @@ struct SimpleBodyView: View {
                 TreeNode(treeData: treeData)
                     .buttonStyle(PlainButtonStyle())
             }
+        }.onDisappear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.treeMemoState.initTreeData()
+            }
         }
     }
 }
