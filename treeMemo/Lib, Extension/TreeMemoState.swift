@@ -12,6 +12,7 @@ import os.log
 
 #if !os(watchOS)
 import WidgetKit
+import Network
 #endif
 
 typealias TreeDataType = [UUID: [TreeModel]]
@@ -41,6 +42,7 @@ class TreeMemoState: ObservableObject {
     #if os(iOS)
     let treeStore = CloudManager.shared.store
     let naviSub = PassthroughSubject<NaviInfo, Never>()
+    var networkStatus: NWPath.Status = .satisfied
     
     init() {
         self.treeStore.synchronize()
@@ -57,6 +59,12 @@ class TreeMemoState: ObservableObject {
                 // Watch <-> Phone Data sharing
                 self.wcSession.sendTreeData(data: self.getData(treeData: treeData))
                 self.treeStore.synchronize()
+                
+                if self.networkStatus != .satisfied {
+                    UIApplication.shared.windows[0]
+                        .rootViewController?
+                        .showToast(message: "Network not connected...")
+                }
             }).store(in: &self.cancellables)
     }
     #elseif os(macOS)

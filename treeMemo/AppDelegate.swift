@@ -8,13 +8,14 @@
 
 import UIKit
 import CloudKit
+import Network
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         TreeMemoState.shared.initTreeData()
-        
+        self.networkCheckStart()
         return true
     }
 
@@ -34,6 +35,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         CloudManager.shared.store.synchronize()
+    }
+    
+    func networkCheckStart() {
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = { path in
+            TreeMemoState.shared.networkStatus = path.status
+        }
+        
+        monitor.start(queue: .global(qos: .background))
     }
 }
 
