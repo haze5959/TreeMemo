@@ -56,7 +56,22 @@ struct TextDetailView: View {
                                                         ViewModel().dismissViewController()
                   }),
                   secondaryButton: Alert.Button.cancel())
-        })
+        }).onReceive(NotificationCenter.default.publisher(for: Notification.Name("keyCommand"))) { notification in
+            if let command = notification.object as? AppDelegate.KeyCommand {
+                switch command {
+                case .save:
+                    // Save Event
+                    self.completeHandler(self.text)
+                    ViewModel().dismissViewController()
+                case .cancel:
+                    if self.isEdited {
+                        self.showConfireAlert = true
+                    } else {
+                        ViewModel().dismissViewController()
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -145,13 +145,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
         
     func showPhurcaseDialog() {
-        guard var rootVC = self.window?.rootViewController else {
+        guard let rootVC = self.window?.rootViewController else {
             print("Not found rootVC!")
             return
         }
         
-        if let topVC = rootVC.presentedViewController {
-            rootVC = topVC
+        if let _ = rootVC.presentedViewController {
+            return
         }
         
         guard (rootVC is Dialog) == false else {

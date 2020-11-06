@@ -45,5 +45,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         monitor.start(queue: .global(qos: .background))
     }
+    
+    enum KeyCommand {
+        case save
+        case cancel
+    }
+    
+    override var keyCommands: [UIKeyCommand]? {
+        return [
+            UIKeyCommand(title: "Save", action: #selector(handleKeyCommand(sender:)), input: "s", modifierFlags: .command, propertyList: KeyCommand.save),
+            
+            UIKeyCommand(title: "Cancel", action: #selector(handleKeyCommand(sender:)), input: "q", modifierFlags: .command, propertyList: KeyCommand.cancel)
+        ]
+    }
+    
+    @objc func handleKeyCommand(sender: UIKeyCommand) {
+        if let command = sender.propertyList as? KeyCommand {
+            NotificationCenter.default.post(name: .init("keyCommand"), object: command)
+        }
+    }
 }
 
